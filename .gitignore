@@ -52,6 +52,8 @@ workbox-*.js
 
 # Sensitive files - DO NOT COMMIT
 **/firebase-adminsdk*.json
+*firebase-adminsdk*.json
+superecomm-corp-website-firebase-adminsdk-fbsvc-b4048c5731.json
 *.pem
 *.key
 
