@@ -321,7 +321,7 @@ const HomePage: FC<HomePageProps> = ({
         </div>
 
         {/* What You Get Section - Full Width */}
-        <div className="mt-24">
+        <div className="mt-24 relative z-10">
               <h3
                 className={`text-3xl md:text-4xl font-light mb-12 text-center ${
                   darkMode ? "text-white" : "text-gray-900"
@@ -330,20 +330,20 @@ const HomePage: FC<HomePageProps> = ({
                 What You Get When You Join +AI
               </h3>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start relative z-10">
                 {/* Product Image - Left Column */}
-                <div className="order-1 md:order-1">
+                <div className="order-1 md:order-1 relative z-10">
                   <img
                     src={new URL('../assets/plusai-product-image-1.png', import.meta.url).href}
                     alt="+AI App Interface showing unified AI access"
-                    className={`w-full h-auto rounded-lg shadow-2xl ${
+                    className={`w-full h-auto rounded-lg shadow-2xl relative z-10 ${
                       darkMode ? "border border-gray-700" : "border border-gray-200"
                     }`}
                   />
                 </div>
 
                 {/* Feature Cards - Right Column */}
-                <div className="order-2 md:order-2 space-y-4">
+                <div className="order-2 md:order-2 space-y-4 relative z-10">
                   {/* Feature 1: Unlimited AI Power */}
                   <div
                     className={`p-4 rounded-lg border ${
