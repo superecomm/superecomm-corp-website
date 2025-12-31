@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { FC } from "react";
-import { Menu, X, ChevronRight } from "lucide-react";
+import { Menu, X, ChevronRight, Zap, Brain, Plug, Shield, Database, Wallet } from "lucide-react";
 import heroOffice from "../assets/hero-office.webp";
 import { AnimatedAiWhMeter } from "../components/AnimatedAiWhMeter";
 
@@ -317,9 +317,11 @@ const HomePage: FC<HomePageProps> = ({
                 Join the AI Grid
               </button>
             </div>
+          </div>
+        </div>
 
-            {/* What You Get Section */}
-            <div className="mt-20">
+        {/* What You Get Section - Full Width */}
+        <div className="mt-24">
               <h3
                 className={`text-3xl md:text-4xl font-light mb-12 text-center ${
                   darkMode ? "text-white" : "text-gray-900"
@@ -351,7 +353,9 @@ const HomePage: FC<HomePageProps> = ({
                     }`}
                   >
                     <div className="flex items-start gap-3">
-                      <span className="text-3xl">⚡</span>
+                      <div className={`p-2 rounded-lg ${darkMode ? "bg-blue-500/20" : "bg-blue-50"}`}>
+                        <Zap className={`w-6 h-6 ${darkMode ? "text-blue-400" : "text-blue-600"}`} />
+                      </div>
                       <div>
                         <h4
                           className={`text-lg font-semibold mb-1 ${
@@ -380,7 +384,9 @@ const HomePage: FC<HomePageProps> = ({
                     }`}
                   >
                     <div className="flex items-start gap-3">
-                      <span className="text-3xl">🧠</span>
+                      <div className={`p-2 rounded-lg ${darkMode ? "bg-purple-500/20" : "bg-purple-50"}`}>
+                        <Brain className={`w-6 h-6 ${darkMode ? "text-purple-400" : "text-purple-600"}`} />
+                      </div>
                       <div>
                         <h4
                           className={`text-lg font-semibold mb-1 ${
@@ -416,7 +422,9 @@ const HomePage: FC<HomePageProps> = ({
                     }`}
                   >
                     <div className="flex items-start gap-3">
-                      <span className="text-3xl">🔌</span>
+                      <div className={`p-2 rounded-lg ${darkMode ? "bg-green-500/20" : "bg-green-50"}`}>
+                        <Plug className={`w-6 h-6 ${darkMode ? "text-green-400" : "text-green-600"}`} />
+                      </div>
                       <div>
                         <h4
                           className={`text-lg font-semibold mb-1 ${
@@ -445,7 +453,9 @@ const HomePage: FC<HomePageProps> = ({
                     }`}
                   >
                     <div className="flex items-start gap-3">
-                      <span className="text-3xl">🔐</span>
+                      <div className={`p-2 rounded-lg ${darkMode ? "bg-red-500/20" : "bg-red-50"}`}>
+                        <Shield className={`w-6 h-6 ${darkMode ? "text-red-400" : "text-red-600"}`} />
+                      </div>
                       <div>
                         <h4
                           className={`text-lg font-semibold mb-1 ${
@@ -474,7 +484,9 @@ const HomePage: FC<HomePageProps> = ({
                     }`}
                   >
                     <div className="flex items-start gap-3">
-                      <span className="text-3xl">💾</span>
+                      <div className={`p-2 rounded-lg ${darkMode ? "bg-indigo-500/20" : "bg-indigo-50"}`}>
+                        <Database className={`w-6 h-6 ${darkMode ? "text-indigo-400" : "text-indigo-600"}`} />
+                      </div>
                       <div>
                         <h4
                           className={`text-lg font-semibold mb-1 ${
@@ -510,7 +522,9 @@ const HomePage: FC<HomePageProps> = ({
                     }`}
                   >
                     <div className="flex items-start gap-3">
-                      <span className="text-3xl">💸</span>
+                      <div className={`p-2 rounded-lg ${darkMode ? "bg-emerald-500/20" : "bg-emerald-50"}`}>
+                        <Wallet className={`w-6 h-6 ${darkMode ? "text-emerald-400" : "text-emerald-600"}`} />
+                      </div>
                       <div>
                         <h4
                           className={`text-lg font-semibold mb-1 ${
@@ -538,13 +552,11 @@ const HomePage: FC<HomePageProps> = ({
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
         </div>
       </div>
     </section>
 
-    {/* Subsidiary Section */}
+    {/* Products Section */}
     <section className="px-6 py-24 border-t border-gray-200 dark:border-gray-800">
       <div className="max-w-4xl mx-auto">
         <h2
