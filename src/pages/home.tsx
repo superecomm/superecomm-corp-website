@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { FC } from "react";
 import { Menu, X, ChevronRight } from "lucide-react";
 import heroOffice from "../assets/hero-office.webp";
+import { AnimatedAiWhMeter } from "../components/AnimatedAiWhMeter";
 
 type HomePageProps = {
   darkMode: boolean;
@@ -87,9 +88,7 @@ const HomePage: FC<HomePageProps> = ({
             darkMode ? "text-gray-300" : "text-gray-700"
           }`}
         >
-          Super eComm exists with one mission — to manage the world's
-          artificial intelligence, build the AI Grid Layer and make it
-          accessible, affordable, and actionable for everyone.
+          Super eComm is building the world’s AI utility grid — providing computational intelligence on tap for all mankind.
         </p>
       </div>
     </section>
@@ -114,8 +113,7 @@ const HomePage: FC<HomePageProps> = ({
               The AI Utility Meter
             </h3>
             <p className={darkMode ? "text-gray-400" : "text-gray-600"}>
-              AI Watt-Hours measure intelligence consumption, enabling
-              transparent pricing and predictable billing.
+              AI Watt-Hours is a proprietary unit of measure for the consumption of computational intelligence.  
             </p>
           </div>
 
@@ -136,7 +134,7 @@ const HomePage: FC<HomePageProps> = ({
             </h3>
             <p className={darkMode ? "text-gray-400" : "text-gray-600"}>
               Access thousands of AI models through a single interface. One
-              login, one wallet, one workspace.
+              login, one bill, one solution.
             </p>
           </div>
 
@@ -164,6 +162,166 @@ const HomePage: FC<HomePageProps> = ({
       </div>
     </section>
 
+    {/* Why You Need This Section */}
+    <section className="px-6 py-24 border-t border-gray-200 dark:border-gray-800">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
+          {/* Left: Hero Meter - Top on mobile */}
+          <div className="order-1 md:order-1">
+            <AnimatedAiWhMeter darkMode={darkMode} />
+          </div>
+
+          {/* Right: Content */}
+          <div className="order-2 md:order-2">
+            {/* Punchy headline */}
+            <h2
+              className={`text-4xl md:text-5xl font-light mb-6 ${
+                darkMode ? "text-white" : "text-gray-900"
+              }`}
+            >
+              You're Already on the AI Treadmill
+            </h2>
+
+            {/* Setup */}
+            <p
+              className={`text-xl mb-4 ${
+                darkMode ? "text-gray-300" : "text-gray-700"
+              }`}
+            >
+              Too many subscriptions. Too many accounts. Too many models.
+            </p>
+
+            <p
+              className={`text-lg mb-8 ${
+                darkMode ? "text-gray-400" : "text-gray-600"
+              }`}
+            >
+              AI is becoming like electricity — constant, essential, always running.
+            </p>
+
+            {/* Pain points - bullet list */}
+            <div className="mb-8">
+              <p
+                className={`text-lg font-medium mb-4 ${
+                  darkMode ? "text-white" : "text-gray-900"
+                }`}
+              >
+                Today you:
+              </p>
+              <ul className="space-y-3">
+                <li
+                  className={`flex items-start text-lg ${
+                    darkMode ? "text-gray-300" : "text-gray-700"
+                  }`}
+                >
+                  <span className="text-blue-600 dark:text-blue-400 mr-3 mt-1">•</span>
+                  <span>Pay multiple AI subscriptions every month</span>
+                </li>
+                <li
+                  className={`flex items-start text-lg ${
+                    darkMode ? "text-gray-300" : "text-gray-700"
+                  }`}
+                >
+                  <span className="text-blue-600 dark:text-blue-400 mr-3 mt-1">•</span>
+                  <span>Jump between ChatGPT, Claude, Gemini, Grok…</span>
+                </li>
+                <li
+                  className={`flex items-start text-lg ${
+                    darkMode ? "text-gray-300" : "text-gray-700"
+                  }`}
+                >
+                  <span className="text-blue-600 dark:text-blue-400 mr-3 mt-1">•</span>
+                  <span>Buy credits, tokens, upgrades, plugins</span>
+                </li>
+                <li
+                  className={`flex items-start text-lg ${
+                    darkMode ? "text-gray-300" : "text-gray-700"
+                  }`}
+                >
+                  <span className="text-blue-600 dark:text-blue-400 mr-3 mt-1">•</span>
+                  <span>Manage limits, rate caps, and billing chaos</span>
+                </li>
+              </ul>
+            </div>
+
+            <p
+              className={`text-lg mb-8 font-medium ${
+                darkMode ? "text-gray-300" : "text-gray-700"
+              }`}
+            >
+              And the price keeps rising.
+            </p>
+
+            {/* Data insight */}
+            <div
+              className={`p-6 rounded-lg mb-8 border-l-4 ${
+                darkMode
+                  ? "border-blue-500 bg-gray-900/50"
+                  : "border-blue-600 bg-blue-50"
+              }`}
+            >
+              <p
+                className={`text-lg mb-2 ${
+                  darkMode ? "text-gray-300" : "text-gray-700"
+                }`}
+              >
+                The average person now pays for <span className="font-bold">2–5 AI tools</span>.
+              </p>
+              <p
+                className={`text-lg ${
+                  darkMode ? "text-gray-300" : "text-gray-700"
+                }`}
+              >
+                Enterprises pay <span className="font-bold">dozens</span>.
+              </p>
+            </div>
+
+            {/* Value proposition */}
+            <div className="mb-8">
+              <p
+                className={`text-2xl font-light mb-3 ${
+                  darkMode ? "text-white" : "text-gray-900"
+                }`}
+              >
+                What if AI worked like electricity?
+              </p>
+              <p
+                className={`text-xl font-medium mb-3 ${
+                  darkMode ? "text-gray-300" : "text-gray-700"
+                }`}
+              >
+                One meter. One bill. Unlimited power.
+              </p>
+              <p
+                className={`text-2xl font-semibold ${
+                  darkMode ? "text-blue-400" : "text-blue-600"
+                }`}
+              >
+                → The AI Utility Grid.
+              </p>
+            </div>
+
+            {/* CTA Button */}
+            <div className="pt-4">
+              <button
+                onClick={onJoinEarlyAccess}
+                className={`w-full md:w-auto px-8 py-4 rounded-full text-lg font-semibold shadow-lg
+                  ${
+                    darkMode
+                      ? "bg-blue-600 hover:bg-blue-500 text-white"
+                      : "bg-blue-600 hover:bg-blue-700 text-white"
+                  }
+                  transition-all duration-200 transform hover:scale-105
+                `}
+              >
+                Join the AI Grid
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     {/* Subsidiary Section */}
     <section className="px-6 py-24 border-t border-gray-200 dark:border-gray-800">
       <div className="max-w-4xl mx-auto">
@@ -172,7 +330,7 @@ const HomePage: FC<HomePageProps> = ({
             darkMode ? "text-white" : "text-gray-900"
           }`}
         >
-          Our Companies
+          Products
         </h2>
 
         <div
@@ -195,7 +353,7 @@ const HomePage: FC<HomePageProps> = ({
                 darkMode ? "text-white" : "text-gray-900"
               }`}
             >
-              AI Labs
+              AI App
             </h3>
           </div>
           <p
@@ -203,16 +361,15 @@ const HomePage: FC<HomePageProps> = ({
               darkMode ? "text-gray-300" : "text-gray-700"
             }`}
           >
-            Building the Utility Layer for AI
+            The Power of 1000 AI Models in Your Pocket
           </p>
           <p
             className={
               darkMode ? "text-gray-400 mb-6" : "text-gray-600 mb-6"
             }
           >
-            Top talent from aroud the world developing the Utility Layer. An interface and routing grid that allows users to
-            access thousands of AI models more affordably through a single workspace — under one utility bill.
-          </p>
+            Top talent from aroud the world developing AI as a utility. Go from juggling mutliple subscriptions to a single workspace and a single bill instantly. 
+          </p> 
           <button
             onClick={onGoToSubsidiaries}
             className={`flex items-center text-sm ${
