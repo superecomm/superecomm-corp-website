@@ -328,18 +328,21 @@ const HomePage: FC<HomePageProps> = ({
             </div>
           </div>
         </div>
+      </div>
+    </section>
 
-        {/* What You Get Section - Full Width */}
-        <div className="mt-24 relative z-50">
-              <h3
-                className={`text-3xl md:text-4xl font-light mb-12 text-center ${
-                  darkMode ? "text-white" : "text-gray-900"
-                }`}
-              >
-                What You Get When You Join +AI
-              </h3>
+    {/* What You Get Section */}
+    <section className="px-6 py-24 border-t border-gray-200 dark:border-gray-800 relative z-50">
+      <div className="max-w-7xl mx-auto">
+        <h3
+          className={`text-3xl md:text-4xl font-light mb-12 text-center ${
+            darkMode ? "text-white" : "text-gray-900"
+          }`}
+        >
+          What You Get When You Join +AI
+        </h3>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start relative z-50">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
                 {/* Product Image - Left Column */}
                 <div className="order-1 md:order-1 relative z-50">
                   <img
@@ -559,8 +562,7 @@ const HomePage: FC<HomePageProps> = ({
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
+          </div>
         </div>
       </div>
     </section>
