@@ -2,7 +2,8 @@ import { useState } from "react";
 import type { FC } from "react";
 import { Menu, X, ChevronRight, Zap, Brain, Plug, Shield, Database, Wallet } from "lucide-react";
 import heroOffice from "../assets/hero-office.webp";
-import { AnimatedAiWhMeter } from "../components/AnimatedAiWhMeter";
+import meterImage from "../assets/aiWh-meter-transparent-background-new.png";
+import productImage from "../assets/plusai-product-image-1.png";
 
 type HomePageProps = {
   darkMode: boolean;
@@ -163,16 +164,24 @@ const HomePage: FC<HomePageProps> = ({
     </section>
 
     {/* Why You Need This Section */}
-    <section className="px-6 py-24 border-t border-gray-200 dark:border-gray-800">
+    <section className="px-6 py-24 border-t border-gray-200 dark:border-gray-800 relative z-50">
       <div className="max-w-7xl mx-auto">
         <div className="grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left: Hero Meter - Top on mobile */}
-          <div className="order-1 md:order-1">
-            <AnimatedAiWhMeter darkMode={darkMode} />
+          <div className="order-1 md:order-1 relative z-50">
+            <div className={`relative w-full max-w-lg mx-auto p-8 rounded-lg z-50 ${
+              darkMode ? "bg-gray-900" : "bg-white"
+            }`}>
+              <img
+                src={meterImage}
+                alt="aiWh Meter showing AI usage tracking"
+                className="w-full h-auto drop-shadow-2xl relative z-50"
+              />
+            </div>
           </div>
 
           {/* Right: Content */}
-          <div className="order-2 md:order-2">
+          <div className="order-2 md:order-2 relative z-50">
             {/* Punchy headline */}
             <h2
               className={`text-4xl md:text-5xl font-light mb-6 ${
@@ -321,7 +330,7 @@ const HomePage: FC<HomePageProps> = ({
         </div>
 
         {/* What You Get Section - Full Width */}
-        <div className="mt-24 relative z-10">
+        <div className="mt-24 relative z-50">
               <h3
                 className={`text-3xl md:text-4xl font-light mb-12 text-center ${
                   darkMode ? "text-white" : "text-gray-900"
@@ -330,20 +339,20 @@ const HomePage: FC<HomePageProps> = ({
                 What You Get When You Join +AI
               </h3>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start relative z-10">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start relative z-50">
                 {/* Product Image - Left Column */}
-                <div className="order-1 md:order-1 relative z-10">
+                <div className="order-1 md:order-1 relative z-50">
                   <img
-                    src={new URL('../assets/plusai-product-image-1.png', import.meta.url).href}
+                    src={productImage}
                     alt="+AI App Interface showing unified AI access"
-                    className={`w-full h-auto rounded-lg shadow-2xl relative z-10 ${
+                    className={`w-full h-auto rounded-lg shadow-2xl relative z-50 ${
                       darkMode ? "border border-gray-700" : "border border-gray-200"
                     }`}
                   />
                 </div>
 
                 {/* Feature Cards - Right Column */}
-                <div className="order-2 md:order-2 space-y-4 relative z-10">
+                <div className="order-2 md:order-2 space-y-4 relative z-50">
                   {/* Feature 1: Unlimited AI Power */}
                   <div
                     className={`p-4 rounded-lg border ${
@@ -362,7 +371,7 @@ const HomePage: FC<HomePageProps> = ({
                             darkMode ? "text-white" : "text-gray-900"
                           }`}
                         >
-                          Unlimited AI Power
+                          AI Power on Tap!
                         </h4>
                         <p
                           className={`text-base ${
@@ -1002,7 +1011,7 @@ const SupereCommWebsite = () => {
     >
       {/* Subtle Electric Grid Background */}
       <div
-        className="pointer-events-none absolute inset-0"
+        className="pointer-events-none absolute inset-0 z-0"
         style={{
           backgroundImage: `
             linear-gradient(${
@@ -1024,7 +1033,7 @@ const SupereCommWebsite = () => {
       <div className="relative z-10 flex min-h-screen flex-col pt-16 md:pt-20">
         {/* Navigation */}
         <nav
-          className={`fixed top-0 inset-x-0 z-40 border-b shadow-sm ${
+          className={`fixed top-0 inset-x-0 z-[100] border-b shadow-sm ${
             darkMode ? "border-gray-800" : "border-gray-200"
           } bg-white/70 dark:bg-gray-950/70 backdrop-blur-lg`}
         >
