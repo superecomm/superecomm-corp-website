@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global layout + typography */
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  /* Plain CSS so Tailwind doesn't care */
+  background-color: #ffffff;        /* bg-white */
+  color: #111827;                   /* text-gray-900 */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PWA Icon Generator</title>
+</head>
+<body>
+    <h1>PWA Icon Generator</h1>
+    <p>Open browser console and save each canvas as PNG with the corresponding filename</p>
+    <div id="icons"></div>
+    
+    <script>
+        const sizes = [72, 96, 128, 144, 152, 192, 384, 512];
+        const container = document.getElementById('icons');
+        
+        sizes.forEach(size => {
+            const canvas = document.createElement('canvas');
+            canvas.width = size;
+            canvas.height = size;
+            const ctx = canvas.getContext('2d');
+            
+            // Background
+            ctx.fillStyle = '#3B82F6'; // Blue background
+            ctx.fillRect(0, 0, size, size);
+            
+            // Letter "S" for Superecomm
+            ctx.fillStyle = '#FFFFFF';
+            ctx.font = `bold ${size * 0.6}px Arial`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('S', size / 2, size / 2);
+            
+            // Label
+            const label = document.createElement('p');
+            label.textContent = `icon-${size}x${size}.png`;
+            container.appendChild(label);
+            
+            // Add canvas
+            canvas.style.border = '1px solid #ccc';
+            canvas.style.margin = '10px';
+            container.appendChild(canvas);
+            
+            // Download link
+            const link = document.createElement('a');
+            link.textContent = 'Download';
+            link.download = `icon-${size}x${size}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.style.display = 'block';
+            link.style.marginBottom = '20px';
+            container.appendChild(link);
+        });
+        
+        // Maskable icon (with safe zone)
+        const maskableCanvas = document.createElement('canvas');
+        maskableCanvas.width = 512;
+        maskableCanvas.height = 512;
+        const ctx = maskableCanvas.getContext('2d');
+        
+        // Background
+        ctx.fillStyle = '#3B82F6';
+        ctx.fillRect(0, 0, 512, 512);
+        
+        // Safe zone: center 80%
+        ctx.fillStyle = '#FFFFFF';
+        ctx.font = 'bold 300px Arial';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('S', 256, 256);
+        
+        const label = document.createElement('p');
+        label.textContent = 'icon-512x512-maskable.png';
+        container.appendChild(label);
+        
+        maskableCanvas.style.border = '1px solid #ccc';
+        maskableCanvas.style.margin = '10px';
+        container.appendChild(maskableCanvas);
+        
+        const link = document.createElement('a');
+        link.textContent = 'Download Maskable';
+        link.download = 'icon-512x512-maskable.png';
+        link.href = maskableCanvas.toDataURL('image/png');
+        link.style.display = 'block';
+        container.appendChild(link);
+        
+        console.log('Right-click each canvas and "Save image as..." or use download links');
+    </script>
+</body>
+</html>
+
