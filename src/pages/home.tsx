@@ -113,7 +113,7 @@ const HomePage: FC<HomePageProps> = ({
               The AI Utility Meter
             </h3>
             <p className={darkMode ? "text-gray-400" : "text-gray-600"}>
-              AI Watt-Hours is a proprietary unit of measure for the consumption of computational intelligence.  
+              AI Watt-Hours is how we measure your use of Ai and make it affordable for you on a daily basis  
             </p>
           </div>
 
@@ -223,7 +223,7 @@ const HomePage: FC<HomePageProps> = ({
                   }`}
                 >
                   <span className="text-blue-600 dark:text-blue-400 mr-3 mt-1">•</span>
-                  <span>Jump between ChatGPT, Claude, Gemini, Grok…</span>
+                  <span>Jump between ChatGPT, Claude, Gemini, Deepseek, Mid Journey, Dalle, LLama, Grok… and many more</span>
                 </li>
                 <li
                   className={`flex items-start text-lg ${
@@ -316,6 +316,228 @@ const HomePage: FC<HomePageProps> = ({
               >
                 Join the AI Grid
               </button>
+            </div>
+
+            {/* What You Get Section */}
+            <div className="mt-20">
+              <h3
+                className={`text-3xl md:text-4xl font-light mb-12 text-center ${
+                  darkMode ? "text-white" : "text-gray-900"
+                }`}
+              >
+                What You Get When You Join +AI
+              </h3>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                {/* Product Image - Left Column */}
+                <div className="order-1 md:order-1">
+                  <img
+                    src={new URL('../assets/plusai-product-image-1.png', import.meta.url).href}
+                    alt="+AI App Interface showing unified AI access"
+                    className={`w-full h-auto rounded-lg shadow-2xl ${
+                      darkMode ? "border border-gray-700" : "border border-gray-200"
+                    }`}
+                  />
+                </div>
+
+                {/* Feature Cards - Right Column */}
+                <div className="order-2 md:order-2 space-y-4">
+                  {/* Feature 1: Unlimited AI Power */}
+                  <div
+                    className={`p-4 rounded-lg border ${
+                      darkMode
+                        ? "bg-gray-900/50 border-gray-700"
+                        : "bg-white border-gray-200"
+                    }`}
+                  >
+                    <div className="flex items-start gap-3">
+                      <span className="text-3xl">⚡</span>
+                      <div>
+                        <h4
+                          className={`text-lg font-semibold mb-1 ${
+                            darkMode ? "text-white" : "text-gray-900"
+                          }`}
+                        >
+                          Unlimited AI Power
+                        </h4>
+                        <p
+                          className={`text-base ${
+                            darkMode ? "text-gray-300" : "text-gray-700"
+                          }`}
+                        >
+                          One meter. One bill. 1000+ models behind one interface.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Feature 2: Intelligent Routing */}
+                  <div
+                    className={`p-4 rounded-lg border ${
+                      darkMode
+                        ? "bg-gray-900/50 border-gray-700"
+                        : "bg-white border-gray-200"
+                    }`}
+                  >
+                    <div className="flex items-start gap-3">
+                      <span className="text-3xl">🧠</span>
+                      <div>
+                        <h4
+                          className={`text-lg font-semibold mb-1 ${
+                            darkMode ? "text-white" : "text-gray-900"
+                          }`}
+                        >
+                          Intelligent Routing (aiWh)
+                        </h4>
+                        <p
+                          className={`text-base ${
+                            darkMode ? "text-gray-300" : "text-gray-700"
+                          }`}
+                        >
+                          Tasks automatically route across the AI Grid to the most efficient model.
+                        </p>
+                        <p
+                          className={`text-sm mt-1 ${
+                            darkMode ? "text-gray-400" : "text-gray-500"
+                          }`}
+                        >
+                          The grid finds the right model for every task.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Feature 3: Plug Into The AI Grid */}
+                  <div
+                    className={`p-4 rounded-lg border ${
+                      darkMode
+                        ? "bg-gray-900/50 border-gray-700"
+                        : "bg-white border-gray-200"
+                    }`}
+                  >
+                    <div className="flex items-start gap-3">
+                      <span className="text-3xl">🔌</span>
+                      <div>
+                        <h4
+                          className={`text-lg font-semibold mb-1 ${
+                            darkMode ? "text-white" : "text-gray-900"
+                          }`}
+                        >
+                          Plug Into The AI Grid
+                        </h4>
+                        <p
+                          className={`text-base ${
+                            darkMode ? "text-gray-300" : "text-gray-700"
+                          }`}
+                        >
+                          No more subscriptions, tokens, plugins — one account, one interface.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Feature 4: Cyber Security */}
+                  <div
+                    className={`p-4 rounded-lg border ${
+                      darkMode
+                        ? "bg-gray-900/50 border-gray-700"
+                        : "bg-white border-gray-200"
+                    }`}
+                  >
+                    <div className="flex items-start gap-3">
+                      <span className="text-3xl">🔐</span>
+                      <div>
+                        <h4
+                          className={`text-lg font-semibold mb-1 ${
+                            darkMode ? "text-white" : "text-gray-900"
+                          }`}
+                        >
+                          Cyber Security
+                        </h4>
+                        <p
+                          className={`text-base ${
+                            darkMode ? "text-gray-300" : "text-gray-700"
+                          }`}
+                        >
+                          Your data, identity, and work protected by default.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Feature 5: Unified Memory & History */}
+                  <div
+                    className={`p-4 rounded-lg border ${
+                      darkMode
+                        ? "bg-gray-900/50 border-gray-700"
+                        : "bg-white border-gray-200"
+                    }`}
+                  >
+                    <div className="flex items-start gap-3">
+                      <span className="text-3xl">💾</span>
+                      <div>
+                        <h4
+                          className={`text-lg font-semibold mb-1 ${
+                            darkMode ? "text-white" : "text-gray-900"
+                          }`}
+                        >
+                          Unified Memory & History
+                        </h4>
+                        <p
+                          className={`text-base ${
+                            darkMode ? "text-gray-300" : "text-gray-700"
+                          }`}
+                        >
+                          Keep all conversations and work across models in one place.
+                        </p>
+                        <p
+                          className={`text-sm mt-1 ${
+                            darkMode ? "text-gray-400" : "text-gray-500"
+                          }`}
+                        >
+                          Your AI remembers — across every model.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Feature 6: Budget Alerts & Spend Control */}
+                  <div
+                    className={`p-4 rounded-lg border ${
+                      darkMode
+                        ? "bg-gray-900/50 border-gray-700"
+                        : "bg-white border-gray-200"
+                    }`}
+                  >
+                    <div className="flex items-start gap-3">
+                      <span className="text-3xl">💸</span>
+                      <div>
+                        <h4
+                          className={`text-lg font-semibold mb-1 ${
+                            darkMode ? "text-white" : "text-gray-900"
+                          }`}
+                        >
+                          Budget Alerts & Spend Control
+                        </h4>
+                        <p
+                          className={`text-base ${
+                            darkMode ? "text-gray-300" : "text-gray-700"
+                          }`}
+                        >
+                          Set usage limits, track consumption, and avoid runaway costs.
+                        </p>
+                        <p
+                          className={`text-sm mt-1 ${
+                            darkMode ? "text-gray-400" : "text-gray-500"
+                          }`}
+                        >
+                          Never overspend. You stay in control.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
