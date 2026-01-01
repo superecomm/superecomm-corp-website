@@ -10,38 +10,20 @@ interface DashboardPageProps {
   onNavigate: (page: string) => void;
 }
 
-interface Announcement {
-  id: string;
-  title: string;
-  date: string;
-  content: string;
-  type: 'update' | 'feature' | 'announcement';
-}
+// Helper to format relative time
+const getRelativeTime = (date: Date): string => {
+  const now = new Date();
+  const diffMs = now.getTime() - date.getTime();
+  const diffMins = Math.floor(diffMs / 60000);
+  const diffHours = Math.floor(diffMs / 3600000);
+  const diffDays = Math.floor(diffMs / 86400000);
 
-// Stub announcements - in production, fetch from Firestore
-const ANNOUNCEMENTS: Announcement[] = [
-  {
-    id: '1',
-    title: 'Welcome to the AI Grid Layer',
-    date: '2025-01-01',
-    content: 'Thank you for being a Founding Member! Your reservation is confirmed and will convert to $10 in AI usage credit when metering launches.',
-    type: 'announcement'
-  },
-  {
-    id: '2',
-    title: 'Grid Infrastructure Development',
-    date: '2025-01-01',
-    content: 'We\'re building the core aiWh metering architecture and multi-model orchestration system. Follow our progress on LinkedIn and Twitter.',
-    type: 'update'
-  },
-  {
-    id: '3',
-    title: 'Upcoming: AI Model Access',
-    date: '2025-01-01',
-    content: 'Soon you\'ll have access to 1000+ AI models through a single interface. We\'ll notify you when early access launches.',
-    type: 'feature'
-  }
-];
+  if (diffMins < 1) return 'Just now';
+  if (diffMins < 60) return `${diffMins}m ago`;
+  if (diffHours < 24) return `${diffHours}h ago`;
+  if (diffDays < 7) return `${diffDays}d ago`;
+  return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+};
 
 export const DashboardPage: FC<DashboardPageProps> = ({ darkMode, onNavigate }) => {
   const [user, setUser] = useState<User | null>(null);
@@ -49,6 +31,7 @@ export const DashboardPage: FC<DashboardPageProps> = ({ darkMode, onNavigate }) 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>('');
   const [copiedGridId, setCopiedGridId] = useState(false);
+  const [accountCreatedDate, setAccountCreatedDate] = useState<Date | null>(null);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -70,7 +53,21 @@ export const DashboardPage: FC<DashboardPageProps> = ({ darkMode, onNavigate }) 
       const userDoc = await getDoc(doc(db, 'users', uid));
       
       if (userDoc.exists()) {
-        setUserProfile(userDoc.data() as UserProfile);
+        const profile = userDoc.data() as UserProfile;
+        setUserProfile(profile);
+        
+        // Get account creation date - handle both Timestamp and Date
+        if (profile.createdAt) {
+          const createdAt = profile.createdAt instanceof Date 
+            ? profile.createdAt 
+            : (profile.createdAt as any).toDate();
+          setAccountCreatedDate(createdAt);
+        } else if (profile.gridAccount?.reservedAt) {
+          const reservedAt = profile.gridAccount.reservedAt instanceof Date 
+            ? profile.gridAccount.reservedAt 
+            : (profile.gridAccount.reservedAt as any).toDate();
+          setAccountCreatedDate(reservedAt);
+        }
       } else {
         setError('User profile not found');
       }
@@ -85,19 +82,6 @@ export const DashboardPage: FC<DashboardPageProps> = ({ darkMode, onNavigate }) 
       await navigator.clipboard.writeText(userProfile.gridAccount.displayId);
       setCopiedGridId(true);
       setTimeout(() => setCopiedGridId(false), 2000);
-    }
-  };
-
-  const getTypeColor = (type: string) => {
-    switch (type) {
-      case 'update':
-        return darkMode ? 'text-blue-400' : 'text-blue-600';
-      case 'feature':
-        return darkMode ? 'text-purple-400' : 'text-purple-600';
-      case 'announcement':
-        return darkMode ? 'text-green-400' : 'text-green-600';
-      default:
-        return darkMode ? 'text-gray-400' : 'text-gray-600';
     }
   };
 
@@ -153,49 +137,62 @@ export const DashboardPage: FC<DashboardPageProps> = ({ darkMode, onNavigate }) 
   const hasReservation = userProfile.reservation?.paid === true;
   const hasGridAccount = !!userProfile.gridAccount;
 
+  const firstName = userProfile?.displayName?.split(' ')[0] || 'there';
+
   return (
     <div className={`min-h-screen ${darkMode ? 'bg-gray-950' : 'bg-white'}`}>
-      <div className="max-w-6xl mx-auto px-6 py-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
         
         {/* Header */}
-        <div className="mb-12">
-          <h1 className={`text-4xl md:text-5xl font-light mb-4 ${
+        <div className="mb-8">
+          <h1 className={`text-3xl sm:text-4xl font-light mb-2 ${
             darkMode ? 'text-white' : 'text-gray-900'
           }`}>
-            Welcome to AI Grid Layer
+            Welcome back, {firstName}
           </h1>
-          <p className={`text-lg ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-            {user.email}
+          <p className={`text-sm ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>
+            {user.email} {accountCreatedDate && `• Member since ${accountCreatedDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}`}
           </p>
         </div>
 
-        {/* Grid Account Card */}
-        {hasGridAccount && userProfile.gridAccount && (
-          <div className={`mb-8 p-8 rounded-lg border ${
-            darkMode ? 'border-gray-700 bg-gray-900/50' : 'border-gray-200 bg-white'
-          }`}>
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-              <div>
-                <div className="flex items-center gap-3 mb-4">
-                  <Award className={`w-8 h-8 ${darkMode ? 'text-yellow-400' : 'text-yellow-600'}`} />
-                  <div>
-                    <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-                      {userProfile.gridAccount.edition}
-                    </p>
-                    <p className={`text-lg font-semibold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
-                      Founding Member
-                    </p>
-                  </div>
-                </div>
-
-                <div className={`inline-flex items-center gap-3 px-4 py-2 rounded-lg ${
-                  darkMode ? 'bg-gray-800' : 'bg-gray-100'
-                }`}>
+        {/* Main Grid Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+          
+          {/* Grid Account Card - Spans 2 columns on large screens */}
+          {hasGridAccount && userProfile.gridAccount && (
+            <div className={`lg:col-span-2 p-6 rounded-xl border ${
+              darkMode ? 'border-gray-800 bg-gray-900/50' : 'border-gray-200 bg-white shadow-sm'
+            }`}>
+              <div className="flex items-start justify-between mb-6">
+                <div className="flex items-center gap-3">
+                  <Award className={`w-6 h-6 ${darkMode ? 'text-yellow-400' : 'text-yellow-600'}`} />
                   <div>
                     <p className={`text-xs ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>
+                      {userProfile.gridAccount.edition}
+                    </p>
+                    <h2 className={`text-lg font-semibold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                      Founding Member
+                    </h2>
+                  </div>
+                </div>
+                <div className={`px-3 py-1 rounded-full text-xs font-medium ${
+                  hasReservation
+                    ? darkMode ? 'bg-green-500/20 text-green-400' : 'bg-green-100 text-green-700'
+                    : darkMode ? 'bg-yellow-500/20 text-yellow-400' : 'bg-yellow-100 text-yellow-700'
+                }`}>
+                  {hasReservation ? 'Confirmed' : 'Pending'}
+                </div>
+              </div>
+
+              <div className={`p-4 rounded-lg mb-4 ${
+                darkMode ? 'bg-gray-800/50' : 'bg-gray-50'
+              }`}>
+                <div className="flex items-center justify-between">
+                  <div className="flex-1">
+                    <p className={`text-xs mb-1 ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>
                       Grid Account ID
                     </p>
-                    <p className={`text-2xl font-mono font-bold ${
+                    <p className={`text-lg font-mono font-bold ${
                       darkMode ? 'text-blue-400' : 'text-blue-600'
                     }`}>
                       {userProfile.gridAccount.displayId}
@@ -217,110 +214,110 @@ export const DashboardPage: FC<DashboardPageProps> = ({ darkMode, onNavigate }) 
                 </div>
               </div>
 
-              <div className="flex flex-col gap-4">
-                <div className={`px-4 py-3 rounded-lg ${
-                  hasReservation
-                    ? darkMode ? 'bg-green-500/20 border border-green-500/30' : 'bg-green-50 border border-green-200'
-                    : darkMode ? 'bg-yellow-500/20 border border-yellow-500/30' : 'bg-yellow-50 border border-yellow-200'
-                }`}>
-                  <p className={`text-sm font-semibold ${
-                    hasReservation
-                      ? darkMode ? 'text-green-400' : 'text-green-700'
-                      : darkMode ? 'text-yellow-400' : 'text-yellow-700'
-                  }`}>
-                    {hasReservation ? '✓ Reservation Confirmed' : 'Pending Reservation'}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                <div>
+                  <p className={`text-xs mb-1 ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>
+                    Tier
                   </p>
-                  <p className={`text-xs ${
-                    hasReservation
-                      ? darkMode ? 'text-green-300' : 'text-green-600'
-                      : darkMode ? 'text-yellow-300' : 'text-yellow-600'
-                  }`}>
-                    {hasReservation ? '$10 refundable • Converts to credit' : 'Complete reservation to activate'}
+                  <p className={`text-sm font-medium ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                    {userProfile.gridAccount.tier}
                   </p>
                 </div>
-
-                {!userProfile.gridAccount.activated && (
-                  <div className={`px-4 py-3 rounded-lg ${
-                    darkMode ? 'bg-blue-500/20 border border-blue-500/30' : 'bg-blue-50 border border-blue-200'
-                  }`}>
-                    <p className={`text-sm font-semibold ${
-                      darkMode ? 'text-blue-400' : 'text-blue-700'
-                    }`}>
-                      ⏳ Metering Not Yet Active
-                    </p>
-                    <p className={`text-xs ${
-                      darkMode ? 'text-blue-300' : 'text-blue-600'
-                    }`}>
-                      You'll be notified when aiWh metering launches
-                    </p>
-                  </div>
-                )}
+                <div>
+                  <p className={`text-xs mb-1 ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>
+                    Region
+                  </p>
+                  <p className={`text-sm font-medium ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                    {userProfile.gridAccount.country}-{userProfile.gridAccount.region}
+                  </p>
+                </div>
+                <div>
+                  <p className={`text-xs mb-1 ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>
+                    Reserved
+                  </p>
+                  <p className={`text-sm font-medium ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                    {accountCreatedDate ? getRelativeTime(accountCreatedDate) : 'Recently'}
+                  </p>
+                </div>
+                <div>
+                  <p className={`text-xs mb-1 ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>
+                    Credit
+                  </p>
+                  <p className={`text-sm font-medium ${darkMode ? 'text-green-400' : 'text-green-600'}`}>
+                    {hasReservation ? '$10.00' : '$0.00'}
+                  </p>
+                </div>
               </div>
             </div>
+          )}
 
-            {/* Grid Details */}
-            <div className="mt-6 pt-6 border-t border-gray-700/50 grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div>
-                <p className={`text-xs ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>
-                  Tier
-                </p>
-                <p className={`text-sm font-semibold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
-                  {userProfile.gridAccount.tier}
-                </p>
-              </div>
-              <div>
-                <p className={`text-xs ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>
-                  Region
-                </p>
-                <p className={`text-sm font-semibold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
-                  {userProfile.gridAccount.country}-{userProfile.gridAccount.region}
-                </p>
-              </div>
-              <div>
-                <p className={`text-xs ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>
-                  Reserved
-                </p>
-                <p className={`text-sm font-semibold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
-                  {userProfile.gridAccount.reservedAt instanceof Date 
-                    ? userProfile.gridAccount.reservedAt.toLocaleDateString()
-                    : 'Recently'}
-                </p>
-              </div>
-              <div>
-                <p className={`text-xs ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>
-                  Status
-                </p>
-                <p className={`text-sm font-semibold ${
-                  userProfile.gridAccount.activated
-                    ? darkMode ? 'text-green-400' : 'text-green-600'
-                    : darkMode ? 'text-yellow-400' : 'text-yellow-600'
+          {/* Status Card */}
+          <div className={`p-6 rounded-xl border ${
+            darkMode ? 'border-gray-800 bg-gray-900/50' : 'border-gray-200 bg-white shadow-sm'
+          }`}>
+            <h3 className={`text-sm font-medium mb-4 ${
+              darkMode ? 'text-gray-400' : 'text-gray-600'
+            }`}>
+              Account Status
+            </h3>
+            <div className="space-y-3">
+              {!userProfile.gridAccount?.activated && (
+                <div className={`p-3 rounded-lg ${
+                  darkMode ? 'bg-blue-500/10 border border-blue-500/20' : 'bg-blue-50 border border-blue-200'
                 }`}>
-                  {userProfile.gridAccount.activated ? 'Active' : 'Reserved'}
-                </p>
-              </div>
+                  <div className="flex items-start gap-2">
+                    <Calendar className={`w-4 h-4 mt-0.5 ${darkMode ? 'text-blue-400' : 'text-blue-600'}`} />
+                    <div>
+                      <p className={`text-xs font-medium ${darkMode ? 'text-blue-400' : 'text-blue-700'}`}>
+                        Pre-Launch Member
+                      </p>
+                      <p className={`text-xs mt-1 ${darkMode ? 'text-blue-300/80' : 'text-blue-600/80'}`}>
+                        You'll be notified when metering goes live
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+              {hasReservation && (
+                <div className={`p-3 rounded-lg ${
+                  darkMode ? 'bg-green-500/10 border border-green-500/20' : 'bg-green-50 border border-green-200'
+                }`}>
+                  <div className="flex items-start gap-2">
+                    <Check className={`w-4 h-4 mt-0.5 ${darkMode ? 'text-green-400' : 'text-green-600'}`} />
+                    <div>
+                      <p className={`text-xs font-medium ${darkMode ? 'text-green-400' : 'text-green-700'}`}>
+                        Reservation Active
+                      </p>
+                      <p className={`text-xs mt-1 ${darkMode ? 'text-green-300/80' : 'text-green-600/80'}`}>
+                        $10 refundable credit reserved
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
-        )}
+        </div>
 
         {/* No Grid Account Yet */}
         {!hasGridAccount && (
-          <div className={`mb-8 p-8 rounded-lg border text-center ${
+          <div className={`mb-6 p-6 rounded-xl border text-center ${
             darkMode ? 'border-yellow-500/30 bg-yellow-500/10' : 'border-yellow-200 bg-yellow-50'
           }`}>
-            <AlertCircle className={`w-12 h-12 mx-auto mb-4 ${
+            <AlertCircle className={`w-10 h-10 mx-auto mb-3 ${
               darkMode ? 'text-yellow-400' : 'text-yellow-600'
             }`} />
-            <h3 className={`text-xl font-semibold mb-2 ${
+            <h3 className={`text-lg font-semibold mb-2 ${
               darkMode ? 'text-white' : 'text-gray-900'
             }`}>
               No Grid Account Yet
             </h3>
-            <p className={`mb-6 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+            <p className={`text-sm mb-4 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
               Reserve your AI Grid Layer account to get your unique Grid ID
             </p>
             <button
               onClick={() => onNavigate('reserve')}
-              className={`px-6 py-3 rounded-lg font-medium ${
+              className={`px-5 py-2 rounded-lg text-sm font-medium ${
                 darkMode
                   ? 'bg-blue-600 hover:bg-blue-500 text-white'
                   : 'bg-blue-600 hover:bg-blue-700 text-white'
@@ -331,124 +328,162 @@ export const DashboardPage: FC<DashboardPageProps> = ({ darkMode, onNavigate }) 
           </div>
         )}
 
-        {/* Updates & News */}
-        <div className="mb-8">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className={`text-2xl font-semibold ${
+        {/* Activity Timeline & Coming Soon Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+          
+          {/* Recent Activity */}
+          <div className={`p-6 rounded-xl border ${
+            darkMode ? 'border-gray-800 bg-gray-900/50' : 'border-gray-200 bg-white shadow-sm'
+          }`}>
+            <h3 className={`text-lg font-semibold mb-4 ${
               darkMode ? 'text-white' : 'text-gray-900'
             }`}>
               Updates & News
-            </h2>
-          </div>
-
-          <div className="space-y-4">
-            {ANNOUNCEMENTS.map((announcement) => (
-              <div
-                key={announcement.id}
-                className={`p-6 rounded-lg border ${
-                  darkMode ? 'border-gray-700 bg-gray-900/50' : 'border-gray-200 bg-white'
-                }`}
-              >
-                <div className="flex items-start justify-between mb-3">
-                  <div>
-                    <h3 className={`text-lg font-semibold mb-1 ${
-                      darkMode ? 'text-white' : 'text-gray-900'
-                    }`}>
-                      {announcement.title}
-                    </h3>
-                    <div className="flex items-center gap-2 text-sm">
-                      <Calendar className={`w-4 h-4 ${darkMode ? 'text-gray-500' : 'text-gray-400'}`} />
-                      <span className={darkMode ? 'text-gray-400' : 'text-gray-600'}>
-                        {new Date(announcement.date).toLocaleDateString()}
-                      </span>
-                      <span className={`ml-2 px-2 py-0.5 rounded text-xs font-medium ${getTypeColor(announcement.type)}`}>
-                        {announcement.type}
-                      </span>
-                    </div>
+            </h3>
+            
+            <div className="space-y-4">
+              {/* Dynamic user activity */}
+              {accountCreatedDate && (
+                <div className="flex gap-3">
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
+                    darkMode ? 'bg-green-500/20' : 'bg-green-100'
+                  }`}>
+                    <Check className={`w-4 h-4 ${darkMode ? 'text-green-400' : 'text-green-600'}`} />
+                  </div>
+                  <div className="flex-1">
+                    <p className={`text-sm font-medium ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                      Welcome to AI Grid Layer
+                    </p>
+                    <p className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                      {hasReservation 
+                        ? 'Reservation confirmed. Your $10 will convert to AI credit when metering launches.'
+                        : 'Account created successfully.'
+                      }
+                    </p>
+                    <p className={`text-xs mt-1 ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>
+                      {getRelativeTime(accountCreatedDate)}
+                    </p>
                   </div>
                 </div>
-                <p className={darkMode ? 'text-gray-300' : 'text-gray-700'}>
-                  {announcement.content}
-                </p>
+              )}
+
+              <div className="flex gap-3">
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
+                  darkMode ? 'bg-blue-500/20' : 'bg-blue-100'
+                }`}>
+                  <Zap className={`w-4 h-4 ${darkMode ? 'text-blue-400' : 'text-blue-600'}`} />
+                </div>
+                <div className="flex-1">
+                  <p className={`text-sm font-medium ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                    Grid Infrastructure Development
+                  </p>
+                  <p className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                    We're building the core aiWh metering architecture and multi-model orchestration system.
+                  </p>
+                  <p className={`text-xs mt-1 ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>
+                    Ongoing
+                  </p>
+                </div>
               </div>
-            ))}
-          </div>
-        </div>
 
-        {/* Quick Links */}
-        <div className={`p-6 rounded-lg border ${
-          darkMode ? 'border-gray-700 bg-gray-900/50' : 'border-gray-200 bg-white'
-        }`}>
-          <h3 className={`text-lg font-semibold mb-4 ${
-            darkMode ? 'text-white' : 'text-gray-900'
-          }`}>
-            Quick Links
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <button
-              onClick={() => onNavigate('home')}
-              className={`flex items-center justify-between p-4 rounded-lg border transition-colors ${
-                darkMode
-                  ? 'border-gray-700 hover:bg-gray-800'
-                  : 'border-gray-200 hover:bg-gray-50'
-              }`}
-            >
-              <span className={darkMode ? 'text-gray-300' : 'text-gray-700'}>
-                Homepage
-              </span>
-              <ExternalLink className={`w-4 h-4 ${darkMode ? 'text-gray-500' : 'text-gray-400'}`} />
-            </button>
-            
-            <button
-              onClick={() => onNavigate('support')}
-              className={`flex items-center justify-between p-4 rounded-lg border transition-colors ${
-                darkMode
-                  ? 'border-gray-700 hover:bg-gray-800'
-                  : 'border-gray-200 hover:bg-gray-50'
-              }`}
-            >
-              <span className={darkMode ? 'text-gray-300' : 'text-gray-700'}>
-                Support
-              </span>
-              <ExternalLink className={`w-4 h-4 ${darkMode ? 'text-gray-500' : 'text-gray-400'}`} />
-            </button>
-
-            <a
-              href="https://twitter.com/plusailabs"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`flex items-center justify-between p-4 rounded-lg border transition-colors ${
-                darkMode
-                  ? 'border-gray-700 hover:bg-gray-800'
-                  : 'border-gray-200 hover:bg-gray-50'
-              }`}
-            >
-              <span className={darkMode ? 'text-gray-300' : 'text-gray-700'}>
-                Follow on X/Twitter
-              </span>
-              <ExternalLink className={`w-4 h-4 ${darkMode ? 'text-gray-500' : 'text-gray-400'}`} />
-            </a>
-          </div>
-        </div>
-
-        {/* Coming Soon Features */}
-        <div className={`mt-8 p-6 rounded-lg border ${
-          darkMode ? 'border-blue-500/30 bg-blue-500/10' : 'border-blue-200 bg-blue-50'
-        }`}>
-          <div className="flex items-start gap-3">
-            <Zap className={`w-6 h-6 mt-0.5 ${darkMode ? 'text-blue-400' : 'text-blue-600'}`} />
-            <div>
-              <h4 className={`font-semibold mb-1 ${darkMode ? 'text-blue-400' : 'text-blue-900'}`}>
-                Coming Soon to Your Dashboard
-              </h4>
-              <ul className={`text-sm space-y-1 ${darkMode ? 'text-blue-300' : 'text-blue-800'}`}>
-                <li>• Real-time aiWh usage tracking</li>
-                <li>• Direct access to 1000+ AI models</li>
-                <li>• Usage history and analytics</li>
-                <li>• Billing and payment management</li>
-              </ul>
+              <a
+                href="https://twitter.com/plusailabs"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`flex gap-3 p-3 rounded-lg transition-colors ${
+                  darkMode ? 'hover:bg-gray-800' : 'hover:bg-gray-50'
+                }`}
+              >
+                <ExternalLink className={`w-5 h-5 ${darkMode ? 'text-gray-500' : 'text-gray-400'}`} />
+                <div className="flex-1">
+                  <p className={`text-sm font-medium ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                    Follow Our Progress
+                  </p>
+                  <p className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                    Get real-time updates on X/Twitter
+                  </p>
+                </div>
+              </a>
             </div>
           </div>
+
+          {/* Coming Soon Features */}
+          <div className={`p-6 rounded-xl border ${
+            darkMode ? 'border-blue-500/30 bg-blue-500/5' : 'border-blue-200 bg-blue-50/50 shadow-sm'
+          }`}>
+            <div className="flex items-center gap-2 mb-4">
+              <Zap className={`w-5 h-5 ${darkMode ? 'text-blue-400' : 'text-blue-600'}`} />
+              <h3 className={`text-lg font-semibold ${darkMode ? 'text-blue-400' : 'text-blue-900'}`}>
+                Coming Soon to Your Dashboard
+              </h3>
+            </div>
+            
+            <ul className={`space-y-3 text-sm ${darkMode ? 'text-blue-300' : 'text-blue-800'}`}>
+              <li className="flex items-start gap-2">
+                <span className={darkMode ? 'text-blue-500' : 'text-blue-600'}>•</span>
+                <span>Real-time aiWh usage tracking</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className={darkMode ? 'text-blue-500' : 'text-blue-600'}>•</span>
+                <span>Direct access to 1000+ AI models</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className={darkMode ? 'text-blue-500' : 'text-blue-600'}>•</span>
+                <span>Usage history and analytics</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className={darkMode ? 'text-blue-500' : 'text-blue-600'}>•</span>
+                <span>Billing and payment management</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Quick Actions Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <button
+            onClick={() => onNavigate('home')}
+            className={`flex items-center justify-between p-4 rounded-xl border transition-all hover:scale-[1.02] ${
+              darkMode
+                ? 'border-gray-800 bg-gray-900/50 hover:border-gray-700'
+                : 'border-gray-200 bg-white hover:border-gray-300 shadow-sm'
+            }`}
+          >
+            <span className={`text-sm font-medium ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+              Homepage
+            </span>
+            <ExternalLink className={`w-4 h-4 ${darkMode ? 'text-gray-500' : 'text-gray-400'}`} />
+          </button>
+          
+          <button
+            onClick={() => onNavigate('support')}
+            className={`flex items-center justify-between p-4 rounded-xl border transition-all hover:scale-[1.02] ${
+              darkMode
+                ? 'border-gray-800 bg-gray-900/50 hover:border-gray-700'
+                : 'border-gray-200 bg-white hover:border-gray-300 shadow-sm'
+            }`}
+          >
+            <span className={`text-sm font-medium ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+              Support
+            </span>
+            <ExternalLink className={`w-4 h-4 ${darkMode ? 'text-gray-500' : 'text-gray-400'}`} />
+          </button>
+
+          <a
+            href="https://twitter.com/plusailabs"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`flex items-center justify-between p-4 rounded-xl border transition-all hover:scale-[1.02] ${
+              darkMode
+                ? 'border-gray-800 bg-gray-900/50 hover:border-gray-700'
+                : 'border-gray-200 bg-white hover:border-gray-300 shadow-sm'
+            }`}
+          >
+            <span className={`text-sm font-medium ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+              Follow on X/Twitter
+            </span>
+            <ExternalLink className={`w-4 h-4 ${darkMode ? 'text-gray-500' : 'text-gray-400'}`} />
+          </a>
         </div>
       </div>
     </div>
