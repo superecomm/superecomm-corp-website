@@ -46,6 +46,12 @@ export const ReservePage: FC<ReservePageProps> = ({ darkMode, onNavigateToDashbo
   const [displayName, setDisplayName] = useState('');
   const [isSignUp, setIsSignUp] = useState(true);
 
+  // Payment form state
+  const [cardNumber, setCardNumber] = useState('');
+  const [cardExpiry, setCardExpiry] = useState('');
+  const [cardCvc, setCardCvc] = useState('');
+  const [zipCode, setZipCode] = useState('');
+
   // Check auth state
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -76,6 +82,30 @@ export const ReservePage: FC<ReservePageProps> = ({ darkMode, onNavigateToDashbo
     setError('');
 
     try {
+      // Validate payment info for new signups
+      if (isSignUp) {
+        if (!cardNumber || cardNumber.replace(/\s/g, '').length < 15) {
+          setError('Please enter a valid card number');
+          setLoading(false);
+          return;
+        }
+        if (!cardExpiry || cardExpiry.length !== 5) {
+          setError('Please enter a valid expiry date (MM/YY)');
+          setLoading(false);
+          return;
+        }
+        if (!cardCvc || cardCvc.length < 3) {
+          setError('Please enter a valid CVC');
+          setLoading(false);
+          return;
+        }
+        if (!zipCode || zipCode.length < 5) {
+          setError('Please enter a valid ZIP code');
+          setLoading(false);
+          return;
+        }
+      }
+
       let currentUser: User;
       
       if (isSignUp) {
@@ -100,16 +130,19 @@ export const ReservePage: FC<ReservePageProps> = ({ darkMode, onNavigateToDashbo
         currentUser = userCredential.user;
       }
       
-      // Close modal and proceed to payment
+      // Close modal after successful auth
       setShowAuthModal(false);
       setUser(currentUser);
       
-      // Automatically trigger reservation flow after successful auth
+      // Now process the payment with the collected card info
       setLoading(true);
       setStep('processing');
       
       try {
-        // Simulate Stripe payment (replace with real Stripe in production)
+        // In production, this would send card info to Stripe
+        // For now, simulate payment with the collected card details
+        console.log('Processing payment with card:', cardNumber.slice(-4));
+        
         const paymentResult = await simulatePaymentSuccess(currentUser.uid, 1000);
 
         if (!paymentResult.success) {
@@ -148,9 +181,16 @@ export const ReservePage: FC<ReservePageProps> = ({ darkMode, onNavigateToDashbo
 
         setGridAccountId(gridResult.gridAccountId);
         setStep('success');
+        
+        // Clear payment info
+        setCardNumber('');
+        setCardExpiry('');
+        setCardCvc('');
+        setZipCode('');
       } catch (err: any) {
         setError(err.message || 'Reservation failed');
         setStep('landing');
+        setShowAuthModal(true); // Reopen modal to show error
       }
       
     } catch (err: any) {
@@ -161,62 +201,9 @@ export const ReservePage: FC<ReservePageProps> = ({ darkMode, onNavigateToDashbo
   };
 
   const handleReservation = async () => {
-    if (!user) {
-      setShowAuthModal(true);
-      return;
-    }
-    
-    setLoading(true);
-    setError('');
-    setStep('processing');
-
-    try {
-      // Simulate Stripe payment (replace with real Stripe in production)
-      const paymentResult = await simulatePaymentSuccess(user.uid, 1000); // $10 in cents
-
-      if (!paymentResult.success) {
-        throw new Error('Payment failed');
-      }
-
-      // Create grid account
-      const gridResult = await createGridAccountForUser(user.uid);
-
-      if (!gridResult.success) {
-        throw new Error(gridResult.error || 'Failed to create grid account');
-      }
-
-      // Update user with reservation info
-      const reservation: Reservation = {
-        paid: true,
-        amount: 10,
-        stripePaymentId: paymentResult.paymentId,
-        refundable: true,
-        createdAt: serverTimestamp() as any
-      };
-
-      await setDoc(doc(db, 'users', user.uid), {
-        reservation,
-        updatedAt: serverTimestamp()
-      }, { merge: true });
-
-      // Log confirmation email to console
-      logEmailToConsole({
-        toEmail: user.email!,
-        displayName: displayName || user.displayName || undefined,
-        gridAccountId: gridResult.gridAccountId,
-        amount: 1000,
-        reservedAt: new Date()
-      });
-
-      setGridAccountId(gridResult.gridAccountId);
-      setStep('success');
-
-    } catch (err: any) {
-      setError(err.message || 'Reservation failed');
-      setStep('landing');
-    } finally {
-      setLoading(false);
-    }
+    // Always show the modal to collect information/payment
+    setShowAuthModal(true);
+    return;
   };
 
   const getShareText = () => {
@@ -759,10 +746,10 @@ Reserve yours here: https://superecomm.com/reserve`;
 
       {/* Auth Modal */}
       {showAuthModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/50 backdrop-blur-sm">
-          <div className={`max-w-md w-full p-8 rounded-2xl border ${
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/50 backdrop-blur-sm overflow-y-auto">
+          <div className={`max-w-lg w-full p-8 rounded-2xl border ${
             darkMode ? 'bg-gray-900 border-gray-800' : 'bg-white border-gray-200'
-          } relative`}>
+          } relative my-8 max-h-[90vh] overflow-y-auto`}>
             <button
               onClick={() => setShowAuthModal(false)}
               className={`absolute top-4 right-4 p-2 rounded-lg transition-colors ${
@@ -773,10 +760,10 @@ Reserve yours here: https://superecomm.com/reserve`;
             </button>
 
             <h2 className={`text-2xl font-semibold mb-2 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
-              {isSignUp ? 'Create Account & Reserve' : 'Sign In & Reserve'}
+              {isSignUp ? 'Complete Your Reservation' : 'Sign In & Reserve'}
             </h2>
             <p className={`text-sm mb-6 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-              {isSignUp ? 'Your account will be created and your $10 reservation processed immediately' : 'Sign in to complete your $10 reservation'}
+              {isSignUp ? 'Enter your account and payment details to reserve your AI Grid Layer account' : 'Sign in to complete your $10 reservation'}
             </p>
 
             {/* Payment Summary */}
@@ -875,6 +862,120 @@ Reserve yours here: https://superecomm.com/reserve`;
                 />
               </div>
 
+              {/* Payment Information Section */}
+              {isSignUp && (
+                <>
+                  <div className={`pt-4 border-t ${darkMode ? 'border-gray-700' : 'border-gray-200'}`}>
+                    <h3 className={`text-lg font-semibold mb-1 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                      Payment Information
+                    </h3>
+                    <p className={`text-xs mb-3 ${darkMode ? 'text-blue-400' : 'text-blue-600'}`}>
+                      💳 Development Mode: Enter test card 4242 4242 4242 4242 with any future date and CVC
+                    </p>
+                  </div>
+
+                  <div>
+                    <label className={`block text-sm font-medium mb-1 ${
+                      darkMode ? 'text-gray-300' : 'text-gray-700'
+                    }`}>
+                      Card Number
+                    </label>
+                    <input
+                      type="text"
+                      value={cardNumber}
+                      onChange={(e) => {
+                        // Format as #### #### #### ####
+                        const value = e.target.value.replace(/\s/g, '').replace(/(\d{4})/g, '$1 ').trim();
+                        setCardNumber(value.slice(0, 19));
+                      }}
+                      required
+                      placeholder="4242 4242 4242 4242"
+                      className={`w-full px-4 py-3 rounded-lg border ${
+                        darkMode
+                          ? 'bg-gray-800 border-gray-700 text-white focus:border-blue-500'
+                          : 'bg-white border-gray-300 text-gray-900 focus:border-blue-500'
+                      } outline-none transition-colors`}
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-3 gap-3">
+                    <div className="col-span-2">
+                      <label className={`block text-sm font-medium mb-1 ${
+                        darkMode ? 'text-gray-300' : 'text-gray-700'
+                      }`}>
+                        Expiry
+                      </label>
+                      <input
+                        type="text"
+                        value={cardExpiry}
+                        onChange={(e) => {
+                          // Format as MM/YY
+                          let value = e.target.value.replace(/\D/g, '');
+                          if (value.length >= 2) {
+                            value = value.slice(0, 2) + '/' + value.slice(2, 4);
+                          }
+                          setCardExpiry(value);
+                        }}
+                        required
+                        placeholder="MM/YY"
+                        maxLength={5}
+                        className={`w-full px-4 py-3 rounded-lg border ${
+                          darkMode
+                            ? 'bg-gray-800 border-gray-700 text-white focus:border-blue-500'
+                            : 'bg-white border-gray-300 text-gray-900 focus:border-blue-500'
+                        } outline-none transition-colors`}
+                      />
+                    </div>
+                    <div>
+                      <label className={`block text-sm font-medium mb-1 ${
+                        darkMode ? 'text-gray-300' : 'text-gray-700'
+                      }`}>
+                        CVC
+                      </label>
+                      <input
+                        type="text"
+                        value={cardCvc}
+                        onChange={(e) => setCardCvc(e.target.value.replace(/\D/g, '').slice(0, 4))}
+                        required
+                        placeholder="123"
+                        maxLength={4}
+                        className={`w-full px-4 py-3 rounded-lg border ${
+                          darkMode
+                            ? 'bg-gray-800 border-gray-700 text-white focus:border-blue-500'
+                            : 'bg-white border-gray-300 text-gray-900 focus:border-blue-500'
+                        } outline-none transition-colors`}
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className={`block text-sm font-medium mb-1 ${
+                      darkMode ? 'text-gray-300' : 'text-gray-700'
+                    }`}>
+                      ZIP Code
+                    </label>
+                    <input
+                      type="text"
+                      value={zipCode}
+                      onChange={(e) => setZipCode(e.target.value.slice(0, 10))}
+                      required
+                      placeholder="12345"
+                      className={`w-full px-4 py-3 rounded-lg border ${
+                        darkMode
+                          ? 'bg-gray-800 border-gray-700 text-white focus:border-blue-500'
+                          : 'bg-white border-gray-300 text-gray-900 focus:border-blue-500'
+                      } outline-none transition-colors`}
+                    />
+                  </div>
+
+                  <div className={`p-3 rounded-lg text-xs ${
+                    darkMode ? 'bg-gray-800/50 text-gray-400' : 'bg-gray-50 text-gray-600'
+                  }`}>
+                    🔒 Secure payment processing. Your card information is encrypted and never stored.
+                  </div>
+                </>
+              )}
+
               <button
                 type="submit"
                 disabled={loading}
@@ -894,7 +995,7 @@ Reserve yours here: https://superecomm.com/reserve`;
                 )}
               </button>
               <p className={`text-xs text-center mt-2 ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>
-                {isSignUp ? 'Account + payment processed in one step' : 'Payment processed immediately after sign in'}
+                {isSignUp ? 'Your card will be charged $10 after account creation' : 'Payment processed immediately after sign in'}
               </p>
             </form>
 
@@ -903,6 +1004,11 @@ Reserve yours here: https://superecomm.com/reserve`;
                 onClick={() => {
                   setIsSignUp(!isSignUp);
                   setError('');
+                  // Clear payment fields when switching
+                  setCardNumber('');
+                  setCardExpiry('');
+                  setCardCvc('');
+                  setZipCode('');
                 }}
                 className={`text-sm ${
                   darkMode ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-700'

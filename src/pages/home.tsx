@@ -2204,7 +2204,7 @@ const SupereCommWebsite = () => {
                       : "border-blue-600 text-blue-700 hover:bg-blue-50"
                   } transition-colors`}
                 >
-                  {currentUser ? "Dashboard" : "My Account"}
+                  My Account
                 </button>
               </div>
 
@@ -2221,7 +2221,7 @@ const SupereCommWebsite = () => {
                       : "border-blue-600 text-blue-700"
                   }`}
                 >
-                  {currentUser ? "Dashboard" : "My Account"}
+                  My Account
                 </button>
                 <button
                   onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
