@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import type { FC } from "react";
-import { Menu, X, ChevronRight, ChevronDown, Zap, Brain, Plug, Shield, Database, Wallet, Coffee, Briefcase, Smartphone, Home as HomeIcon, ArrowRight, Users, Target, Network, Gauge } from "lucide-react";
+import { Menu, X, ChevronRight, ChevronDown, Zap, Brain, Plug, Shield, Database, Wallet, Coffee, Briefcase, Smartphone, Home as HomeIcon, ArrowRight, Users, Target, Network, Gauge, Loader2, CheckCircle2, AlertCircle } from "lucide-react";
 import heroOffice from "../assets/hero-office.webp";
 import meterImage from "../assets/aiWh-meter-transparent-background-new.png";
 import productImage from "../assets/plusai-product-image-3.png";
@@ -11,11 +11,12 @@ import marketingImage29 from '../assets/marketing-images/marketing-image29.jpg';
 import marketingImage27 from '../assets/marketing-images/marketing-image27.jpg';
 import marketingImage230 from '../assets/marketing-images/marketing-image230.jpg';
 import aiUtilityBillImage from '../assets/ai-utility-bill-image.png';
+import aiGridLayerDiagram from '../assets/ai-grid-layer-digram.png';
 import ReservePage from "./ReservePage";
 import DashboardPage from "./DashboardPage";
 import { auth, db } from "../config/firebase";
 import { onAuthStateChanged, signOut, type User } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, collection, addDoc, serverTimestamp } from "firebase/firestore";
 import type { UserProfile } from "../types/grid";
 
 type HomePageProps = {
@@ -2153,6 +2154,471 @@ const SupereCommWebsite = () => {
     </div>
   );
 
+  const CareersPage = () => {
+    const [hasAccount, setHasAccount] = useState<boolean | null>(null);
+    const [formData, setFormData] = useState({
+      firstName: '',
+      lastName: '',
+      email: '',
+      phone: '',
+      linkedinUrl: '',
+      twitterUrl: '',
+      instagramUrl: '',
+      position: '',
+      message: '',
+    });
+    const [loading, setLoading] = useState(false);
+    const [submitted, setSubmitted] = useState(false);
+    const [error, setError] = useState('');
+
+    // Check if user is logged in and auto-fill
+    useEffect(() => {
+      if (currentUser) {
+        setHasAccount(true);
+        // Auto-fill with user data
+        const loadUserData = async () => {
+          try {
+            const userDoc = await getDoc(doc(db, 'users', currentUser.uid));
+            if (userDoc.exists()) {
+              const userData = userDoc.data() as UserProfile;
+              setFormData(prev => ({
+                ...prev,
+                firstName: userData.displayName?.split(' ')[0] || '',
+                lastName: userData.displayName?.split(' ')[1] || '',
+                email: currentUser.email || '',
+              }));
+            } else {
+              setFormData(prev => ({
+                ...prev,
+                email: currentUser.email || '',
+              }));
+            }
+          } catch (err) {
+            console.error('Error loading user data:', err);
+          }
+        };
+        loadUserData();
+      }
+    }, [currentUser]);
+
+    const handleSubmit = async (e: React.FormEvent) => {
+      e.preventDefault();
+      setLoading(true);
+      setError('');
+
+      try {
+        // Save to Firestore
+        await addDoc(collection(db, 'career_applications'), {
+          ...formData,
+          hasAccount,
+          userId: currentUser?.uid || null,
+          gridAccountId: userProfile?.gridAccount?.displayId || null,
+          createdAt: serverTimestamp(),
+          status: 'pending',
+        });
+
+        setSubmitted(true);
+      } catch (err: any) {
+        console.error('Error submitting application:', err);
+        setError('Failed to submit application. Please try again.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+      setFormData(prev => ({
+        ...prev,
+        [e.target.name]: e.target.value
+      }));
+    };
+
+    if (submitted) {
+      return (
+        <div className="min-h-screen flex items-center justify-center px-4 py-24">
+          <div className="max-w-md w-full text-center">
+            <CheckCircle2 className={`w-20 h-20 mx-auto mb-6 ${
+              darkMode ? 'text-green-400' : 'text-green-600'
+            }`} />
+            <h1 className={`text-3xl md:text-4xl font-light mb-4 ${
+              darkMode ? 'text-white' : 'text-gray-900'
+            }`}>
+              Thank You!
+            </h1>
+            <p className={`text-lg mb-8 ${
+              darkMode ? 'text-gray-300' : 'text-gray-700'
+            }`}>
+              Your application has been submitted successfully. We'll review it and get back to you soon.
+            </p>
+            
+            {hasAccount === false && (
+              <div className={`p-6 rounded-lg border mb-6 ${
+                darkMode ? 'border-blue-500/30 bg-blue-500/10' : 'border-blue-200 bg-blue-50'
+              }`}>
+                <p className={`text-sm mb-4 ${
+                  darkMode ? 'text-blue-300' : 'text-blue-900'
+                }`}>
+                  Want to experience AI as a utility? Reserve your AI Grid Layer account now.
+                </p>
+                <button
+                  onClick={() => setCurrentPage('reserve')}
+                  className={`px-6 py-3 rounded-lg font-medium ${
+                    darkMode
+                      ? 'bg-blue-600 hover:bg-blue-500 text-white'
+                      : 'bg-blue-600 hover:bg-blue-700 text-white'
+                  }`}
+                >
+                  Reserve Your Account
+                </button>
+              </div>
+            )}
+
+            <button
+              onClick={() => setCurrentPage('home')}
+              className={`text-sm ${
+                darkMode ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'
+              }`}
+            >
+              ← Back to Home
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div className="min-h-screen px-4 sm:px-6 py-24">
+        <div className="max-w-3xl mx-auto">
+          <h1 className={`text-4xl md:text-5xl font-light mb-4 ${
+            darkMode ? 'text-white' : 'text-gray-900'
+          }`}>
+            Join Our Team
+          </h1>
+          <p className={`text-lg mb-8 ${
+            darkMode ? 'text-gray-300' : 'text-gray-700'
+          }`}>
+            Help us build the AI utility grid for everyone. We're looking for passionate people who want to shape the future of AI.
+          </p>
+
+          {/* Application Form */}
+          <form onSubmit={handleSubmit} className={`p-8 rounded-xl border ${
+            darkMode ? 'border-gray-700 bg-gray-900/50' : 'border-gray-200 bg-white'
+          }`}>
+                <h2 className={`text-2xl font-semibold mb-6 ${
+                  darkMode ? 'text-white' : 'text-gray-900'
+                }`}>
+                  Application Form
+                </h2>
+
+                {/* Account Question */}
+                <div className="mb-6">
+                  <label className={`block text-sm font-medium mb-3 ${
+                    darkMode ? 'text-gray-300' : 'text-gray-700'
+                  }`}>
+                    Do you have an AI Grid Layer account? <span className="text-red-500">*</span>
+                  </label>
+                  <div className="flex gap-4">
+                    <button
+                      type="button"
+                      onClick={() => setHasAccount(true)}
+                      className={`flex-1 px-4 py-3 rounded-lg font-medium transition-all ${
+                        hasAccount === true
+                          ? darkMode
+                            ? 'bg-green-600 text-white ring-2 ring-green-400'
+                            : 'bg-green-600 text-white ring-2 ring-green-400'
+                          : darkMode
+                          ? 'bg-gray-800 border border-gray-700 text-gray-300 hover:border-green-500'
+                          : 'bg-white border border-gray-300 text-gray-700 hover:border-green-500'
+                      }`}
+                    >
+                      Yes
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setHasAccount(false)}
+                      className={`flex-1 px-4 py-3 rounded-lg font-medium transition-all ${
+                        hasAccount === false
+                          ? darkMode
+                            ? 'bg-blue-600 text-white ring-2 ring-blue-400'
+                            : 'bg-blue-600 text-white ring-2 ring-blue-400'
+                          : darkMode
+                          ? 'bg-gray-800 border border-gray-700 text-gray-300 hover:border-blue-500'
+                          : 'bg-white border border-gray-300 text-gray-700 hover:border-blue-500'
+                      }`}
+                    >
+                      No
+                    </button>
+                  </div>
+                  
+                  {hasAccount === true && !currentUser && (
+                    <p className={`mt-3 text-sm ${
+                      darkMode ? 'text-blue-400' : 'text-blue-600'
+                    }`}>
+                      Please{' '}
+                      <button
+                        type="button"
+                        onClick={() => setCurrentPage('reserve')}
+                        className="font-semibold underline"
+                      >
+                        sign in
+                      </button>
+                      {' '}to auto-fill your information.
+                    </p>
+                  )}
+                  
+                  {hasAccount === false && (
+                    <p className={`mt-3 text-sm ${
+                      darkMode ? 'text-gray-400' : 'text-gray-600'
+                    }`}>
+                      No problem! You can{' '}
+                      <button
+                        type="button"
+                        onClick={() => setCurrentPage('reserve')}
+                        className={`font-semibold underline ${
+                          darkMode ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-700'
+                        }`}
+                      >
+                        reserve your account
+                      </button>
+                      {' '}after submitting this application.
+                    </p>
+                  )}
+                </div>
+
+                {error && (
+                  <div className={`p-4 rounded-lg border mb-6 flex items-start gap-2 ${
+                    darkMode ? 'border-red-500/30 bg-red-500/10' : 'border-red-200 bg-red-50'
+                  }`}>
+                    <AlertCircle className={`w-5 h-5 flex-shrink-0 ${
+                      darkMode ? 'text-red-400' : 'text-red-600'
+                    }`} />
+                    <span className={`text-sm ${
+                      darkMode ? 'text-red-400' : 'text-red-700'
+                    }`}>
+                      {error}
+                    </span>
+                  </div>
+                )}
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                  <div>
+                    <label className={`block text-sm font-medium mb-2 ${
+                      darkMode ? 'text-gray-300' : 'text-gray-700'
+                    }`}>
+                      First Name <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      name="firstName"
+                      value={formData.firstName}
+                      onChange={handleInputChange}
+                      required
+                      className={`w-full px-4 py-3 rounded-lg border ${
+                        darkMode
+                          ? 'bg-gray-800 border-gray-700 text-white focus:border-blue-500'
+                          : 'bg-white border-gray-300 text-gray-900 focus:border-blue-500'
+                      } outline-none transition-colors`}
+                      placeholder="John"
+                    />
+                  </div>
+
+                  <div>
+                    <label className={`block text-sm font-medium mb-2 ${
+                      darkMode ? 'text-gray-300' : 'text-gray-700'
+                    }`}>
+                      Last Name <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      name="lastName"
+                      value={formData.lastName}
+                      onChange={handleInputChange}
+                      required
+                      className={`w-full px-4 py-3 rounded-lg border ${
+                        darkMode
+                          ? 'bg-gray-800 border-gray-700 text-white focus:border-blue-500'
+                          : 'bg-white border-gray-300 text-gray-900 focus:border-blue-500'
+                      } outline-none transition-colors`}
+                      placeholder="Doe"
+                    />
+                  </div>
+                </div>
+
+                <div className="mb-6">
+                  <label className={`block text-sm font-medium mb-2 ${
+                    darkMode ? 'text-gray-300' : 'text-gray-700'
+                  }`}>
+                    Email <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    required
+                    className={`w-full px-4 py-3 rounded-lg border ${
+                      darkMode
+                        ? 'bg-gray-800 border-gray-700 text-white focus:border-blue-500'
+                        : 'bg-white border-gray-300 text-gray-900 focus:border-blue-500'
+                    } outline-none transition-colors`}
+                    placeholder="you@example.com"
+                  />
+                </div>
+
+                <div className="mb-6">
+                  <label className={`block text-sm font-medium mb-2 ${
+                    darkMode ? 'text-gray-300' : 'text-gray-700'
+                  }`}>
+                    Phone Number
+                  </label>
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    className={`w-full px-4 py-3 rounded-lg border ${
+                      darkMode
+                        ? 'bg-gray-800 border-gray-700 text-white focus:border-blue-500'
+                        : 'bg-white border-gray-300 text-gray-900 focus:border-blue-500'
+                    } outline-none transition-colors`}
+                    placeholder="(123) 456-7890"
+                  />
+                </div>
+
+                <div className="mb-6">
+                  <label className={`block text-sm font-medium mb-2 ${
+                    darkMode ? 'text-gray-300' : 'text-gray-700'
+                  }`}>
+                    LinkedIn URL
+                  </label>
+                  <input
+                    type="url"
+                    name="linkedinUrl"
+                    value={formData.linkedinUrl}
+                    onChange={handleInputChange}
+                    className={`w-full px-4 py-3 rounded-lg border ${
+                      darkMode
+                        ? 'bg-gray-800 border-gray-700 text-white focus:border-blue-500'
+                        : 'bg-white border-gray-300 text-gray-900 focus:border-blue-500'
+                    } outline-none transition-colors`}
+                    placeholder="https://linkedin.com/in/yourprofile"
+                  />
+                </div>
+
+                <div className="mb-6">
+                  <label className={`block text-sm font-medium mb-2 ${
+                    darkMode ? 'text-gray-300' : 'text-gray-700'
+                  }`}>
+                    Twitter/X URL
+                  </label>
+                  <input
+                    type="url"
+                    name="twitterUrl"
+                    value={formData.twitterUrl}
+                    onChange={handleInputChange}
+                    className={`w-full px-4 py-3 rounded-lg border ${
+                      darkMode
+                        ? 'bg-gray-800 border-gray-700 text-white focus:border-blue-500'
+                        : 'bg-white border-gray-300 text-gray-900 focus:border-blue-500'
+                    } outline-none transition-colors`}
+                    placeholder="https://twitter.com/yourhandle"
+                  />
+                </div>
+
+                <div className="mb-6">
+                  <label className={`block text-sm font-medium mb-2 ${
+                    darkMode ? 'text-gray-300' : 'text-gray-700'
+                  }`}>
+                    Instagram URL
+                  </label>
+                  <input
+                    type="url"
+                    name="instagramUrl"
+                    value={formData.instagramUrl}
+                    onChange={handleInputChange}
+                    className={`w-full px-4 py-3 rounded-lg border ${
+                      darkMode
+                        ? 'bg-gray-800 border-gray-700 text-white focus:border-blue-500'
+                        : 'bg-white border-gray-300 text-gray-900 focus:border-blue-500'
+                    } outline-none transition-colors`}
+                    placeholder="https://instagram.com/yourhandle"
+                  />
+                </div>
+
+                <div className="mb-6">
+                  <label className={`block text-sm font-medium mb-2 ${
+                    darkMode ? 'text-gray-300' : 'text-gray-700'
+                  }`}>
+                    Position of Interest <span className="text-red-500">*</span>
+                  </label>
+                  <select
+                    name="position"
+                    value={formData.position}
+                    onChange={handleInputChange}
+                    required
+                    className={`w-full px-4 py-3 rounded-lg border ${
+                      darkMode
+                        ? 'bg-gray-800 border-gray-700 text-white focus:border-blue-500'
+                        : 'bg-white border-gray-300 text-gray-900 focus:border-blue-500'
+                    } outline-none transition-colors`}
+                  >
+                    <option value="">Select a position</option>
+                    <option value="software-engineer">Software Engineer</option>
+                    <option value="ai-ml-engineer">AI/ML Engineer</option>
+                    <option value="product-manager">Product Manager</option>
+                    <option value="designer">Designer</option>
+                    <option value="marketing">Marketing</option>
+                    <option value="sales">Sales</option>
+                    <option value="operations">Operations</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+
+                <div className="mb-6">
+                  <label className={`block text-sm font-medium mb-2 ${
+                    darkMode ? 'text-gray-300' : 'text-gray-700'
+                  }`}>
+                    Why do you want to join Super eComm? <span className="text-red-500">*</span>
+                  </label>
+                  <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    required
+                    rows={5}
+                    className={`w-full px-4 py-3 rounded-lg border resize-none ${
+                      darkMode
+                        ? 'bg-gray-800 border-gray-700 text-white focus:border-blue-500'
+                        : 'bg-white border-gray-300 text-gray-900 focus:border-blue-500'
+                    } outline-none transition-colors`}
+                    placeholder="Tell us about yourself and why you're excited about building the AI utility grid..."
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={loading || hasAccount === null}
+                  className={`w-full px-6 py-4 rounded-lg font-semibold text-lg transition-all ${
+                    darkMode
+                      ? 'bg-blue-600 hover:bg-blue-500 text-white'
+                      : 'bg-blue-600 hover:bg-blue-700 text-white'
+                  } disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2`}
+                >
+                  {loading ? (
+                    <>
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                      Submitting...
+                    </>
+                  ) : (
+                    'Submit Application'
+                  )}
+                </button>
+              </form>
+        </div>
+      </div>
+    );
+  };
+
   const HowItWorksPage = () => {
     const [scrollY, setScrollY] = useState(0);
 
@@ -2165,7 +2631,7 @@ const SupereCommWebsite = () => {
     return (
     <div className="min-h-screen">
       {/* Hero Section with Parallax Image */}
-      <div className="relative h-[60vh] sm:h-[70vh] flex items-center justify-center overflow-hidden">
+      <div className="relative h-[60vh] sm:h-[70vh] -mt-16 md:-mt-20 flex items-center justify-center overflow-hidden">
         <img
           src={marketingImage230}
           alt="Don't Worry Just Prompt"
@@ -2265,6 +2731,19 @@ const SupereCommWebsite = () => {
             <span className={`text-xl font-semibold ${darkMode ? "text-blue-300" : "text-blue-900"}`}>
               = aiWh
             </span>
+          </div>
+        </div>
+
+        {/* AI Grid Layer Diagram */}
+        <div className="mb-12">
+          <div className={`rounded-xl overflow-hidden border ${
+            darkMode ? 'border-gray-700' : 'border-gray-200'
+          }`}>
+            <img
+              src={aiGridLayerDiagram}
+              alt="AI Grid Layer Architecture"
+              className="w-full h-auto"
+            />
           </div>
         </div>
 
@@ -2922,10 +3401,10 @@ const SupereCommWebsite = () => {
           {currentPage === "founders-letters" && <FoundersLettersPage />}
           {currentPage === "plans-pricing" && <PlansAndBillingPage />}
           {currentPage === "how-it-works" && <HowItWorksPage />}
+          {currentPage === "careers" && <CareersPage />}
           {currentPage === "account" && <MyAccountPage />}
 
-          {(currentPage === "careers" ||
-            currentPage === "support" ||
+          {(currentPage === "support" ||
             currentPage === "contact") && (
             <div className="min-h-screen px-6 py-24">
               <div className="max-w-4xl mx-auto text-center">

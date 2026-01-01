@@ -30,6 +30,7 @@ export interface UserProfile {
   email: string;
   displayName?: string;
   photoURL?: string;
+  phoneNumber?: string;
   createdAt: Date;
   gridAccount?: GridAccount;
   reservation?: Reservation;
