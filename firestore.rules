@@ -9,7 +9,10 @@ service cloud.firestore {
       allow read: if request.auth != null && request.auth.uid == userId;
       
       // Allow users to create their own profile on signup
-      allow create: if request.auth != null && request.auth.uid == userId;
+      // Important: Allow creation if the auth UID matches the document ID
+      allow create: if request.auth != null && 
+                       request.auth.uid == userId &&
+                       request.resource.data.uid == request.auth.uid;
       
       // Allow users to update their own data
       allow update: if request.auth != null && request.auth.uid == userId;
@@ -18,7 +21,7 @@ service cloud.firestore {
       allow delete: if false;
     }
     
-    // Grid Accounts collection
+    // Grid Accounts collection (not used yet, but keeping for later)
     match /grid_accounts/{gridAccountId} {
       // Allow users to read their own grid account
       allow read: if request.auth != null && 
@@ -33,7 +36,7 @@ service cloud.firestore {
       allow delete: if false;
     }
     
-    // Counters collection
+    // Counters collection (not used yet, but keeping for later)
     match /counters/{counterId} {
       // Only allow read/write by authenticated users (for reservation system)
       // In production, this should be restricted to backend/cloud functions only
