@@ -2,6 +2,8 @@
 import { initializeApp, type FirebaseApp } from "firebase/app";
 import { getAnalytics, type Analytics } from "firebase/analytics";
 import { getMessaging, getToken, onMessage, type Messaging } from "firebase/messaging";
+import { getAuth, type Auth } from "firebase/auth";
+import { getFirestore, type Firestore } from "firebase/firestore";
 
 // Firebase configuration
 const firebaseConfig = {
@@ -18,9 +20,15 @@ const firebaseConfig = {
 let app: FirebaseApp;
 let analytics: Analytics | null = null;
 let messaging: Messaging | null = null;
+let auth: Auth;
+let db: Firestore;
 
 try {
   app = initializeApp(firebaseConfig);
+  
+  // Initialize Auth and Firestore
+  auth = getAuth(app);
+  db = getFirestore(app);
   
   // Initialize Analytics (only in browser)
   if (typeof window !== 'undefined') {
@@ -105,6 +113,6 @@ export const onMessageListener = (): Promise<any> => {
 };
 
 // Export Firebase instances
-export { app, analytics, messaging };
+export { app, analytics, messaging, auth, db };
 export default app;
 

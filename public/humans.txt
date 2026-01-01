@@ -1,0 +1,61 @@
+/* TEAM */
+
+Founder & CEO:
+  Role: Founder & Chief Executive Officer
+  From: Mobile, Alabama, USA
+  Location: Austin, Texas, USA
+
+/* THANKS */
+
+Founder Institute Austin 2025 Cohort
+Mentors, Advisors, and Early Supporters
+The AI and Open Source Community
+
+/* SITE */
+
+Last update: 2025/01/01
+Standards: HTML5, CSS3, JavaScript ES6+
+Components: React, TypeScript, Vite, Tailwind CSS
+Software: VS Code, Cursor AI, Firebase
+Hosting: Firebase Hosting
+Repository: GitHub
+
+/* TECHNOLOGY */
+
+Framework: React 18 + TypeScript
+Build Tool: Vite
+Styling: Tailwind CSS
+PWA: Workbox Service Worker
+Backend: Firebase (Auth, Hosting, Cloud Messaging)
+AI Models: 1000+ and counting
+
+/* COMPANY */
+
+Name: Super eComm Inc
+Founded: August 11, 2025
+Location: Austin, Texas, USA
+Mission: Building the world's AI Utility Grid
+Vision: Making artificial intelligence accessible like electricity
+Product: +AI (AI Utility Account)
+Innovation: aiWh (AI Watt-Hour) metering standard
+
+/* CONTACT */
+
+Website: https://superecomm.com
+Twitter: https://twitter.com/plusailabs
+LinkedIn: https://linkedin.com/company/superecomm
+Email: Coming soon
+
+/* LEGAL */
+
+Copyright © 2025 Super eComm Inc. All rights reserved.
+Entity Type: Texas Corporation
+
+                              _    ___
+                             / \  |_ _|
+                            / _ \  | |
+                           / ___ \ | |
+                          /_/   \_\___|
+
+              AI Utility Grid — On Tap, Metered by aiWh
+

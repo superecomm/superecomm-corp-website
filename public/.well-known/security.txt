@@ -1,0 +1,33 @@
+# Security Policy for Super eComm Inc
+# Our security contact for vulnerability disclosures
+
+Contact: security@superecomm.com
+Expires: 2026-12-31T23:59:59.000Z
+Preferred-Languages: en
+Canonical: https://superecomm.com/.well-known/security.txt
+
+# Policy
+Policy: https://superecomm.com/security-policy
+
+# Acknowledgments
+Acknowledgments: https://superecomm.com/security-acknowledgments
+
+# Please report security vulnerabilities to the email above
+# We appreciate responsible disclosure and will respond within 48 hours
+# We do not currently have a bug bounty program but may reward significant findings
+
+# Scope
+# - Main website: https://superecomm.com
+# - +AI App (when launched)
+# - API endpoints
+# - Authentication systems
+
+# Out of Scope
+# - Social engineering attacks
+# - Physical security
+# - Denial of service (DoS) attacks
+# - Spam or social media account takeovers
+
+# Hiring
+Hiring: https://superecomm.com/careers
+

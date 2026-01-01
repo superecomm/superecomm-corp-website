@@ -10,6 +10,7 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['vite.svg', '**/*.{png,jpg,jpeg,webp,svg,ico}'],
       workbox: {
+        maximumFileSizeToCacheInBytes: 20 * 1024 * 1024, // 20 MB
         globPatterns: ['**/*.{js,css,html,ico,png,jpg,jpeg,webp,svg,woff,woff2}'],
         runtimeCaching: [
           {

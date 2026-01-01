@@ -1,20 +1,33 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { FC } from "react";
-import { Menu, X, ChevronRight, Zap, Brain, Plug, Shield, Database, Wallet } from "lucide-react";
+import { Menu, X, ChevronRight, ChevronDown, Zap, Brain, Plug, Shield, Database, Wallet, Coffee, Briefcase, Smartphone, Home as HomeIcon } from "lucide-react";
 import heroOffice from "../assets/hero-office.webp";
 import meterImage from "../assets/aiWh-meter-transparent-background-new.png";
-import productImage from "../assets/plusai-product-image-1.png";
+import productImage from "../assets/plusai-product-image-3.png";
+import modelSelectorImage from "../assets/plusai-product-image-4.png";
+import marketingImage24 from '../assets/marketing-images/marketing-image24.jpg';
+import marketingImage34 from '../assets/marketing-images/marketing-image34.jpg';
+import marketingImage29 from '../assets/marketing-images/marketing-image29.jpg';
+import marketingImage27 from '../assets/marketing-images/marketing-image27.jpg';
+import ReservePage from "./ReservePage";
+import DashboardPage from "./DashboardPage";
+import { auth } from "../config/firebase";
+import { onAuthStateChanged, type User } from "firebase/auth";
 
 type HomePageProps = {
   darkMode: boolean;
   onJoinEarlyAccess: () => void;
   onGoToSubsidiaries: () => void;
+  openFaq: number | null;
+  toggleFaq: (index: number) => void;
 };
 
 const HomePage: FC<HomePageProps> = ({
   darkMode,
   onJoinEarlyAccess,
   onGoToSubsidiaries,
+  openFaq,
+  toggleFaq,
 }) => (
   <div className="min-h-screen">
     {/* Hero Section */}
@@ -331,6 +344,106 @@ const HomePage: FC<HomePageProps> = ({
       </div>
     </section>
 
+    {/* A Day In Life on the AI Grid Layer */}
+    <section className="py-12 border-t border-gray-200 dark:border-gray-800 relative z-50">
+      <div className="max-w-5xl mx-auto px-6">
+        <h2 className={`text-2xl md:text-3xl font-light mb-8 text-center ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+          A Day In Life on the <span className="whitespace-nowrap">AI Grid Layer</span>
+        </h2>
+
+        {/* Compact 2x2 Grid */}
+        <div className="grid grid-cols-2 gap-6">
+          
+          {/* 6:30 AM */}
+          <div className="space-y-2">
+            <img 
+              src={marketingImage24}
+              alt="Morning AI assistant"
+              className="w-full h-[140px] object-cover rounded-lg"
+            />
+            <div className="flex items-center gap-2">
+              <Coffee className={`w-4 h-4 ${darkMode ? 'text-orange-400' : 'text-orange-600'}`} />
+              <h3 className={`text-lg font-semibold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                6:30 AM
+              </h3>
+            </div>
+            <p className={`text-xs leading-relaxed ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+              AI prepares your day while you sleep
+            </p>
+          </div>
+
+          {/* 9:00 AM */}
+          <div className="space-y-2">
+            <img 
+              src={marketingImage34}
+              alt="Working with AI"
+              className="w-full h-[140px] object-cover rounded-lg"
+            />
+            <div className="flex items-center gap-2">
+              <Briefcase className={`w-4 h-4 ${darkMode ? 'text-blue-400' : 'text-blue-600'}`} />
+              <h3 className={`text-lg font-semibold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                9:00 AM
+              </h3>
+            </div>
+            <p className={`text-xs leading-relaxed ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+              1000+ models through your tools
+            </p>
+          </div>
+
+          {/* 3:00 PM */}
+          <div className="space-y-2">
+            <img 
+              src={marketingImage29}
+              alt="AI on mobile"
+              className="w-full h-[140px] object-cover rounded-lg"
+            />
+            <div className="flex items-center gap-2">
+              <Smartphone className={`w-4 h-4 ${darkMode ? 'text-purple-400' : 'text-purple-600'}`} />
+              <h3 className={`text-lg font-semibold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                3:00 PM
+              </h3>
+            </div>
+            <p className={`text-xs leading-relaxed ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+              AI follows you everywhere
+            </p>
+          </div>
+
+          {/* 7:00 PM */}
+          <div className="space-y-2">
+            <img 
+              src={marketingImage27}
+              alt="AI at home"
+              className="w-full h-[140px] object-cover rounded-lg"
+            />
+            <div className="flex items-center gap-2">
+              <HomeIcon className={`w-4 h-4 ${darkMode ? 'text-green-400' : 'text-green-600'}`} />
+              <h3 className={`text-lg font-semibold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                7:00 PM
+              </h3>
+            </div>
+            <p className={`text-xs leading-relaxed ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+              Family shares, pay per aiWh
+            </p>
+          </div>
+
+        </div>
+
+        {/* Single CTA */}
+        <div className="text-center mt-8">
+          <button
+            onClick={onJoinEarlyAccess}
+            className={`px-8 py-2.5 rounded-lg text-sm font-semibold transition-all hover:scale-105 ${
+              darkMode
+                ? 'bg-blue-600 hover:bg-blue-500 text-white'
+                : 'bg-blue-600 hover:bg-blue-700 text-white shadow-lg'
+            }`}
+          >
+            Reserve Your <span className="whitespace-nowrap">AI Grid Layer</span> Account
+          </button>
+        </div>
+      </div>
+    </section>
+
     {/* What You Get Section */}
     <section className="px-6 py-24 border-t border-gray-200 dark:border-gray-800 relative z-50">
       <div className="max-w-7xl mx-auto">
@@ -348,9 +461,7 @@ const HomePage: FC<HomePageProps> = ({
                   <img
                     src={productImage}
                     alt="+AI App Interface showing unified AI access"
-                    className={`w-full h-auto rounded-lg shadow-2xl relative z-50 ${
-                      darkMode ? "border border-gray-700" : "border border-gray-200"
-                    }`}
+                    className="w-full h-auto relative z-50"
                   />
                 </div>
 
@@ -567,6 +678,111 @@ const HomePage: FC<HomePageProps> = ({
       </div>
     </section>
 
+    {/* Model Selection Section */}
+    <section className="px-6 py-24 border-t border-gray-200 dark:border-gray-800 relative z-50">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-12">
+          <h2
+            className={`text-3xl md:text-4xl font-light mb-4 ${
+              darkMode ? "text-white" : "text-gray-900"
+            }`}
+          >
+            1000+ AI Models at Your Fingertips
+          </h2>
+          <p
+            className={`text-xl ${
+              darkMode ? "text-gray-300" : "text-gray-700"
+            }`}
+          >
+            Choose manually or let the AI Grid route intelligently
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-12 items-center mb-12">
+          {/* Model Selector Image */}
+          <div className="order-2 md:order-1">
+            <img
+              src={modelSelectorImage}
+              alt="AI Model Selector showing 1000+ available models"
+              className="w-full h-auto relative z-50"
+            />
+          </div>
+
+          {/* Explanation */}
+          <div className="order-1 md:order-2">
+            <div className="space-y-8">
+              {/* Manual Selection */}
+              <div>
+                <h3
+                  className={`text-2xl font-semibold mb-3 ${
+                    darkMode ? "text-white" : "text-gray-900"
+                  }`}
+                >
+                  Manual Selection
+                </h3>
+                <p
+                  className={`text-lg mb-3 ${
+                    darkMode ? "text-gray-300" : "text-gray-700"
+                  }`}
+                >
+                  You choose the model. Full control.
+                </p>
+                <p
+                  className={`${
+                    darkMode ? "text-gray-400" : "text-gray-600"
+                  }`}
+                >
+                  Pick from ChatGPT, Claude, Gemini, Llama, Grok, and 1000+ more models. Switch between them instantly. No new subscriptions. No new logins. One interface. One bill.
+                </p>
+              </div>
+
+              {/* Intelligent Routing */}
+              <div>
+                <h3
+                  className={`text-2xl font-semibold mb-3 ${
+                    darkMode ? "text-white" : "text-gray-900"
+                  }`}
+                >
+                  Intelligent Routing
+                </h3>
+                <p
+                  className={`text-lg mb-3 ${
+                    darkMode ? "text-gray-300" : "text-gray-700"
+                  }`}
+                >
+                  The AI Grid chooses for you. Optimal performance.
+                </p>
+                <p
+                  className={`${
+                    darkMode ? "text-gray-400" : "text-gray-600"
+                  }`}
+                >
+                  Like Cursor, the system analyzes your task and automatically routes it to the most efficient model — balancing speed, cost, and quality. You get the best result without thinking about it.
+                </p>
+              </div>
+
+              {/* aiWh Metering */}
+              <div
+                className={`p-4 rounded-lg border-l-4 ${
+                  darkMode
+                    ? "border-blue-500 bg-gray-900/50"
+                    : "border-blue-600 bg-blue-50"
+                }`}
+              >
+                <p
+                  className={`text-sm font-medium ${
+                    darkMode ? "text-blue-400" : "text-blue-600"
+                  }`}
+                >
+                  <strong>aiWh Metering:</strong> Whether you choose manually or let the grid route automatically, every task is metered in aiWh — so you only pay for the intelligence you actually use.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     {/* Products Section */}
     <section className="px-6 py-24 border-t border-gray-200 dark:border-gray-800">
       <div className="max-w-4xl mx-auto">
@@ -628,6 +844,849 @@ const HomePage: FC<HomePageProps> = ({
         </div>
       </div>
     </section>
+
+    {/* FAQ Section */}
+    <section className="px-6 py-24 border-t border-gray-200 dark:border-gray-800 relative z-50">
+      <div className="max-w-4xl mx-auto">
+        <h2
+          className={`text-3xl md:text-4xl font-light mb-4 text-center ${
+            darkMode ? "text-white" : "text-gray-900"
+          }`}
+        >
+          FAQ
+        </h2>
+        
+        <div className="mt-12 space-y-4">
+          {/* FAQ 1 */}
+          <div
+            className={`border rounded-lg overflow-hidden ${
+              darkMode ? "border-gray-700" : "border-gray-200"
+            }`}
+          >
+            <button
+              onClick={() => toggleFaq(0)}
+              className={`w-full px-6 py-4 flex items-center justify-between text-left transition-colors ${
+                darkMode
+                  ? "hover:bg-gray-800 bg-gray-900"
+                  : "hover:bg-gray-50 bg-white"
+              }`}
+            >
+              <h3
+                className={`text-lg font-semibold ${
+                  darkMode ? "text-white" : "text-gray-900"
+                }`}
+              >
+                What is aiW and aiWh?
+              </h3>
+              <ChevronDown
+                className={`w-5 h-5 transition-transform ${
+                  openFaq === 0 ? "rotate-180" : ""
+                } ${darkMode ? "text-gray-400" : "text-gray-600"}`}
+              />
+            </button>
+            {openFaq === 0 && (
+              <div
+                className={`px-6 py-4 border-t ${
+                  darkMode
+                    ? "border-gray-700 bg-gray-900/50"
+                    : "border-gray-200 bg-gray-50"
+                }`}
+              >
+                <p
+                  className={`mb-4 ${
+                    darkMode ? "text-gray-300" : "text-gray-700"
+                  }`}
+                >
+                  <strong className={darkMode ? "text-white" : "text-gray-900"}>aiW (Artificial Intelligence Watt)</strong> is a unit that measures computational work performed by AI — similar to how watts measure electrical power.
+                </p>
+                <p
+                  className={`mb-4 ${
+                    darkMode ? "text-gray-300" : "text-gray-700"
+                  }`}
+                >
+                  <strong className={darkMode ? "text-white" : "text-gray-900"}>aiWh (Artificial Intelligence Watt-Hour)</strong> measures AI power consumption over time — similar to kWh in electricity.
+                </p>
+                <p
+                  className={`font-medium ${
+                    darkMode ? "text-blue-400" : "text-blue-600"
+                  }`}
+                >
+                  In simple terms: aiWh tracks how much intelligence you use — like a power meter for AI.
+                </p>
+              </div>
+            )}
+          </div>
+
+          {/* FAQ 2 */}
+          <div
+            className={`border rounded-lg overflow-hidden ${
+              darkMode ? "border-gray-700" : "border-gray-200"
+            }`}
+          >
+            <button
+              onClick={() => toggleFaq(1)}
+              className={`w-full px-6 py-4 flex items-center justify-between text-left transition-colors ${
+                darkMode
+                  ? "hover:bg-gray-800 bg-gray-900"
+                  : "hover:bg-gray-50 bg-white"
+              }`}
+            >
+              <h3
+                className={`text-lg font-semibold ${
+                  darkMode ? "text-white" : "text-gray-900"
+                }`}
+              >
+                What is the AI Grid Layer?
+              </h3>
+              <ChevronDown
+                className={`w-5 h-5 transition-transform ${
+                  openFaq === 1 ? "rotate-180" : ""
+                } ${darkMode ? "text-gray-400" : "text-gray-600"}`}
+              />
+            </button>
+            {openFaq === 1 && (
+              <div
+                className={`px-6 py-4 border-t ${
+                  darkMode
+                    ? "border-gray-700 bg-gray-900/50"
+                    : "border-gray-200 bg-gray-50"
+                }`}
+              >
+                <p
+                  className={`mb-4 ${
+                    darkMode ? "text-gray-300" : "text-gray-700"
+                  }`}
+                >
+                  The AI Grid Layer is the utility infrastructure that routes, meters, and distributes AI computation across multiple models and systems.
+                </p>
+                <p
+                  className={`mb-4 font-medium ${
+                    darkMode ? "text-white" : "text-gray-900"
+                  }`}
+                >
+                  It acts like the electrical grid — but for intelligence.
+                </p>
+                <p
+                  className={`mb-2 ${
+                    darkMode ? "text-gray-300" : "text-gray-700"
+                  }`}
+                >
+                  Instead of subscribing to several AI platforms separately, the AI Grid lets you:
+                </p>
+                <ul
+                  className={`list-disc list-inside space-y-1 ml-4 ${
+                    darkMode ? "text-gray-300" : "text-gray-700"
+                  }`}
+                >
+                  <li>access many models through one interface</li>
+                  <li>route tasks intelligently to the best model</li>
+                  <li>meter usage like electricity</li>
+                  <li>receive one unified bill instead of many</li>
+                </ul>
+              </div>
+            )}
+          </div>
+
+          {/* FAQ 3 */}
+          <div
+            className={`border rounded-lg overflow-hidden ${
+              darkMode ? "border-gray-700" : "border-gray-200"
+            }`}
+          >
+            <button
+              onClick={() => toggleFaq(2)}
+              className={`w-full px-6 py-4 flex items-center justify-between text-left transition-colors ${
+                darkMode
+                  ? "hover:bg-gray-800 bg-gray-900"
+                  : "hover:bg-gray-50 bg-white"
+              }`}
+            >
+              <h3
+                className={`text-lg font-semibold ${
+                  darkMode ? "text-white" : "text-gray-900"
+                }`}
+              >
+                What does your company do?
+              </h3>
+              <ChevronDown
+                className={`w-5 h-5 transition-transform ${
+                  openFaq === 2 ? "rotate-180" : ""
+                } ${darkMode ? "text-gray-400" : "text-gray-600"}`}
+              />
+            </button>
+            {openFaq === 2 && (
+              <div
+                className={`px-6 py-4 border-t ${
+                  darkMode
+                    ? "border-gray-700 bg-gray-900/50"
+                    : "border-gray-200 bg-gray-50"
+                }`}
+              >
+                <p
+                  className={` ${
+                    darkMode ? "text-gray-300" : "text-gray-700"
+                  }`}
+                >
+                  Super eComm is building the world's AI Utility Grid, providing computational intelligence on tap so anyone can access and run 1,000+ AI models in their pocket — instantly and affordably.
+                </p>
+              </div>
+            )}
+          </div>
+
+          {/* FAQ 4 */}
+          <div
+            className={`border rounded-lg overflow-hidden ${
+              darkMode ? "border-gray-700" : "border-gray-200"
+            }`}
+          >
+            <button
+              onClick={() => toggleFaq(3)}
+              className={`w-full px-6 py-4 flex items-center justify-between text-left transition-colors ${
+                darkMode
+                  ? "hover:bg-gray-800 bg-gray-900"
+                  : "hover:bg-gray-50 bg-white"
+              }`}
+            >
+              <h3
+                className={`text-lg font-semibold ${
+                  darkMode ? "text-white" : "text-gray-900"
+                }`}
+              >
+                How big is the market?
+              </h3>
+              <ChevronDown
+                className={`w-5 h-5 transition-transform ${
+                  openFaq === 3 ? "rotate-180" : ""
+                } ${darkMode ? "text-gray-400" : "text-gray-600"}`}
+              />
+            </button>
+            {openFaq === 3 && (
+              <div
+                className={`px-6 py-4 border-t ${
+                  darkMode
+                    ? "border-gray-700 bg-gray-900/50"
+                    : "border-gray-200 bg-gray-50"
+                }`}
+              >
+                <p
+                  className={` ${
+                    darkMode ? "text-gray-300" : "text-gray-700"
+                  }`}
+                >
+                  The global artificial intelligence market is projected to exceed <strong className={darkMode ? "text-white" : "text-gray-900"}>$1.8 trillion by 2030</strong>, driven by exponential growth in consumer AI demand, distributed computation, and intelligent infrastructure adoption across every industry.
+                </p>
+              </div>
+            )}
+          </div>
+
+          {/* FAQ 5 */}
+          <div
+            className={`border rounded-lg overflow-hidden ${
+              darkMode ? "border-gray-700" : "border-gray-200"
+            }`}
+          >
+            <button
+              onClick={() => toggleFaq(4)}
+              className={`w-full px-6 py-4 flex items-center justify-between text-left transition-colors ${
+                darkMode
+                  ? "hover:bg-gray-800 bg-gray-900"
+                  : "hover:bg-gray-50 bg-white"
+              }`}
+            >
+              <h3
+                className={`text-lg font-semibold ${
+                  darkMode ? "text-white" : "text-gray-900"
+                }`}
+              >
+                What makes Super eComm unique?
+              </h3>
+              <ChevronDown
+                className={`w-5 h-5 transition-transform ${
+                  openFaq === 4 ? "rotate-180" : ""
+                } ${darkMode ? "text-gray-400" : "text-gray-600"}`}
+              />
+            </button>
+            {openFaq === 4 && (
+              <div
+                className={`px-6 py-4 border-t ${
+                  darkMode
+                    ? "border-gray-700 bg-gray-900/50"
+                    : "border-gray-200 bg-gray-50"
+                }`}
+              >
+                <p
+                  className={`mb-4 ${
+                    darkMode ? "text-gray-300" : "text-gray-700"
+                  }`}
+                >
+                  We're not building another AI app.
+                </p>
+                <p
+                  className={`mb-4 ${
+                    darkMode ? "text-gray-300" : "text-gray-700"
+                  }`}
+                >
+                  We are developing <strong className={darkMode ? "text-white" : "text-gray-900"}>AI as a utility</strong> — complete with metering, billing, and distribution, similar to electricity or the internet.
+                </p>
+                <p
+                  className={`font-medium ${
+                    darkMode ? "text-blue-400" : "text-blue-600"
+                  }`}
+                >
+                  One grid. One meter. One bill.<br />
+                  Access to intelligence becomes a public utility.
+                </p>
+              </div>
+            )}
+          </div>
+
+          {/* FAQ 6 */}
+          <div
+            className={`border rounded-lg overflow-hidden ${
+              darkMode ? "border-gray-700" : "border-gray-200"
+            }`}
+          >
+            <button
+              onClick={() => toggleFaq(5)}
+              className={`w-full px-6 py-4 flex items-center justify-between text-left transition-colors ${
+                darkMode
+                  ? "hover:bg-gray-800 bg-gray-900"
+                  : "hover:bg-gray-50 bg-white"
+              }`}
+            >
+              <h3
+                className={`text-lg font-semibold ${
+                  darkMode ? "text-white" : "text-gray-900"
+                }`}
+              >
+                Where are you today?
+              </h3>
+              <ChevronDown
+                className={`w-5 h-5 transition-transform ${
+                  openFaq === 5 ? "rotate-180" : ""
+                } ${darkMode ? "text-gray-400" : "text-gray-600"}`}
+              />
+            </button>
+            {openFaq === 5 && (
+              <div
+                className={`px-6 py-4 border-t ${
+                  darkMode
+                    ? "border-gray-700 bg-gray-900/50"
+                    : "border-gray-200 bg-gray-50"
+                }`}
+              >
+                <p
+                  className={`mb-4 ${
+                    darkMode ? "text-gray-300" : "text-gray-700"
+                  }`}
+                >
+                  We are building the core aiWh metering architecture, developing multi-model orchestration, and designing the +AI interface that brings "1,000 AI models in your pocket" to everyday people and businesses.
+                </p>
+                <p
+                  className={`font-medium ${
+                    darkMode ? "text-blue-400" : "text-blue-600"
+                  }`}
+                >
+                  Early access is coming soon.
+                </p>
+              </div>
+            )}
+          </div>
+
+          {/* FAQ 7 */}
+          <div
+            className={`border rounded-lg overflow-hidden ${
+              darkMode ? "border-gray-700" : "border-gray-200"
+            }`}
+          >
+            <button
+              onClick={() => toggleFaq(6)}
+              className={`w-full px-6 py-4 flex items-center justify-between text-left transition-colors ${
+                darkMode
+                  ? "hover:bg-gray-800 bg-gray-900"
+                  : "hover:bg-gray-50 bg-white"
+              }`}
+            >
+              <h3
+                className={`text-lg font-semibold ${
+                  darkMode ? "text-white" : "text-gray-900"
+                }`}
+              >
+                Are you raising capital?
+              </h3>
+              <ChevronDown
+                className={`w-5 h-5 transition-transform ${
+                  openFaq === 6 ? "rotate-180" : ""
+                } ${darkMode ? "text-gray-400" : "text-gray-600"}`}
+              />
+            </button>
+            {openFaq === 6 && (
+              <div
+                className={`px-6 py-4 border-t ${
+                  darkMode
+                    ? "border-gray-700 bg-gray-900/50"
+                    : "border-gray-200 bg-gray-50"
+                }`}
+              >
+                <p
+                  className={` ${
+                    darkMode ? "text-gray-300" : "text-gray-700"
+                  }`}
+                >
+                  Super eComm is raising <strong className={darkMode ? "text-white" : "text-gray-900"}>$___</strong> to scale engineering, finalize distributed metering infrastructure, and launch early access to the AI Utility Grid.
+                </p>
+                <p
+                  className={`text-sm mt-2 ${
+                    darkMode ? "text-gray-500" : "text-gray-500"
+                  }`}
+                >
+                  (Optional — fill in amount when ready.)
+                </p>
+              </div>
+            )}
+          </div>
+
+          {/* FAQ 8 */}
+          <div
+            className={`border rounded-lg overflow-hidden ${
+              darkMode ? "border-gray-700" : "border-gray-200"
+            }`}
+          >
+            <button
+              onClick={() => toggleFaq(7)}
+              className={`w-full px-6 py-4 flex items-center justify-between text-left transition-colors ${
+                darkMode
+                  ? "hover:bg-gray-800 bg-gray-900"
+                  : "hover:bg-gray-50 bg-white"
+              }`}
+            >
+              <h3
+                className={`text-lg font-semibold ${
+                  darkMode ? "text-white" : "text-gray-900"
+                }`}
+              >
+                What market are you in?
+              </h3>
+              <ChevronDown
+                className={`w-5 h-5 transition-transform ${
+                  openFaq === 7 ? "rotate-180" : ""
+                } ${darkMode ? "text-gray-400" : "text-gray-600"}`}
+              />
+            </button>
+            {openFaq === 7 && (
+              <div
+                className={`px-6 py-4 border-t ${
+                  darkMode
+                    ? "border-gray-700 bg-gray-900/50"
+                    : "border-gray-200 bg-gray-50"
+                }`}
+              >
+                <p
+                  className={`mb-4 ${
+                    darkMode ? "text-gray-300" : "text-gray-700"
+                  }`}
+                >
+                  Super eComm operates in the <strong className={darkMode ? "text-white" : "text-gray-900"}>AI Infrastructure & Utility Market</strong>, specifically the emerging category of AI as a Utility — where artificial intelligence is delivered like electricity or internet access.
+                </p>
+                <p
+                  className={`mb-2 font-medium ${
+                    darkMode ? "text-white" : "text-gray-900"
+                  }`}
+                >
+                  Not SaaS.<br />
+                  Not just AI apps.
+                </p>
+                <p
+                  className={`font-medium ${
+                    darkMode ? "text-blue-400" : "text-blue-600"
+                  }`}
+                >
+                  We are AI distribution, metering, and compute delivery infrastructure.
+                </p>
+              </div>
+            )}
+          </div>
+
+          {/* FAQ 9 */}
+          <div
+            className={`border rounded-lg overflow-hidden ${
+              darkMode ? "border-gray-700" : "border-gray-200"
+            }`}
+          >
+            <button
+              onClick={() => toggleFaq(8)}
+              className={`w-full px-6 py-4 flex items-center justify-between text-left transition-colors ${
+                darkMode
+                  ? "hover:bg-gray-800 bg-gray-900"
+                  : "hover:bg-gray-50 bg-white"
+              }`}
+            >
+              <h3
+                className={`text-lg font-semibold ${
+                  darkMode ? "text-white" : "text-gray-900"
+                }`}
+              >
+                Why Texas?
+              </h3>
+              <ChevronDown
+                className={`w-5 h-5 transition-transform ${
+                  openFaq === 8 ? "rotate-180" : ""
+                } ${darkMode ? "text-gray-400" : "text-gray-600"}`}
+              />
+            </button>
+            {openFaq === 8 && (
+              <div
+                className={`px-6 py-4 border-t ${
+                  darkMode
+                    ? "border-gray-700 bg-gray-900/50"
+                    : "border-gray-200 bg-gray-50"
+                }`}
+              >
+                <p
+                  className={`mb-4 ${
+                    darkMode ? "text-gray-300" : "text-gray-700"
+                  }`}
+                >
+                  Super eComm began in the Founder Institute Austin 2025 cohort, and we chose to build here because Texas is quietly becoming one of the most important regions for AI infrastructure in the U.S. With strong data center growth, access to power, and supportive conditions for compute expansion, Texas is a practical launch point for the AI Utility Grid.
+                </p>
+                <p
+                  className={`mb-2 font-medium ${
+                    darkMode ? "text-white" : "text-gray-900"
+                  }`}
+                >
+                  Key reasons we're starting here:
+                </p>
+                <ul
+                  className={`list-disc list-inside space-y-1 ml-4 mb-4 ${
+                    darkMode ? "text-gray-300" : "text-gray-700"
+                  }`}
+                >
+                  <li>Founded in Austin, TX through Founder Institute</li>
+                  <li>Texas is gaining momentum as an AI infrastructure hub</li>
+                  <li>Over 400 operating data centers across the state</li>
+                  <li>Major tech investment (including Google's $40B commitment)</li>
+                  <li>Large-scale buildouts such as the Stargate project</li>
+                  <li>Data capacity in Dallas–Fort Worth projected to double by 2026</li>
+                  <li>Energy resources and land availability support long-term scale</li>
+                </ul>
+                <p
+                  className={`font-medium italic ${
+                    darkMode ? "text-blue-400" : "text-blue-600"
+                  }`}
+                >
+                  Texas was once the oil state, then the energy state — now it has the potential to become a leader in AI infrastructure, and we're building alongside that growth.
+                </p>
+              </div>
+            )}
+          </div>
+
+          {/* FAQ 10 */}
+          <div
+            className={`border rounded-lg overflow-hidden ${
+              darkMode ? "border-gray-700" : "border-gray-200"
+            }`}
+          >
+            <button
+              onClick={() => toggleFaq(9)}
+              className={`w-full px-6 py-4 flex items-center justify-between text-left transition-colors ${
+                darkMode
+                  ? "hover:bg-gray-800 bg-gray-900"
+                  : "hover:bg-gray-50 bg-white"
+              }`}
+            >
+              <h3
+                className={`text-lg font-semibold ${
+                  darkMode ? "text-white" : "text-gray-900"
+                }`}
+              >
+                Are you another AI app like ChatGPT?
+              </h3>
+              <ChevronDown
+                className={`w-5 h-5 transition-transform ${
+                  openFaq === 9 ? "rotate-180" : ""
+                } ${darkMode ? "text-gray-400" : "text-gray-600"}`}
+              />
+            </button>
+            {openFaq === 9 && (
+              <div
+                className={`px-6 py-4 border-t ${
+                  darkMode
+                    ? "border-gray-700 bg-gray-900/50"
+                    : "border-gray-200 bg-gray-50"
+                }`}
+              >
+                <p
+                  className={`mb-4 font-medium ${
+                    darkMode ? "text-white" : "text-gray-900"
+                  }`}
+                >
+                  No. +AI is not "just another AI chatbot."
+                </p>
+                <div
+                  className={`mb-4 space-y-1 ${
+                    darkMode ? "text-gray-300" : "text-gray-700"
+                  }`}
+                >
+                  <p>ChatGPT = app</p>
+                  <p>Claude/Gemini = model</p>
+                  <p>AWS/Azure = cloud</p>
+                  <p className="font-semibold">+AI = the utility layer on top of all of them</p>
+                </div>
+                <p
+                  className={` ${
+                    darkMode ? "text-gray-300" : "text-gray-700"
+                  }`}
+                >
+                  We route, meter, and deliver compute across many AI models using aiWh, similar to how power companies route electricity across the grid.
+                </p>
+              </div>
+            )}
+          </div>
+
+          {/* FAQ 11 */}
+          <div
+            className={`border rounded-lg overflow-hidden ${
+              darkMode ? "border-gray-700" : "border-gray-200"
+            }`}
+          >
+            <button
+              onClick={() => toggleFaq(10)}
+              className={`w-full px-6 py-4 flex items-center justify-between text-left transition-colors ${
+                darkMode
+                  ? "hover:bg-gray-800 bg-gray-900"
+                  : "hover:bg-gray-50 bg-white"
+              }`}
+            >
+              <h3
+                className={`text-lg font-semibold ${
+                  darkMode ? "text-white" : "text-gray-900"
+                }`}
+              >
+                If not SaaS, then what are you?
+              </h3>
+              <ChevronDown
+                className={`w-5 h-5 transition-transform ${
+                  openFaq === 10 ? "rotate-180" : ""
+                } ${darkMode ? "text-gray-400" : "text-gray-600"}`}
+              />
+            </button>
+            {openFaq === 10 && (
+              <div
+                className={`px-6 py-4 border-t ${
+                  darkMode
+                    ? "border-gray-700 bg-gray-900/50"
+                    : "border-gray-200 bg-gray-50"
+                }`}
+              >
+                <p
+                  className={`mb-4 font-medium ${
+                    darkMode ? "text-white" : "text-gray-900"
+                  }`}
+                >
+                  We are an AI utility provider — like a power company, but for intelligence.
+                </p>
+                <div
+                  className={`mb-4 ${
+                    darkMode ? "text-gray-300" : "text-gray-700"
+                  }`}
+                >
+                  <p className="mb-2">SaaS = sells features</p>
+                  <p className="font-semibold">AI Utility = sells computation (aiWh)</p>
+                </div>
+                <p
+                  className={`font-medium ${
+                    darkMode ? "text-blue-400" : "text-blue-600"
+                  }`}
+                >
+                  Think: AI → on tap. Pay only for what you use. Like electricity.
+                </p>
+              </div>
+            )}
+          </div>
+
+          {/* FAQ 12 */}
+          <div
+            className={`border rounded-lg overflow-hidden ${
+              darkMode ? "border-gray-700" : "border-gray-200"
+            }`}
+          >
+            <button
+              onClick={() => toggleFaq(11)}
+              className={`w-full px-6 py-4 flex items-center justify-between text-left transition-colors ${
+                darkMode
+                  ? "hover:bg-gray-800 bg-gray-900"
+                  : "hover:bg-gray-50 bg-white"
+              }`}
+            >
+              <h3
+                className={`text-lg font-semibold ${
+                  darkMode ? "text-white" : "text-gray-900"
+                }`}
+              >
+                Why build AI as a Utility now?
+              </h3>
+              <ChevronDown
+                className={`w-5 h-5 transition-transform ${
+                  openFaq === 11 ? "rotate-180" : ""
+                } ${darkMode ? "text-gray-400" : "text-gray-600"}`}
+              />
+            </button>
+            {openFaq === 11 && (
+              <div
+                className={`px-6 py-4 border-t ${
+                  darkMode
+                    ? "border-gray-700 bg-gray-900/50"
+                    : "border-gray-200 bg-gray-50"
+                }`}
+              >
+                <p
+                  className={`mb-4 font-medium ${
+                    darkMode ? "text-white" : "text-gray-900"
+                  }`}
+                >
+                  Because the infrastructure moment is happening:
+                </p>
+                <ul
+                  className={`list-disc list-inside space-y-1 ml-4 mb-4 ${
+                    darkMode ? "text-gray-300" : "text-gray-700"
+                  }`}
+                >
+                  <li>Cloud + GPU spending is exploding</li>
+                  <li>Data centers are accelerating especially in Texas</li>
+                  <li>Multi-model use is becoming normal</li>
+                  <li>Businesses don't want subscription chaos — they want one bill</li>
+                  <li>Real-time compute metering is missing from the industry</li>
+                </ul>
+                <div
+                  className={`space-y-2 ${
+                    darkMode ? "text-gray-300" : "text-gray-700"
+                  }`}
+                >
+                  <p>Electricity had <strong className={darkMode ? "text-white" : "text-gray-900"}>kWh</strong></p>
+                  <p>AI will have <strong className={darkMode ? "text-white" : "text-gray-900"}>aiWh</strong></p>
+                </div>
+                <p
+                  className={`mt-4 font-medium italic ${
+                    darkMode ? "text-blue-400" : "text-blue-600"
+                  }`}
+                >
+                  And you are the one defining the standard.
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* FAQ Structured Data (JSON-LD) */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "What is aiW and aiWh?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "aiW (Artificial Intelligence Watt) is a unit that measures computational work performed by AI — similar to how watts measure electrical power. aiWh (Artificial Intelligence Watt-Hour) measures AI power consumption over time — similar to kWh in electricity. In simple terms: aiWh tracks how much intelligence you use — like a power meter for AI."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What is the AI Grid Layer?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "The AI Grid Layer is the utility infrastructure that routes, meters, and distributes AI computation across multiple models and systems. It acts like the electrical grid — but for intelligence. Instead of subscribing to several AI platforms separately, the AI Grid lets you: access many models through one interface, route tasks intelligently to the best model, meter usage like electricity, and receive one unified bill instead of many."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What does your company do?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Super eComm is building the world's AI Utility Grid, providing computational intelligence on tap so anyone can access and run 1,000+ AI models in their pocket — instantly and affordably."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How big is the market?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "The global artificial intelligence market is projected to exceed $1.8 trillion by 2030, driven by exponential growth in consumer AI demand, distributed computation, and intelligent infrastructure adoption across every industry."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What makes Super eComm unique?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "We're not building another AI app. We are developing AI as a utility — complete with metering, billing, and distribution, similar to electricity or the internet. One grid. One meter. One bill. Access to intelligence becomes a public utility."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Where are you today?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "We are building the core aiWh metering architecture, developing multi-model orchestration, and designing the +AI interface that brings '1,000 AI models in your pocket' to everyday people and businesses. Early access is coming soon."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Are you raising capital?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Super eComm is raising capital to scale engineering, finalize distributed metering infrastructure, and launch early access to the AI Utility Grid."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What market are you in?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Super eComm operates in the AI Infrastructure & Utility Market, specifically the emerging category of AI as a Utility — where artificial intelligence is delivered like electricity or internet access. Not SaaS. Not just AI apps. We are AI distribution, metering, and compute delivery infrastructure."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Why Texas?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Super eComm began in the Founder Institute Austin 2025 cohort. Texas is quietly becoming one of the most important regions for AI infrastructure in the U.S. With over 400 operating data centers, major tech investment (including Google's $40B commitment), and the Stargate project, Texas offers strong data center growth, access to power, and supportive conditions for compute expansion."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Are you another AI app like ChatGPT?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "No. +AI is not 'just another AI chatbot.' ChatGPT = app, Claude/Gemini = model, AWS/Azure = cloud, +AI = the utility layer on top of all of them. We route, meter, and deliver compute across many AI models using aiWh, similar to how power companies route electricity across the grid."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "If not SaaS, then what are you?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "We are an AI utility provider — like a power company, but for intelligence. SaaS sells features. AI Utility sells computation (aiWh). Think: AI on tap. Pay only for what you use. Like electricity."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Why build AI as a Utility now?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Because the infrastructure moment is happening: Cloud + GPU spending is exploding, data centers are accelerating especially in Texas, multi-model use is becoming normal, businesses don't want subscription chaos — they want one bill, and real-time compute metering is missing from the industry. Electricity had kWh. AI will have aiWh. And you are the one defining the standard."
+                }
+              }
+            ]
+          })
+        }}
+      />
+    </section>
   </div>
 );
 
@@ -636,6 +1695,20 @@ const SupereCommWebsite = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
   const [openDropdown, setOpenDropdown] = useState("");
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
+
+  const toggleFaq = (index: number) => {
+    setOpenFaq(openFaq === index ? null : index);
+  };
+
+  // Listen to auth state changes
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user);
+    });
+    return () => unsubscribe();
+  }, []);
 
   const navigation = [
     { name: "Home", id: "home" as const },
@@ -1117,16 +2190,16 @@ const SupereCommWebsite = () => {
                   )
                 )}
 
-                {/* My Account button (desktop) */}
+                {/* Dashboard/Account button (desktop) */}
                 <button
-                  onClick={() => setCurrentPage("account")}
-                  className={`ml-3 px-3 py-1 rounded-full text-xs font-medium border ${
+                  onClick={() => setCurrentPage(currentUser ? "dashboard" : "reserve")}
+                  className={`ml-3 px-3 py-1 rounded-full text-xs font-medium border whitespace-nowrap ${
                     darkMode
                       ? "border-blue-500 text-blue-300 hover:bg-blue-500/10"
                       : "border-blue-600 text-blue-700 hover:bg-blue-50"
                   } transition-colors`}
                 >
-                  My Account
+                  {currentUser ? "Dashboard" : "My Account"}
                 </button>
               </div>
 
@@ -1134,16 +2207,16 @@ const SupereCommWebsite = () => {
               <div className="flex items-center gap-2 md:hidden">
                 <button
                   onClick={() => {
-                    setCurrentPage("account");
+                    setCurrentPage(currentUser ? "dashboard" : "reserve");
                     setMobileMenuOpen(false);
                   }}
-                  className={`px-3 py-1 rounded-full text-xs font-medium border ${
+                  className={`px-3 py-1 rounded-full text-xs font-medium border whitespace-nowrap ${
                     darkMode
                       ? "border-blue-500 text-blue-300"
                       : "border-blue-600 text-blue-700"
                   }`}
                 >
-                  My Account
+                  {currentUser ? "Dashboard" : "My Account"}
                 </button>
                 <button
                   onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -1226,13 +2299,27 @@ const SupereCommWebsite = () => {
           </div>
         </nav>
 
-        {/* Page Content */}
+         {/* Page Content */}
         <main className="relative flex-1">
           {currentPage === "home" && (
             <HomePage
               darkMode={darkMode}
-              onJoinEarlyAccess={() => setCurrentPage("account")}
+              onJoinEarlyAccess={() => setCurrentPage("reserve")}
               onGoToSubsidiaries={() => setCurrentPage("subsidiaries")}
+              openFaq={openFaq}
+              toggleFaq={toggleFaq}
+            />
+          )}
+          {currentPage === "reserve" && (
+            <ReservePage
+              darkMode={darkMode}
+              onNavigateToDashboard={() => setCurrentPage("dashboard")}
+            />
+          )}
+          {currentPage === "dashboard" && (
+            <DashboardPage
+              darkMode={darkMode}
+              onNavigate={(page) => setCurrentPage(page as any)}
             />
           )}
           {currentPage === "about" && <AboutPage />}
