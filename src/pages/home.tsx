@@ -2675,7 +2675,7 @@ const SupereCommWebsite = () => {
           <p className={`text-lg leading-relaxed ${
             darkMode ? 'text-gray-300' : 'text-gray-700'
           }`}>
-            The AI Grid Layer sits between you and hundreds of AI models. When you send a prompt, our intelligent routing system analyzes your request, breaks it into optimized tasks, and distributes them across the most cost-effective models on the grid. Each task is measured in <span className="font-semibold">aiWh</span> (AI Watt-hours)—a universal unit that tracks your AI consumption just like electricity. The result? You get the best AI performance at a fraction of the cost, while we handle all the complexity behind the scenes.
+            The AI Grid Layer is where thousands of AI models live. When you send a prompt, our intelligent routing system analyzes your request, breaks it into optimized tasks, and distributes them across the most cost-effective models on the grid. Each task is measured in <span className="font-semibold">aiWh</span> (AI Watt-hours)—a universal unit that tracks your AI consumption just like electricity. The result? You get the best AI performance at a fraction of the cost, while we handle all the complexity behind the scenes.
           </p>
         </div>
 
