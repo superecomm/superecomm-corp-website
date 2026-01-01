@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import type { FC } from "react";
-import { Menu, X, ChevronRight, ChevronDown, Zap, Brain, Plug, Shield, Database, Wallet, Coffee, Briefcase, Smartphone, Home as HomeIcon, ArrowRight, Users, Target, Network, Gauge, Loader2, CheckCircle2, AlertCircle } from "lucide-react";
+import { Menu, X, ChevronRight, ChevronDown, Zap, Brain, Plug, Shield, Database, Wallet, Coffee, Briefcase, Smartphone, Home as HomeIcon, Loader2, CheckCircle2, AlertCircle } from "lucide-react";
 import heroOffice from "../assets/hero-office.webp";
 import meterImage from "../assets/aiWh-meter-transparent-background-new.png";
 import productImage from "../assets/plusai-product-image-3.png";
@@ -2657,85 +2657,8 @@ const SupereCommWebsite = () => {
       <div className="px-4 sm:px-6 py-12">
       <div className="max-w-7xl mx-auto w-full">
 
-        {/* Flowchart: 3 Steps + Result */}
-        <div className="grid grid-cols-1 sm:grid-cols-7 gap-4 mb-8 items-center">
-          
-          {/* Step 1 */}
-          <div className="sm:col-span-2 text-center">
-            <div className={`inline-flex items-center justify-center w-16 h-16 rounded-full mb-3 ${
-              darkMode ? "bg-blue-600" : "bg-blue-600"
-            }`}>
-              <Users className="w-8 h-8 text-white" />
-            </div>
-            <h3 className={`text-base font-semibold mb-1 ${
-              darkMode ? "text-white" : "text-gray-900"
-            }`}>
-              Create Prompt
-            </h3>
-            <p className={`text-xs ${darkMode ? "text-gray-500" : "text-gray-600"}`}>
-              Your request
-            </p>
-          </div>
-
-          {/* Arrow */}
-          <div className="hidden sm:flex justify-center">
-            <ArrowRight className={`w-6 h-6 ${darkMode ? "text-gray-600" : "text-gray-400"}`} />
-          </div>
-
-          {/* Step 2 */}
-          <div className="sm:col-span-2 text-center">
-            <div className={`inline-flex items-center justify-center w-16 h-16 rounded-full mb-3 ${
-              darkMode ? "bg-green-600" : "bg-green-600"
-            }`}>
-              <Target className="w-8 h-8 text-white" />
-            </div>
-            <h3 className={`text-base font-semibold mb-1 ${
-              darkMode ? "text-white" : "text-gray-900"
-            }`}>
-              Break Into Tasks
-            </h3>
-            <p className={`text-xs ${darkMode ? "text-gray-500" : "text-gray-600"}`}>
-              Smart division
-            </p>
-          </div>
-
-          {/* Arrow */}
-          <div className="hidden sm:flex justify-center">
-            <ArrowRight className={`w-6 h-6 ${darkMode ? "text-gray-600" : "text-gray-400"}`} />
-          </div>
-
-          {/* Step 3 */}
-          <div className="sm:col-span-2 text-center">
-            <div className={`inline-flex items-center justify-center w-16 h-16 rounded-full mb-3 ${
-              darkMode ? "bg-purple-600" : "bg-purple-600"
-            }`}>
-              <Network className="w-8 h-8 text-white" />
-            </div>
-            <h3 className={`text-base font-semibold mb-1 ${
-              darkMode ? "text-white" : "text-gray-900"
-            }`}>
-              Route on Grid
-            </h3>
-            <p className={`text-xs ${darkMode ? "text-gray-500" : "text-gray-600"}`}>
-              Optimal models
-            </p>
-          </div>
-        </div>
-
-        {/* Result: aiWh Badge */}
-        <div className="flex justify-center mb-12">
-          <div className={`inline-flex items-center gap-3 px-6 py-3 rounded-full ${
-            darkMode ? "bg-blue-600/20 border-2 border-blue-500/50" : "bg-blue-100 border-2 border-blue-300"
-          }`}>
-            <Gauge className={`w-6 h-6 ${darkMode ? "text-blue-400" : "text-blue-600"}`} />
-            <span className={`text-xl font-semibold ${darkMode ? "text-blue-300" : "text-blue-900"}`}>
-              = aiWh
-            </span>
-          </div>
-        </div>
-
         {/* AI Grid Layer Diagram */}
-        <div className="mb-12">
+        <div className="mb-8">
           <div className={`rounded-xl overflow-hidden border ${
             darkMode ? 'border-gray-700' : 'border-gray-200'
           }`}>
@@ -2745,6 +2668,15 @@ const SupereCommWebsite = () => {
               className="w-full h-auto"
             />
           </div>
+        </div>
+
+        {/* Explanation */}
+        <div className="max-w-4xl mx-auto mb-12">
+          <p className={`text-lg leading-relaxed ${
+            darkMode ? 'text-gray-300' : 'text-gray-700'
+          }`}>
+            The AI Grid Layer sits between you and hundreds of AI models. When you send a prompt, our intelligent routing system analyzes your request, breaks it into optimized tasks, and distributes them across the most cost-effective models on the grid. Each task is measured in <span className="font-semibold">aiWh</span> (AI Watt-hours)—a universal unit that tracks your AI consumption just like electricity. The result? You get the best AI performance at a fraction of the cost, while we handle all the complexity behind the scenes.
+          </p>
         </div>
 
         {/* CTA */}
