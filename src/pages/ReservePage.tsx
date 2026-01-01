@@ -11,11 +11,8 @@ import {
   onAuthStateChanged,
   type User 
 } from 'firebase/auth';
-import { doc, setDoc, getDoc, serverTimestamp } from 'firebase/firestore';
-import { createGridAccountForUser, userHasReservation } from '../lib/grid/account';
-import { simulatePaymentSuccess } from '../lib/payment/stripe';
-import { logEmailToConsole } from '../lib/email/service';
-import type { UserProfile, Reservation } from '../types/grid';
+import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
+import type { UserProfile } from '../types/grid';
 
 // Import marketing images
 import marketingImage23 from '../assets/marketing-images/marketing-image23.jpg';
@@ -36,8 +33,6 @@ export const ReservePage: FC<ReservePageProps> = ({ darkMode, onNavigateToDashbo
   const [step, setStep] = useState<ReservationStep>('landing');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string>('');
-  const [gridAccountId, setGridAccountId] = useState<string>('');
-  const [alreadyReserved, setAlreadyReserved] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
 
   // Auth form state
@@ -46,34 +41,40 @@ export const ReservePage: FC<ReservePageProps> = ({ darkMode, onNavigateToDashbo
   const [displayName, setDisplayName] = useState('');
   const [isSignUp, setIsSignUp] = useState(true);
 
-  // Payment form state
-  const [cardNumber, setCardNumber] = useState('');
-  const [cardExpiry, setCardExpiry] = useState('');
-  const [cardCvc, setCardCvc] = useState('');
-  const [zipCode, setZipCode] = useState('');
+  // Countdown state
+  const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
   // Check auth state
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
-      
-      if (currentUser) {
-        // Check if user already has a reservation
-        const hasReservation = await userHasReservation(currentUser.uid);
-        if (hasReservation) {
-          setAlreadyReserved(true);
-          setStep('success');
-          
-          // Get their grid account ID
-          const userDoc = await getDoc(doc(db, 'users', currentUser.uid));
-          if (userDoc.exists() && userDoc.data().gridAccount) {
-            setGridAccountId(userDoc.data().gridAccount.displayId);
-          }
-        }
-      }
     });
 
     return () => unsubscribe();
+  }, []);
+
+  // Countdown timer to February 14, 2026
+  useEffect(() => {
+    const targetDate = new Date('2026-02-14T00:00:00').getTime();
+    
+    const updateCountdown = () => {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+      
+      if (distance > 0) {
+        setCountdown({
+          days: Math.floor(distance / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+          minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
+          seconds: Math.floor((distance % (1000 * 60)) / 1000)
+        });
+      }
+    };
+    
+    updateCountdown();
+    const interval = setInterval(updateCountdown, 1000);
+    
+    return () => clearInterval(interval);
   }, []);
 
   const handleAuth = async (e: React.FormEvent) => {
@@ -82,30 +83,6 @@ export const ReservePage: FC<ReservePageProps> = ({ darkMode, onNavigateToDashbo
     setError('');
 
     try {
-      // Validate payment info for new signups
-      if (isSignUp) {
-        if (!cardNumber || cardNumber.replace(/\s/g, '').length < 15) {
-          setError('Please enter a valid card number');
-          setLoading(false);
-          return;
-        }
-        if (!cardExpiry || cardExpiry.length !== 5) {
-          setError('Please enter a valid expiry date (MM/YY)');
-          setLoading(false);
-          return;
-        }
-        if (!cardCvc || cardCvc.length < 3) {
-          setError('Please enter a valid CVC');
-          setLoading(false);
-          return;
-        }
-        if (!zipCode || zipCode.length < 5) {
-          setError('Please enter a valid ZIP code');
-          setLoading(false);
-          return;
-        }
-      }
-
       let currentUser: User;
       
       if (isSignUp) {
@@ -130,68 +107,10 @@ export const ReservePage: FC<ReservePageProps> = ({ darkMode, onNavigateToDashbo
         currentUser = userCredential.user;
       }
       
-      // Close modal after successful auth
+      // Close modal and show success
       setShowAuthModal(false);
       setUser(currentUser);
-      
-      // Now process the payment with the collected card info
-      setLoading(true);
-      setStep('processing');
-      
-      try {
-        // In production, this would send card info to Stripe
-        // For now, simulate payment with the collected card details
-        console.log('Processing payment with card:', cardNumber.slice(-4));
-        
-        const paymentResult = await simulatePaymentSuccess(currentUser.uid, 1000);
-
-        if (!paymentResult.success) {
-          throw new Error('Payment failed');
-        }
-
-        // Create grid account
-        const gridResult = await createGridAccountForUser(currentUser.uid);
-
-        if (!gridResult.success) {
-          throw new Error(gridResult.error || 'Failed to create grid account');
-        }
-
-        // Update user with reservation info
-        const reservation: Reservation = {
-          paid: true,
-          amount: 10,
-          stripePaymentId: paymentResult.paymentId,
-          refundable: true,
-          createdAt: serverTimestamp() as any
-        };
-
-        await setDoc(doc(db, 'users', currentUser.uid), {
-          reservation,
-          updatedAt: serverTimestamp()
-        }, { merge: true });
-
-        // Log confirmation email to console
-        logEmailToConsole({
-          toEmail: currentUser.email!,
-          displayName: displayName || currentUser.displayName || undefined,
-          gridAccountId: gridResult.gridAccountId,
-          amount: 1000,
-          reservedAt: new Date()
-        });
-
-        setGridAccountId(gridResult.gridAccountId);
-        setStep('success');
-        
-        // Clear payment info
-        setCardNumber('');
-        setCardExpiry('');
-        setCardCvc('');
-        setZipCode('');
-      } catch (err: any) {
-        setError(err.message || 'Reservation failed');
-        setStep('landing');
-        setShowAuthModal(true); // Reopen modal to show error
-      }
+      setStep('success');
       
     } catch (err: any) {
       setError(err.message || 'Authentication failed');
@@ -206,30 +125,6 @@ export const ReservePage: FC<ReservePageProps> = ({ darkMode, onNavigateToDashbo
     return;
   };
 
-  const getShareText = () => {
-    return `I'm getting AI on tap. 💧🤖
-
-Just reserved my AI Grid Layer account:
-${gridAccountId}
-
-AI as a utility, metered like power and water.
-Reserve yours here: https://superecomm.com/reserve`;
-  };
-
-  const copyShareText = () => {
-    navigator.clipboard.writeText(getShareText());
-    alert('Share text copied to clipboard!');
-  };
-
-  const shareOnTwitter = () => {
-    const text = encodeURIComponent(getShareText());
-    window.open(`https://twitter.com/intent/tweet?text=${text}`, '_blank');
-  };
-
-  const shareOnLinkedIn = () => {
-    const url = encodeURIComponent('https://superecomm.com/reserve');
-    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank');
-  };
 
   if (step === 'processing') {
     return (
@@ -249,7 +144,7 @@ Reserve yours here: https://superecomm.com/reserve`;
     );
   }
 
-  if (step === 'success' && gridAccountId) {
+  if (step === 'success') {
     return (
       <div className={`min-h-screen ${darkMode ? 'bg-gray-950' : 'bg-white'}`}>
         <div className="max-w-4xl mx-auto px-6 py-24">
@@ -260,77 +155,111 @@ Reserve yours here: https://superecomm.com/reserve`;
               <Check className={`w-14 h-14 ${darkMode ? 'text-green-400' : 'text-green-600'}`} strokeWidth={2} />
             </div>
 
-            <h1 className={`text-5xl md:text-6xl font-light mb-6 ${
+            <h1 className={`text-4xl md:text-5xl font-light mb-6 ${
               darkMode ? 'text-white' : 'text-gray-900'
             }`}>
-              {alreadyReserved ? 'You\'re Already In' : 'Welcome to the Grid'}
+              Thank You for Reserving!
             </h1>
 
-            <div className={`inline-block px-8 py-4 rounded-xl mb-8 ${
-              darkMode ? 'bg-gray-900 border-2 border-gray-700' : 'bg-gray-50 border-2 border-gray-200'
-            }`}>
-              <p className={`text-xs uppercase tracking-wider mb-2 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-                Your AI Grid Account ID
-              </p>
-              <p className={`text-4xl font-mono font-bold ${
-                darkMode ? 'text-blue-400' : 'text-blue-600'
-              }`}>
-                {gridAccountId}
-              </p>
-            </div>
-
-            {!alreadyReserved && (
-              <p className={`text-xl mb-12 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-                🎉 You're now a Founding Member
-              </p>
-            )}
+            <p className={`text-lg mb-8 max-w-2xl mx-auto ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+              Your AI Grid Layer account reservation has been confirmed. We'll email you at{' '}
+              <span className="font-semibold">{user?.email}</span>{' '}
+              with the next steps to complete your reservation.
+            </p>
           </div>
 
-          {/* Share Section */}
-          <div className={`max-w-2xl mx-auto mb-12 p-8 rounded-xl border ${
-            darkMode ? 'border-gray-800 bg-gray-900/50' : 'border-gray-200 bg-gray-50'
+          {/* Countdown Timer */}
+          <div className={`max-w-3xl mx-auto mb-12 p-8 rounded-2xl border ${
+            darkMode ? 'bg-gray-900/50 border-gray-800' : 'bg-blue-50 border-blue-200'
           }`}>
-            <h3 className={`text-2xl font-semibold mb-6 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
-              Spread the Word
-            </h3>
-
-            <div className={`p-4 rounded-lg mb-6 font-mono text-sm leading-relaxed ${
-              darkMode ? 'bg-gray-800 text-gray-300' : 'bg-white text-gray-700 border border-gray-200'
+            <h2 className={`text-sm font-semibold uppercase tracking-wide text-center mb-6 ${
+              darkMode ? 'text-gray-400' : 'text-gray-600'
             }`}>
-              {getShareText()}
+              Payment Opens In
+            </h2>
+            <div className="flex justify-center gap-4 md:gap-8">
+              <div className="text-center">
+                <div className={`text-4xl md:text-6xl font-bold mb-2 ${
+                  darkMode ? 'text-white' : 'text-gray-900'
+                }`}>
+                  {countdown.days}
+                </div>
+                <div className={`text-xs md:text-sm ${darkMode ? 'text-gray-500' : 'text-gray-600'}`}>
+                  DAYS
+                </div>
+              </div>
+              <div className={`text-4xl md:text-6xl font-bold opacity-30 ${
+                darkMode ? 'text-white' : 'text-gray-900'
+              }`}>
+                :
+              </div>
+              <div className="text-center">
+                <div className={`text-4xl md:text-6xl font-bold mb-2 ${
+                  darkMode ? 'text-white' : 'text-gray-900'
+                }`}>
+                  {String(countdown.hours).padStart(2, '0')}
+                </div>
+                <div className={`text-xs md:text-sm ${darkMode ? 'text-gray-500' : 'text-gray-600'}`}>
+                  HOURS
+                </div>
+              </div>
+              <div className={`text-4xl md:text-6xl font-bold opacity-30 ${
+                darkMode ? 'text-white' : 'text-gray-900'
+              }`}>
+                :
+              </div>
+              <div className="text-center">
+                <div className={`text-4xl md:text-6xl font-bold mb-2 ${
+                  darkMode ? 'text-white' : 'text-gray-900'
+                }`}>
+                  {String(countdown.minutes).padStart(2, '0')}
+                </div>
+                <div className={`text-xs md:text-sm ${darkMode ? 'text-gray-500' : 'text-gray-600'}`}>
+                  MIN
+                </div>
+              </div>
+              <div className={`text-4xl md:text-6xl font-bold opacity-30 ${
+                darkMode ? 'text-white' : 'text-gray-900'
+              }`}>
+                :
+              </div>
+              <div className="text-center">
+                <div className={`text-4xl md:text-6xl font-bold mb-2 ${
+                  darkMode ? 'text-white' : 'text-gray-900'
+                }`}>
+                  {String(countdown.seconds).padStart(2, '0')}
+                </div>
+                <div className={`text-xs md:text-sm ${darkMode ? 'text-gray-500' : 'text-gray-600'}`}>
+                  SEC
+                </div>
+              </div>
             </div>
+          </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              <button
-                onClick={copyShareText}
-                className={`py-3 px-4 rounded-lg border transition-all hover:scale-105 ${
-                  darkMode
-                    ? 'border-gray-700 hover:bg-gray-800 text-gray-300'
-                    : 'border-gray-300 hover:bg-white text-gray-700 hover:shadow-md'
-                }`}
-              >
-                Copy Text
-              </button>
-              <button
-                onClick={shareOnTwitter}
-                className={`py-3 px-4 rounded-lg transition-all hover:scale-105 ${
-                  darkMode
-                    ? 'bg-blue-600 hover:bg-blue-500 text-white'
-                    : 'bg-blue-500 hover:bg-blue-600 text-white shadow-md'
-                }`}
-              >
-                Share on 𝕏
-              </button>
-              <button
-                onClick={shareOnLinkedIn}
-                className={`py-3 px-4 rounded-lg transition-all hover:scale-105 ${
-                  darkMode
-                    ? 'bg-blue-700 hover:bg-blue-600 text-white'
-                    : 'bg-blue-600 hover:bg-blue-700 text-white shadow-md'
-                }`}
-              >
-                LinkedIn
-              </button>
+          {/* What Happens Next */}
+          <div className={`max-w-2xl mx-auto mb-12 p-6 rounded-xl border ${
+            darkMode ? 'bg-gray-800/30 border-gray-700' : 'bg-gray-50 border-gray-200'
+          }`}>
+            <h3 className={`text-lg font-semibold mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+              What happens next:
+            </h3>
+            <div className={`space-y-3 text-sm ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+              <p className="flex items-start">
+                <span className="mr-2">•</span>
+                <span>You'll receive a confirmation email shortly</span>
+              </p>
+              <p className="flex items-start">
+                <span className="mr-2">•</span>
+                <span>On February 14, 2026, you'll be notified to complete your $10 reservation</span>
+              </p>
+              <p className="flex items-start">
+                <span className="mr-2">•</span>
+                <span>Your reservation converts to $10 AI usage credit</span>
+              </p>
+              <p className="flex items-start">
+                <span className="mr-2">•</span>
+                <span>You'll get early access as a Founding Member</span>
+              </p>
             </div>
           </div>
 
@@ -856,119 +785,6 @@ Reserve yours here: https://superecomm.com/reserve`;
                 />
               </div>
 
-              {/* Payment Information Section */}
-              {isSignUp && (
-                <>
-                  <div className={`pt-3 border-t ${darkMode ? 'border-gray-700' : 'border-gray-200'}`}>
-                    <h3 className={`text-sm font-semibold mb-1 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
-                      Payment
-                    </h3>
-                    <p className={`text-[10px] mb-2 ${darkMode ? 'text-blue-400' : 'text-blue-600'}`}>
-                      💳 Test: 4242 4242 4242 4242
-                    </p>
-                  </div>
-
-                  <div>
-                    <label className={`block text-xs font-medium mb-1 ${
-                      darkMode ? 'text-gray-300' : 'text-gray-700'
-                    }`}>
-                      Card Number
-                    </label>
-                    <input
-                      type="text"
-                      value={cardNumber}
-                      onChange={(e) => {
-                        // Format as #### #### #### ####
-                        const value = e.target.value.replace(/\s/g, '').replace(/(\d{4})/g, '$1 ').trim();
-                        setCardNumber(value.slice(0, 19));
-                      }}
-                      required
-                      placeholder="4242 4242 4242 4242"
-                      className={`w-full px-3 py-2 text-sm rounded-lg border ${
-                        darkMode
-                          ? 'bg-gray-800 border-gray-700 text-white focus:border-blue-500'
-                          : 'bg-white border-gray-300 text-gray-900 focus:border-blue-500'
-                      } outline-none transition-colors`}
-                    />
-                  </div>
-
-                  <div className="grid grid-cols-3 gap-2">
-                    <div className="col-span-2">
-                      <label className={`block text-xs font-medium mb-1 ${
-                        darkMode ? 'text-gray-300' : 'text-gray-700'
-                      }`}>
-                        Expiry
-                      </label>
-                      <input
-                        type="text"
-                        value={cardExpiry}
-                        onChange={(e) => {
-                          // Format as MM/YY
-                          let value = e.target.value.replace(/\D/g, '');
-                          if (value.length >= 2) {
-                            value = value.slice(0, 2) + '/' + value.slice(2, 4);
-                          }
-                          setCardExpiry(value);
-                        }}
-                        required
-                        placeholder="MM/YY"
-                        maxLength={5}
-                        className={`w-full px-3 py-2 text-sm rounded-lg border ${
-                          darkMode
-                            ? 'bg-gray-800 border-gray-700 text-white focus:border-blue-500'
-                            : 'bg-white border-gray-300 text-gray-900 focus:border-blue-500'
-                        } outline-none transition-colors`}
-                      />
-                    </div>
-                    <div>
-                      <label className={`block text-xs font-medium mb-1 ${
-                        darkMode ? 'text-gray-300' : 'text-gray-700'
-                      }`}>
-                        CVC
-                      </label>
-                      <input
-                        type="text"
-                        value={cardCvc}
-                        onChange={(e) => setCardCvc(e.target.value.replace(/\D/g, '').slice(0, 4))}
-                        required
-                        placeholder="123"
-                        maxLength={4}
-                        className={`w-full px-3 py-2 text-sm rounded-lg border ${
-                          darkMode
-                            ? 'bg-gray-800 border-gray-700 text-white focus:border-blue-500'
-                            : 'bg-white border-gray-300 text-gray-900 focus:border-blue-500'
-                        } outline-none transition-colors`}
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className={`block text-xs font-medium mb-1 ${
-                      darkMode ? 'text-gray-300' : 'text-gray-700'
-                    }`}>
-                      ZIP
-                    </label>
-                    <input
-                      type="text"
-                      value={zipCode}
-                      onChange={(e) => setZipCode(e.target.value.slice(0, 10))}
-                      required
-                      placeholder="12345"
-                      className={`w-full px-3 py-2 text-sm rounded-lg border ${
-                        darkMode
-                          ? 'bg-gray-800 border-gray-700 text-white focus:border-blue-500'
-                          : 'bg-white border-gray-300 text-gray-900 focus:border-blue-500'
-                      } outline-none transition-colors`}
-                    />
-                  </div>
-
-                  <div className={`p-2 rounded-lg text-[10px] ${
-                    darkMode ? 'bg-gray-800/50 text-gray-400' : 'bg-gray-50 text-gray-600'
-                  }`}>
-                    🔒 Encrypted & secure
-                  </div>
-                </>
-              )}
 
               <button
                 type="submit"
@@ -985,7 +801,7 @@ Reserve yours here: https://superecomm.com/reserve`;
                     Processing...
                   </>
                 ) : (
-                  isSignUp ? 'Create & Pay $10' : 'Sign In & Pay $10'
+                  isSignUp ? 'Reserve My Account' : 'Sign In'
                 )}
               </button>
               <p className={`text-[10px] text-center mt-1.5 ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>
@@ -998,11 +814,6 @@ Reserve yours here: https://superecomm.com/reserve`;
                 onClick={() => {
                   setIsSignUp(!isSignUp);
                   setError('');
-                  // Clear payment fields when switching
-                  setCardNumber('');
-                  setCardExpiry('');
-                  setCardCvc('');
-                  setZipCode('');
                 }}
                 className={`text-xs ${
                   darkMode ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-700'
