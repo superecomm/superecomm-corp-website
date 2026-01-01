@@ -12,7 +12,7 @@ import marketingImage27 from '../assets/marketing-images/marketing-image27.jpg';
 import ReservePage from "./ReservePage";
 import DashboardPage from "./DashboardPage";
 import { auth, db } from "../config/firebase";
-import { onAuthStateChanged, type User } from "firebase/auth";
+import { onAuthStateChanged, signOut, type User } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import type { UserProfile } from "../types/grid";
 
@@ -1700,9 +1700,20 @@ const SupereCommWebsite = () => {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
+  const [showUserMenu, setShowUserMenu] = useState(false);
 
   const toggleFaq = (index: number) => {
     setOpenFaq(openFaq === index ? null : index);
+  };
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      setShowUserMenu(false);
+      setCurrentPage("home");
+    } catch (error) {
+      console.error('Error logging out:', error);
+    }
   };
 
   // Listen to auth state changes and load user profile
@@ -1731,6 +1742,21 @@ const SupereCommWebsite = () => {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [currentPage]);
+
+  // Close user menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (showUserMenu) {
+        const target = event.target as HTMLElement;
+        if (!target.closest('.user-menu-container')) {
+          setShowUserMenu(false);
+        }
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [showUserMenu]);
 
   const navigation = [
     { name: "Home", id: "home" as const },
@@ -2213,41 +2239,125 @@ const SupereCommWebsite = () => {
                 )}
 
                 {/* Dashboard/Account button (desktop) */}
-                <button
-                  onClick={() => setCurrentPage(currentUser ? "dashboard" : "reserve")}
-                  className={`ml-3 px-3 py-1 rounded-full text-xs font-medium border whitespace-nowrap ${
-                    darkMode
-                      ? "border-blue-500 text-blue-300 hover:bg-blue-500/10"
-                      : "border-blue-600 text-blue-700 hover:bg-blue-50"
-                  } transition-colors`}
-                >
-                  {currentUser && userProfile?.displayName 
-                    ? userProfile.displayName.split(' ')[0] 
-                    : currentUser 
-                    ? currentUser.email?.split('@')[0] 
-                    : 'My Account'}
-                </button>
+                <div className="relative ml-3 user-menu-container">
+                  <button
+                    onClick={() => {
+                      if (currentUser) {
+                        setShowUserMenu(!showUserMenu);
+                      } else {
+                        setCurrentPage("reserve");
+                      }
+                    }}
+                    className={`px-3 py-1 rounded-full text-xs font-medium border whitespace-nowrap ${
+                      darkMode
+                        ? "border-blue-500 text-blue-300 hover:bg-blue-500/10"
+                        : "border-blue-600 text-blue-700 hover:bg-blue-50"
+                    } transition-colors`}
+                  >
+                    {currentUser && userProfile?.displayName 
+                      ? userProfile.displayName.split(' ')[0] 
+                      : currentUser 
+                      ? currentUser.email?.split('@')[0] 
+                      : 'My Account'}
+                  </button>
+                  
+                  {/* User Menu Dropdown */}
+                  {currentUser && showUserMenu && (
+                    <div className={`absolute right-0 mt-2 w-48 rounded-lg border shadow-lg py-1 z-50 ${
+                      darkMode
+                        ? "bg-gray-900 border-gray-700"
+                        : "bg-white border-gray-200"
+                    }`}>
+                      <button
+                        onClick={() => {
+                          setCurrentPage("dashboard");
+                          setShowUserMenu(false);
+                        }}
+                        className={`w-full text-left px-4 py-2 text-sm ${
+                          darkMode
+                            ? "text-gray-300 hover:bg-gray-800"
+                            : "text-gray-700 hover:bg-gray-50"
+                        }`}
+                      >
+                        Dashboard
+                      </button>
+                      <button
+                        onClick={handleLogout}
+                        className={`w-full text-left px-4 py-2 text-sm ${
+                          darkMode
+                            ? "text-red-400 hover:bg-gray-800"
+                            : "text-red-600 hover:bg-gray-50"
+                        }`}
+                      >
+                        Logout
+                      </button>
+                    </div>
+                  )}
+                </div>
               </div>
 
               {/* Mobile Right Side */}
               <div className="flex items-center gap-2 md:hidden">
-                <button
-                  onClick={() => {
-                    setCurrentPage(currentUser ? "dashboard" : "reserve");
-                    setMobileMenuOpen(false);
-                  }}
-                  className={`px-3 py-1 rounded-full text-xs font-medium border whitespace-nowrap ${
-                    darkMode
-                      ? "border-blue-500 text-blue-300"
-                      : "border-blue-600 text-blue-700"
-                  }`}
-                >
-                  {currentUser && userProfile?.displayName 
-                    ? userProfile.displayName.split(' ')[0] 
-                    : currentUser 
-                    ? currentUser.email?.split('@')[0] 
-                    : 'My Account'}
-                </button>
+                <div className="relative user-menu-container">
+                  <button
+                    onClick={() => {
+                      if (currentUser) {
+                        setShowUserMenu(!showUserMenu);
+                      } else {
+                        setCurrentPage("reserve");
+                        setMobileMenuOpen(false);
+                      }
+                    }}
+                    className={`px-3 py-1 rounded-full text-xs font-medium border whitespace-nowrap ${
+                      darkMode
+                        ? "border-blue-500 text-blue-300"
+                        : "border-blue-600 text-blue-700"
+                    }`}
+                  >
+                    {currentUser && userProfile?.displayName 
+                      ? userProfile.displayName.split(' ')[0] 
+                      : currentUser 
+                      ? currentUser.email?.split('@')[0] 
+                      : 'My Account'}
+                  </button>
+                  
+                  {/* Mobile User Menu Dropdown */}
+                  {currentUser && showUserMenu && (
+                    <div className={`absolute right-0 mt-2 w-48 rounded-lg border shadow-lg py-1 z-50 ${
+                      darkMode
+                        ? "bg-gray-900 border-gray-700"
+                        : "bg-white border-gray-200"
+                    }`}>
+                      <button
+                        onClick={() => {
+                          setCurrentPage("dashboard");
+                          setShowUserMenu(false);
+                          setMobileMenuOpen(false);
+                        }}
+                        className={`w-full text-left px-4 py-2 text-sm ${
+                          darkMode
+                            ? "text-gray-300 hover:bg-gray-800"
+                            : "text-gray-700 hover:bg-gray-50"
+                        }`}
+                      >
+                        Dashboard
+                      </button>
+                      <button
+                        onClick={() => {
+                          handleLogout();
+                          setMobileMenuOpen(false);
+                        }}
+                        className={`w-full text-left px-4 py-2 text-sm ${
+                          darkMode
+                            ? "text-red-400 hover:bg-gray-800"
+                            : "text-red-600 hover:bg-gray-50"
+                        }`}
+                      >
+                        Logout
+                      </button>
+                    </div>
+                  )}
+                </div>
                 <button
                   onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                   className="p-1"

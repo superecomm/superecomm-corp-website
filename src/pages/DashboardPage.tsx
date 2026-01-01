@@ -1,7 +1,7 @@
 import { useState, useEffect, type FC } from 'react';
-import { Loader2, AlertCircle, Zap, Calendar, Award, ExternalLink, Copy, Check } from 'lucide-react';
+import { Loader2, AlertCircle, Zap, Calendar, Award, ExternalLink, Copy, Check, LogOut } from 'lucide-react';
 import { auth, db } from '../config/firebase';
-import { onAuthStateChanged, type User } from 'firebase/auth';
+import { onAuthStateChanged, signOut, type User } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
 import type { UserProfile } from '../types/grid';
 
@@ -32,6 +32,7 @@ export const DashboardPage: FC<DashboardPageProps> = ({ darkMode, onNavigate }) 
   const [error, setError] = useState<string>('');
   const [copiedGridId, setCopiedGridId] = useState(false);
   const [accountCreatedDate, setAccountCreatedDate] = useState<Date | null>(null);
+  const [loggingOut, setLoggingOut] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -82,6 +83,19 @@ export const DashboardPage: FC<DashboardPageProps> = ({ darkMode, onNavigate }) 
       await navigator.clipboard.writeText(userProfile.gridAccount.displayId);
       setCopiedGridId(true);
       setTimeout(() => setCopiedGridId(false), 2000);
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      setLoggingOut(true);
+      await signOut(auth);
+      onNavigate('home');
+    } catch (error) {
+      console.error('Error logging out:', error);
+      setError('Failed to log out');
+    } finally {
+      setLoggingOut(false);
     }
   };
 
@@ -144,15 +158,38 @@ export const DashboardPage: FC<DashboardPageProps> = ({ darkMode, onNavigate }) 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
         
         {/* Header */}
-        <div className="mb-8">
-          <h1 className={`text-3xl sm:text-4xl font-light mb-2 ${
-            darkMode ? 'text-white' : 'text-gray-900'
-          }`}>
-            Welcome back, {firstName}
-          </h1>
-          <p className={`text-sm ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>
-            {user.email} {accountCreatedDate && `• Member since ${accountCreatedDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}`}
-          </p>
+        <div className="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <h1 className={`text-3xl sm:text-4xl font-light mb-2 ${
+              darkMode ? 'text-white' : 'text-gray-900'
+            }`}>
+              Welcome back, {firstName}
+            </h1>
+            <p className={`text-sm ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>
+              {user.email} {accountCreatedDate && `• Member since ${accountCreatedDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}`}
+            </p>
+          </div>
+          <button
+            onClick={handleLogout}
+            disabled={loggingOut}
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors self-start sm:self-auto ${
+              darkMode
+                ? 'bg-gray-800 hover:bg-gray-700 text-gray-300 border border-gray-700'
+                : 'bg-white hover:bg-gray-50 text-gray-700 border border-gray-300 shadow-sm'
+            } disabled:opacity-50 disabled:cursor-not-allowed`}
+          >
+            {loggingOut ? (
+              <>
+                <Loader2 className="w-4 h-4 animate-spin" />
+                Logging out...
+              </>
+            ) : (
+              <>
+                <LogOut className="w-4 h-4" />
+                Logout
+              </>
+            )}
+          </button>
         </div>
 
         {/* Main Grid Layout */}
