@@ -746,63 +746,57 @@ Reserve yours here: https://superecomm.com/reserve`;
 
       {/* Auth Modal */}
       {showAuthModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/50 backdrop-blur-sm overflow-y-auto">
-          <div className={`max-w-lg w-full p-8 rounded-2xl border ${
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm overflow-y-auto">
+          <div className={`max-w-md w-full p-6 rounded-xl border ${
             darkMode ? 'bg-gray-900 border-gray-800' : 'bg-white border-gray-200'
-          } relative my-8 max-h-[90vh] overflow-y-auto`}>
+          } relative my-4 max-h-[95vh] overflow-y-auto`}>
             <button
               onClick={() => setShowAuthModal(false)}
-              className={`absolute top-4 right-4 p-2 rounded-lg transition-colors ${
+              className={`absolute top-3 right-3 p-1.5 rounded-lg transition-colors ${
                 darkMode ? 'hover:bg-gray-800 text-gray-400' : 'hover:bg-gray-100 text-gray-600'
               }`}
             >
-              <X className="w-5 h-5" />
+              <X className="w-4 h-4" />
             </button>
 
-            <h2 className={`text-2xl font-semibold mb-2 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+            <h2 className={`text-xl font-semibold mb-1 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
               {isSignUp ? 'Complete Your Reservation' : 'Sign In & Reserve'}
             </h2>
-            <p className={`text-sm mb-6 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-              {isSignUp ? 'Enter your account and payment details to reserve your AI Grid Layer account' : 'Sign in to complete your $10 reservation'}
+            <p className={`text-xs mb-4 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+              {isSignUp ? 'Account & payment details' : 'Sign in to complete reservation'}
             </p>
 
             {/* Payment Summary */}
-            <div className={`mb-6 p-4 rounded-lg border ${
+            <div className={`mb-4 p-3 rounded-lg border ${
               darkMode ? 'bg-gray-800/50 border-gray-700' : 'bg-blue-50 border-blue-200'
             }`}>
-              <div className="flex justify-between items-center mb-2">
-                <span className={`font-medium ${darkMode ? 'text-white' : 'text-gray-900'}`}>
-                  AI Grid Layer Reservation
+              <div className="flex justify-between items-center mb-1">
+                <span className={`text-sm font-medium ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                  AI Grid Layer
                 </span>
-                <span className={`text-2xl font-bold ${darkMode ? 'text-blue-400' : 'text-blue-600'}`}>
+                <span className={`text-xl font-bold ${darkMode ? 'text-blue-400' : 'text-blue-600'}`}>
                   $10
                 </span>
               </div>
-              <div className="flex justify-between text-xs mb-1">
-                <span className={darkMode ? 'text-gray-400' : 'text-gray-600'}>Status:</span>
-                <span className={`font-medium ${darkMode ? 'text-green-400' : 'text-green-600'}`}>
-                  Fully Refundable
-                </span>
-              </div>
               <div className="flex justify-between text-xs">
-                <span className={darkMode ? 'text-gray-400' : 'text-gray-600'}>Converts to:</span>
+                <span className={darkMode ? 'text-gray-400' : 'text-gray-600'}>Refundable</span>
                 <span className={darkMode ? 'text-gray-300' : 'text-gray-700'}>
-                  $10 AI usage credit
+                  → $10 credit
                 </span>
               </div>
             </div>
 
             {error && (
-              <div className="mb-4 p-3 rounded-lg bg-red-500/10 border border-red-500/50 flex items-start gap-2">
-                <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
-                <span className="text-sm text-red-500">{error}</span>
+              <div className="mb-3 p-2 rounded-lg bg-red-500/10 border border-red-500/50 flex items-start gap-2">
+                <AlertCircle className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" />
+                <span className="text-xs text-red-500">{error}</span>
               </div>
             )}
 
-            <form onSubmit={handleAuth} className="space-y-4">
+            <form onSubmit={handleAuth} className="space-y-3">
               {isSignUp && (
                 <div>
-                  <label className={`block text-sm font-medium mb-1 ${
+                  <label className={`block text-xs font-medium mb-1 ${
                     darkMode ? 'text-gray-300' : 'text-gray-700'
                   }`}>
                     Name (Optional)
@@ -811,7 +805,7 @@ Reserve yours here: https://superecomm.com/reserve`;
                     type="text"
                     value={displayName}
                     onChange={(e) => setDisplayName(e.target.value)}
-                    className={`w-full px-4 py-3 rounded-lg border ${
+                    className={`w-full px-3 py-2 text-sm rounded-lg border ${
                       darkMode
                         ? 'bg-gray-800 border-gray-700 text-white focus:border-blue-500'
                         : 'bg-white border-gray-300 text-gray-900 focus:border-blue-500'
@@ -822,7 +816,7 @@ Reserve yours here: https://superecomm.com/reserve`;
               )}
 
               <div>
-                <label className={`block text-sm font-medium mb-1 ${
+                <label className={`block text-xs font-medium mb-1 ${
                   darkMode ? 'text-gray-300' : 'text-gray-700'
                 }`}>
                   Email
@@ -832,7 +826,7 @@ Reserve yours here: https://superecomm.com/reserve`;
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className={`w-full px-4 py-3 rounded-lg border ${
+                  className={`w-full px-3 py-2 text-sm rounded-lg border ${
                     darkMode
                       ? 'bg-gray-800 border-gray-700 text-white focus:border-blue-500'
                       : 'bg-white border-gray-300 text-gray-900 focus:border-blue-500'
@@ -842,7 +836,7 @@ Reserve yours here: https://superecomm.com/reserve`;
               </div>
 
               <div>
-                <label className={`block text-sm font-medium mb-1 ${
+                <label className={`block text-xs font-medium mb-1 ${
                   darkMode ? 'text-gray-300' : 'text-gray-700'
                 }`}>
                   Password
@@ -853,7 +847,7 @@ Reserve yours here: https://superecomm.com/reserve`;
                   onChange={(e) => setPassword(e.target.value)}
                   required
                   minLength={6}
-                  className={`w-full px-4 py-3 rounded-lg border ${
+                  className={`w-full px-3 py-2 text-sm rounded-lg border ${
                     darkMode
                       ? 'bg-gray-800 border-gray-700 text-white focus:border-blue-500'
                       : 'bg-white border-gray-300 text-gray-900 focus:border-blue-500'
@@ -865,17 +859,17 @@ Reserve yours here: https://superecomm.com/reserve`;
               {/* Payment Information Section */}
               {isSignUp && (
                 <>
-                  <div className={`pt-4 border-t ${darkMode ? 'border-gray-700' : 'border-gray-200'}`}>
-                    <h3 className={`text-lg font-semibold mb-1 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
-                      Payment Information
+                  <div className={`pt-3 border-t ${darkMode ? 'border-gray-700' : 'border-gray-200'}`}>
+                    <h3 className={`text-sm font-semibold mb-1 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                      Payment
                     </h3>
-                    <p className={`text-xs mb-3 ${darkMode ? 'text-blue-400' : 'text-blue-600'}`}>
-                      💳 Development Mode: Enter test card 4242 4242 4242 4242 with any future date and CVC
+                    <p className={`text-[10px] mb-2 ${darkMode ? 'text-blue-400' : 'text-blue-600'}`}>
+                      💳 Test: 4242 4242 4242 4242
                     </p>
                   </div>
 
                   <div>
-                    <label className={`block text-sm font-medium mb-1 ${
+                    <label className={`block text-xs font-medium mb-1 ${
                       darkMode ? 'text-gray-300' : 'text-gray-700'
                     }`}>
                       Card Number
@@ -890,7 +884,7 @@ Reserve yours here: https://superecomm.com/reserve`;
                       }}
                       required
                       placeholder="4242 4242 4242 4242"
-                      className={`w-full px-4 py-3 rounded-lg border ${
+                      className={`w-full px-3 py-2 text-sm rounded-lg border ${
                         darkMode
                           ? 'bg-gray-800 border-gray-700 text-white focus:border-blue-500'
                           : 'bg-white border-gray-300 text-gray-900 focus:border-blue-500'
@@ -898,9 +892,9 @@ Reserve yours here: https://superecomm.com/reserve`;
                     />
                   </div>
 
-                  <div className="grid grid-cols-3 gap-3">
+                  <div className="grid grid-cols-3 gap-2">
                     <div className="col-span-2">
-                      <label className={`block text-sm font-medium mb-1 ${
+                      <label className={`block text-xs font-medium mb-1 ${
                         darkMode ? 'text-gray-300' : 'text-gray-700'
                       }`}>
                         Expiry
@@ -919,7 +913,7 @@ Reserve yours here: https://superecomm.com/reserve`;
                         required
                         placeholder="MM/YY"
                         maxLength={5}
-                        className={`w-full px-4 py-3 rounded-lg border ${
+                        className={`w-full px-3 py-2 text-sm rounded-lg border ${
                           darkMode
                             ? 'bg-gray-800 border-gray-700 text-white focus:border-blue-500'
                             : 'bg-white border-gray-300 text-gray-900 focus:border-blue-500'
@@ -927,7 +921,7 @@ Reserve yours here: https://superecomm.com/reserve`;
                       />
                     </div>
                     <div>
-                      <label className={`block text-sm font-medium mb-1 ${
+                      <label className={`block text-xs font-medium mb-1 ${
                         darkMode ? 'text-gray-300' : 'text-gray-700'
                       }`}>
                         CVC
@@ -939,7 +933,7 @@ Reserve yours here: https://superecomm.com/reserve`;
                         required
                         placeholder="123"
                         maxLength={4}
-                        className={`w-full px-4 py-3 rounded-lg border ${
+                        className={`w-full px-3 py-2 text-sm rounded-lg border ${
                           darkMode
                             ? 'bg-gray-800 border-gray-700 text-white focus:border-blue-500'
                             : 'bg-white border-gray-300 text-gray-900 focus:border-blue-500'
@@ -949,10 +943,10 @@ Reserve yours here: https://superecomm.com/reserve`;
                   </div>
 
                   <div>
-                    <label className={`block text-sm font-medium mb-1 ${
+                    <label className={`block text-xs font-medium mb-1 ${
                       darkMode ? 'text-gray-300' : 'text-gray-700'
                     }`}>
-                      ZIP Code
+                      ZIP
                     </label>
                     <input
                       type="text"
@@ -960,7 +954,7 @@ Reserve yours here: https://superecomm.com/reserve`;
                       onChange={(e) => setZipCode(e.target.value.slice(0, 10))}
                       required
                       placeholder="12345"
-                      className={`w-full px-4 py-3 rounded-lg border ${
+                      className={`w-full px-3 py-2 text-sm rounded-lg border ${
                         darkMode
                           ? 'bg-gray-800 border-gray-700 text-white focus:border-blue-500'
                           : 'bg-white border-gray-300 text-gray-900 focus:border-blue-500'
@@ -968,10 +962,10 @@ Reserve yours here: https://superecomm.com/reserve`;
                     />
                   </div>
 
-                  <div className={`p-3 rounded-lg text-xs ${
+                  <div className={`p-2 rounded-lg text-[10px] ${
                     darkMode ? 'bg-gray-800/50 text-gray-400' : 'bg-gray-50 text-gray-600'
                   }`}>
-                    🔒 Secure payment processing. Your card information is encrypted and never stored.
+                    🔒 Encrypted & secure
                   </div>
                 </>
               )}
@@ -979,7 +973,7 @@ Reserve yours here: https://superecomm.com/reserve`;
               <button
                 type="submit"
                 disabled={loading}
-                className={`w-full py-3 px-4 rounded-lg font-semibold transition-colors ${
+                className={`w-full py-2.5 px-4 rounded-lg text-sm font-semibold transition-colors ${
                   darkMode
                     ? 'bg-blue-600 hover:bg-blue-500 text-white'
                     : 'bg-blue-600 hover:bg-blue-700 text-white'
@@ -987,19 +981,19 @@ Reserve yours here: https://superecomm.com/reserve`;
               >
                 {loading ? (
                   <>
-                    <Loader2 className="w-5 h-5 animate-spin" />
-                    {isSignUp ? 'Processing...' : 'Processing...'}
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    Processing...
                   </>
                 ) : (
-                  isSignUp ? 'Create Account & Pay $10' : 'Sign In & Pay $10'
+                  isSignUp ? 'Create & Pay $10' : 'Sign In & Pay $10'
                 )}
               </button>
-              <p className={`text-xs text-center mt-2 ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>
-                {isSignUp ? 'Your card will be charged $10 after account creation' : 'Payment processed immediately after sign in'}
+              <p className={`text-[10px] text-center mt-1.5 ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>
+                {isSignUp ? 'Charged $10 after creation' : 'Processed after sign in'}
               </p>
             </form>
 
-            <div className="mt-4 text-center">
+            <div className="mt-3 text-center">
               <button
                 onClick={() => {
                   setIsSignUp(!isSignUp);
@@ -1010,11 +1004,11 @@ Reserve yours here: https://superecomm.com/reserve`;
                   setCardCvc('');
                   setZipCode('');
                 }}
-                className={`text-sm ${
+                className={`text-xs ${
                   darkMode ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-700'
                 }`}
               >
-                {isSignUp ? 'Already have an account? Sign in' : 'Need an account? Sign up'}
+                {isSignUp ? 'Have an account? Sign in' : 'Need an account? Sign up'}
               </button>
             </div>
           </div>

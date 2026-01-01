@@ -1,34 +1,9 @@
 /**
  * Stripe Payment Integration for AI Grid Layer Reservations
- * 
- * INSTALLATION REQUIRED:
- * npm install @stripe/stripe-js
- * 
- * ENVIRONMENT VARIABLES REQUIRED:
- * VITE_STRIPE_PUBLISHABLE_KEY=pk_test_...
- * 
- * BACKEND API REQUIRED:
- * You'll need to create a backend API (Firebase Functions, Vercel, or similar) with:
- * - POST /api/create-checkout-session - Creates Stripe Checkout session
- * - POST /api/webhook - Handles Stripe webhooks
- * - Environment variable: STRIPE_SECRET_KEY=sk_test_...
- * - Environment variable: STRIPE_WEBHOOK_SECRET=whsec_...
- * 
- * This file provides client-side Stripe integration.
+ * Uses Firebase Functions + Stripe Checkout
  */
 
-// import { loadStripe } from '@stripe/stripe-js';
-
-// Uncomment after installing @stripe/stripe-js
-// const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
-
-export interface CreateCheckoutSessionParams {
-  userId: string;
-  email: string;
-  amount: number; // in cents (1000 = $10.00)
-  successUrl: string;
-  cancelUrl: string;
-}
+import { getFunctions, httpsCallable } from 'firebase/functions';
 
 export interface CreateCheckoutSessionResponse {
   sessionId: string;
@@ -36,78 +11,47 @@ export interface CreateCheckoutSessionResponse {
 }
 
 /**
- * Create a Stripe Checkout session for AI Grid Layer reservation
- * 
- * In production, this calls your backend API which creates the actual Stripe session
+ * Create a Stripe Checkout session via Firebase Functions
+ * This will redirect the user to Stripe's hosted payment page
  */
-export async function createCheckoutSession(
-  params: CreateCheckoutSessionParams
-): Promise<CreateCheckoutSessionResponse> {
-  // TODO: Replace with your actual backend API endpoint
-  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
-  
+export async function createCheckoutSession(): Promise<CreateCheckoutSessionResponse> {
   try {
-    const response = await fetch(`${API_URL}/api/create-checkout-session`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        userId: params.userId,
-        email: params.email,
-        amount: params.amount,
-        successUrl: params.successUrl,
-        cancelUrl: params.cancelUrl,
-      }),
-    });
+    const functions = getFunctions();
+    const createCheckout = httpsCallable<
+      { priceId: string; successUrl: string; cancelUrl: string },
+      CreateCheckoutSessionResponse
+    >(functions, 'createCheckoutSession');
 
-    if (!response.ok) {
-      throw new Error('Failed to create checkout session');
+    const priceId = import.meta.env.VITE_STRIPE_PRICE_ID;
+    
+    if (!priceId) {
+      throw new Error('Stripe Price ID not configured. Please set VITE_STRIPE_PRICE_ID');
     }
 
-    const data = await response.json();
-    return {
-      sessionId: data.sessionId,
-      url: data.url,
-    };
-  } catch (error) {
+    const result = await createCheckout({
+      priceId,
+      successUrl: `${window.location.origin}/reserve?success=true`,
+      cancelUrl: `${window.location.origin}/reserve?canceled=true`,
+    });
+
+    return result.data;
+  } catch (error: any) {
     console.error('Error creating checkout session:', error);
-    throw error;
+    throw new Error(error.message || 'Failed to create checkout session');
   }
 }
 
 /**
- * Redirect user to Stripe Checkout
- * 
- * After calling createCheckoutSession, use this to redirect the user
+ * Redirect to Stripe Checkout
+ * Simply redirects to the checkout URL provided by Stripe
  */
-export async function redirectToCheckout(sessionId: string): Promise<void> {
-  // Uncomment after installing @stripe/stripe-js
-  /*
-  const stripe = await stripePromise;
-  
-  if (!stripe) {
-    throw new Error('Stripe failed to load');
-  }
-
-  const { error } = await stripe.redirectToCheckout({ sessionId });
-  
-  if (error) {
-    console.error('Error redirecting to checkout:', error);
-    throw error;
-  }
-  */
-  
-  // For now, just log
-  console.log('Would redirect to Stripe Checkout with session:', sessionId);
-  throw new Error('Stripe SDK not installed. Run: npm install @stripe/stripe-js');
+export function redirectToStripeCheckout(checkoutUrl: string): void {
+  window.location.href = checkoutUrl;
 }
 
 /**
  * STUB: Simulate successful payment (FOR DEVELOPMENT ONLY)
- * 
- * In production, payments are confirmed via webhook from Stripe
- * This stub allows you to test the flow without a backend
+ * Used when Firebase Functions are not configured
  */
 export async function simulatePaymentSuccess(
   _userId: string,
@@ -116,7 +60,6 @@ export async function simulatePaymentSuccess(
   console.warn('⚠️ DEVELOPMENT MODE: Simulating payment success');
   console.log(`Simulating payment for user: ${_userId}, amount: $${_amount / 100}`);
   
-  // Simulate API delay
   await new Promise(resolve => setTimeout(resolve, 1500));
   
   return {
