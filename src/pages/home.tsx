@@ -9,6 +9,7 @@ import marketingImage24 from '../assets/marketing-images/marketing-image24.jpg';
 import marketingImage34 from '../assets/marketing-images/marketing-image34.jpg';
 import marketingImage29 from '../assets/marketing-images/marketing-image29.jpg';
 import marketingImage27 from '../assets/marketing-images/marketing-image27.jpg';
+import aiUtilityBillImage from '../assets/ai-utility-bill-image.png';
 import ReservePage from "./ReservePage";
 import DashboardPage from "./DashboardPage";
 import { auth, db } from "../config/firebase";
@@ -1760,14 +1761,7 @@ const SupereCommWebsite = () => {
 
   const navigation = [
     { name: "Home", id: "home" as const },
-    {
-      name: "Plans & Pricing",
-      items: [
-        { name: "Individual", id: "plan-individual" as const },
-        { name: "Home & Family", id: "plan-home" as const },
-        { name: "Business", id: "plan-business" as const },
-      ],
-    },
+    { name: "Plans & Pricing", id: "plans-pricing" as const },
     { name: "How It Works", id: "how-it-works" as const },
     { name: "Support", id: "support" as const },
     { name: "Contact", id: "contact" as const },
@@ -2158,95 +2152,218 @@ const SupereCommWebsite = () => {
   );
 
   const PlansAndBillingPage = () => (
-    <div className="min-h-screen px-6 py-24">
-      <div className="max-w-5xl mx-auto">
-        <h1
-          className={`text-4xl md:text-5xl font-light mb-6 ${
-            darkMode ? "text-white" : "text-gray-900"
-          }`}
-        >
-          Plans &amp; Pricing
-        </h1>
-        <p
-          className={`text-lg mb-12 ${
-            darkMode ? "text-gray-300" : "text-gray-700"
-          }`}
-        >
-          Start your AI bill with the option that fits you best. All usage is
-          metered in <span className="font-semibold">aiWh</span>, just like
-          electricity is measured in kWh.
-        </p>
-
-        <div className="grid md:grid-cols-3 gap-8">
-          <div
-            className={`rounded-xl p-6 border ${
-              darkMode
-                ? "border-gray-700 bg-gray-900"
-                : "border-gray-200 bg-white"
+    <div className="min-h-screen">
+      {/* Hero Section */}
+      <div className="px-4 sm:px-6 pt-24 pb-16">
+        <div className="max-w-6xl mx-auto text-center">
+          <h1
+            className={`text-4xl sm:text-5xl md:text-6xl font-light mb-6 ${
+              darkMode ? "text-white" : "text-gray-900"
             }`}
           >
-            <h2
-              className={`text-xl font-semibold mb-2 ${
-                darkMode ? "text-white" : "text-gray-900"
-              }`}
-            >
-              Subscription Account
-            </h2>
-            <p className={darkMode ? "text-gray-300" : "text-gray-700"}>
-              Simple monthly subscription, no credit check. Perfect for
-              individuals and families who want predictable AI access.
-            </p>
+            AI as a Utility
+          </h1>
+          <p
+            className={`text-lg sm:text-xl max-w-3xl mx-auto mb-8 ${
+              darkMode ? "text-gray-300" : "text-gray-700"
+            }`}
+          >
+            Pay for AI like you pay for electricity. One meter, one bill, unlimited intelligence.
+          </p>
+          <button
+            onClick={() => setCurrentPage('reserve')}
+            className={`px-8 py-4 rounded-lg text-lg font-medium transition-all hover:scale-105 ${
+              darkMode
+                ? "bg-blue-600 hover:bg-blue-500 text-white"
+                : "bg-blue-600 hover:bg-blue-700 text-white"
+            } shadow-lg`}
+          >
+            Reserve Your Account
+          </button>
+        </div>
+      </div>
+
+      {/* Main Content Grid */}
+      <div className="px-4 sm:px-6 pb-24">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            
+            {/* Left: Plans Info */}
+            <div className="space-y-12">
+              
+              {/* Subscriptions */}
+              <div>
+                <h2 className={`text-3xl font-light mb-6 ${
+                  darkMode ? "text-white" : "text-gray-900"
+                }`}>
+                  Subscriptions
+                </h2>
+                <ul className={`space-y-3 ${
+                  darkMode ? "text-gray-300" : "text-gray-700"
+                }`}>
+                  <li className="flex items-start gap-3">
+                    <Zap className="w-5 h-5 mt-1 flex-shrink-0 text-blue-500" />
+                    <span>Monthly aiWh Subscription (Individuals & Creators)</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Zap className="w-5 h-5 mt-1 flex-shrink-0 text-blue-500" />
+                    <span>Predictable Recurring Revenue</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Zap className="w-5 h-5 mt-1 flex-shrink-0 text-blue-500" />
+                    <span>aiWh Credit Bundles (Usage-Tiered)</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Retroactive Utility Billing */}
+              <div>
+                <h2 className={`text-3xl font-light mb-6 ${
+                  darkMode ? "text-white" : "text-gray-900"
+                }`}>
+                  Retroactive Utility Billing
+                </h2>
+                <ul className={`space-y-3 ${
+                  darkMode ? "text-gray-300" : "text-gray-700"
+                }`}>
+                  <li className="flex items-start gap-3">
+                    <Shield className="w-5 h-5 mt-1 flex-shrink-0 text-purple-500" />
+                    <span>Credit Check Required</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Shield className="w-5 h-5 mt-1 flex-shrink-0 text-purple-500" />
+                    <span>Pay Only For What You Use</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Shield className="w-5 h-5 mt-1 flex-shrink-0 text-purple-500" />
+                    <span>Unlimited Scaling For Enterprises</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Upside Expansion */}
+              <div>
+                <h2 className={`text-3xl font-light mb-6 ${
+                  darkMode ? "text-white" : "text-gray-900"
+                }`}>
+                  Upside Expansion
+                </h2>
+                <ul className={`space-y-3 ${
+                  darkMode ? "text-gray-300" : "text-gray-700"
+                }`}>
+                  <li className="flex items-start gap-3">
+                    <Brain className="w-5 h-5 mt-1 flex-shrink-0 text-green-500" />
+                    <span>AI Safety Layer (Identity/Voice Protection Add-On)</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Brain className="w-5 h-5 mt-1 flex-shrink-0 text-green-500" />
+                    <span>Team / Family Plans</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Brain className="w-5 h-5 mt-1 flex-shrink-0 text-green-500" />
+                    <span>API Access Usage Billing</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Brain className="w-5 h-5 mt-1 flex-shrink-0 text-green-500" />
+                    <span>Partnerships + Marketplace Fees</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* CTA */}
+              <div className={`p-6 rounded-xl border ${
+                darkMode
+                  ? "border-blue-500/30 bg-blue-500/10"
+                  : "border-blue-200 bg-blue-50"
+              }`}>
+                <p className={`text-base mb-4 ${
+                  darkMode ? "text-blue-300" : "text-blue-900"
+                }`}>
+                  Reserve your AI Grid Layer account now. Be among the first to experience AI as a utility.
+                </p>
+                <button
+                  onClick={() => setCurrentPage('reserve')}
+                  className={`px-6 py-3 rounded-lg font-medium transition-colors ${
+                    darkMode
+                      ? "bg-blue-600 hover:bg-blue-500 text-white"
+                      : "bg-blue-600 hover:bg-blue-700 text-white"
+                  }`}
+                >
+                  Get Early Access
+                </button>
+              </div>
+            </div>
+
+            {/* Right: AI Utility Bill Dashboard Mockup */}
+            <div className="relative">
+              <div className={`rounded-2xl overflow-hidden border ${
+                darkMode ? "border-gray-800" : "border-gray-200"
+              } shadow-2xl`}>
+                <img
+                  src={aiUtilityBillImage}
+                  alt="AI Watt Meter - Utility Account Dashboard showing aiWh usage, billing cycle, and adaptive metering"
+                  className="w-full h-auto"
+                />
+              </div>
+              <div className={`mt-6 text-center text-sm ${
+                darkMode ? "text-gray-500" : "text-gray-500"
+              }`}>
+                <p>Preview: AI Utility Dashboard with aiWh metering</p>
+              </div>
+            </div>
           </div>
 
-          <div
-            className={`rounded-xl p-6 border ${
-              darkMode
-                ? "border-gray-700 bg-gray-900"
-                : "border-gray-200 bg-white"
-            }`}
-          >
-            <h2
-              className={`text-xl font-semibold mb-2 ${
+          {/* Features Grid */}
+          <div className="mt-24 grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className={`p-6 rounded-xl border ${
+              darkMode ? "border-gray-800 bg-gray-900/50" : "border-gray-200 bg-white"
+            }`}>
+              <Plug className={`w-10 h-10 mb-4 ${
+                darkMode ? "text-blue-400" : "text-blue-600"
+              }`} />
+              <h3 className={`text-xl font-semibold mb-2 ${
                 darkMode ? "text-white" : "text-gray-900"
-              }`}
-            >
-              Billing Account
-            </h2>
-            <p className={darkMode ? "text-gray-300" : "text-gray-700"}>
-              Usage-based AI bill with meters and detailed statements. Pay for
-              the intelligence you actually use.
-            </p>
-          </div>
+              }`}>
+                1000+ AI Models
+              </h3>
+              <p className={darkMode ? "text-gray-400" : "text-gray-600"}>
+                Access any AI model through a single interface. Intelligent routing optimizes cost and performance.
+              </p>
+            </div>
 
-          <div
-            className={`rounded-xl p-6 border ${
-              darkMode
-                ? "border-gray-700 bg-gray-900"
-                : "border-gray-200 bg-white"
-            }`}
-          >
-            <h2
-              className={`text-xl font-semibold mb-2 ${
+            <div className={`p-6 rounded-xl border ${
+              darkMode ? "border-gray-800 bg-gray-900/50" : "border-gray-200 bg-white"
+            }`}>
+              <Database className={`w-10 h-10 mb-4 ${
+                darkMode ? "text-purple-400" : "text-purple-600"
+              }`} />
+              <h3 className={`text-xl font-semibold mb-2 ${
                 darkMode ? "text-white" : "text-gray-900"
-              }`}
-            >
-              Business Account
-            </h2>
-            <p className={darkMode ? "text-gray-300" : "text-gray-700"}>
-              AI for teams, departments, and enterprises — with shared meters,
-              seats, and consolidated billing.
-            </p>
+              }`}>
+                Transparent Metering
+              </h3>
+              <p className={darkMode ? "text-gray-400" : "text-gray-600"}>
+                Every AI interaction is measured in aiWh. You see exactly what you use and what you pay.
+              </p>
+            </div>
+
+            <div className={`p-6 rounded-xl border ${
+              darkMode ? "border-gray-800 bg-gray-900/50" : "border-gray-200 bg-white"
+            }`}>
+              <Wallet className={`w-10 h-10 mb-4 ${
+                darkMode ? "text-green-400" : "text-green-600"
+              }`} />
+              <h3 className={`text-xl font-semibold mb-2 ${
+                darkMode ? "text-white" : "text-gray-900"
+              }`}>
+                One Monthly Bill
+              </h3>
+              <p className={darkMode ? "text-gray-400" : "text-gray-600"}>
+                No more juggling subscriptions. One AI bill, just like your electricity or water.
+              </p>
+            </div>
           </div>
         </div>
-
-        <p
-          className={`mt-10 text-sm ${
-            darkMode ? "text-gray-400" : "text-gray-600"
-          }`}
-        >
-          Online signup is coming soon. For early access, investors and
-          partners can contact us directly.
-        </p>
       </div>
     </div>
   );
@@ -2379,7 +2496,7 @@ const SupereCommWebsite = () => {
               {/* Desktop Navigation */}
               <div className="hidden md:flex items-center space-x-1">
                 {navigation.map((item) =>
-                  "items" in item ? (
+                  "items" in item && (item as any).items ? (
                     <div key={item.name} className="relative">
                       <button
                         onMouseEnter={() => setOpenDropdown(item.name)}
@@ -2402,7 +2519,7 @@ const SupereCommWebsite = () => {
                               : "bg-white border border-gray-200"
                           } py-2 z-50`}
                         >
-                          {item.items!.map((subItem) => (
+                          {((item as any).items as any[]).map((subItem: any) => (
                             <button
                               key={subItem.id}
                               onClick={() => {
@@ -2423,10 +2540,10 @@ const SupereCommWebsite = () => {
                     </div>
                   ) : (
                     <button
-                      key={item.id}
-                      onClick={() => setCurrentPage(item.id)}
+                      key={(item as any).id}
+                      onClick={() => setCurrentPage((item as any).id)}
                       className={`px-4 py-2 rounded text-sm ${
-                        currentPage === item.id
+                        currentPage === (item as any).id
                           ? darkMode
                             ? "bg-gray-800 text-white"
                             : "bg-gray-100 text-gray-900"
@@ -2585,7 +2702,7 @@ const SupereCommWebsite = () => {
             {mobileMenuOpen && (
               <div className="md:hidden mt-3 pb-4 space-y-3">
                 {navigation.map((item) =>
-                  "items" in item ? (
+                  "items" in item && (item as any).items ? (
                     <div key={item.name}>
                       <div
                         className={`px-4 py-2 font-medium text-sm ${
@@ -2594,7 +2711,7 @@ const SupereCommWebsite = () => {
                       >
                         {item.name}
                       </div>
-                      {item.items!.map((subItem) => (
+                      {((item as any).items as any[]).map((subItem: any) => (
                         <button
                           key={subItem.id}
                           onClick={() => {
@@ -2667,9 +2784,7 @@ const SupereCommWebsite = () => {
           {currentPage === "about" && <AboutPage />}
           {currentPage === "subsidiaries" && <SubsidiariesPage />}
           {currentPage === "founders-letters" && <FoundersLettersPage />}
-          {(currentPage === "plan-individual" ||
-            currentPage === "plan-home" ||
-            currentPage === "plan-business") && <PlansAndBillingPage />}
+          {currentPage === "plans-pricing" && <PlansAndBillingPage />}
           {currentPage === "account" && <MyAccountPage />}
 
           {(currentPage === "how-it-works" ||
