@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import type { FC } from "react";
-import { Menu, X, ChevronRight, ChevronDown, Zap, Brain, Plug, Shield, Database, Wallet, Coffee, Briefcase, Smartphone, Home as HomeIcon } from "lucide-react";
+import { Menu, X, ChevronRight, ChevronDown, Zap, Brain, Plug, Shield, Database, Wallet, Coffee, Briefcase, Smartphone, Home as HomeIcon, ArrowRight, Users, Target, Network, Gauge } from "lucide-react";
 import heroOffice from "../assets/hero-office.webp";
 import meterImage from "../assets/aiWh-meter-transparent-background-new.png";
 import productImage from "../assets/plusai-product-image-3.png";
@@ -9,6 +9,7 @@ import marketingImage24 from '../assets/marketing-images/marketing-image24.jpg';
 import marketingImage34 from '../assets/marketing-images/marketing-image34.jpg';
 import marketingImage29 from '../assets/marketing-images/marketing-image29.jpg';
 import marketingImage27 from '../assets/marketing-images/marketing-image27.jpg';
+import marketingImage230 from '../assets/marketing-images/marketing-image230.jpg';
 import aiUtilityBillImage from '../assets/ai-utility-bill-image.png';
 import ReservePage from "./ReservePage";
 import DashboardPage from "./DashboardPage";
@@ -1763,6 +1764,7 @@ const SupereCommWebsite = () => {
     { name: "Home", id: "home" as const },
     { name: "Plans & Pricing", id: "plans-pricing" as const },
     { name: "How It Works", id: "how-it-works" as const },
+    { name: "Careers", id: "careers" as const },
     { name: "Support", id: "support" as const },
     { name: "Contact", id: "contact" as const },
     // Hidden from public - Founder's Letter
@@ -2150,6 +2152,140 @@ const SupereCommWebsite = () => {
       </div>
     </div>
   );
+
+  const HowItWorksPage = () => {
+    const [scrollY, setScrollY] = useState(0);
+
+    useEffect(() => {
+      const handleScroll = () => setScrollY(window.scrollY);
+      window.addEventListener('scroll', handleScroll);
+      return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    return (
+    <div className="min-h-screen">
+      {/* Hero Section with Parallax Image */}
+      <div className="relative h-[60vh] sm:h-[70vh] flex items-center justify-center overflow-hidden">
+        <img
+          src={marketingImage230}
+          alt="Don't Worry Just Prompt"
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{
+            transform: `translateY(${scrollY * 0.5}px)`,
+            transition: 'transform 0.1s ease-out'
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/60" />
+        
+        <div className="relative z-10 text-center px-4">
+          <h1 className="text-5xl sm:text-6xl md:text-7xl font-light text-white mb-6 drop-shadow-lg">
+            Don't Worry Just Prompt
+          </h1>
+          <p className="text-2xl sm:text-3xl text-white/95 font-light drop-shadow-md">
+            We take care of the rest
+          </p>
+        </div>
+      </div>
+
+      {/* Content Section */}
+      <div className="px-4 sm:px-6 py-12">
+      <div className="max-w-7xl mx-auto w-full">
+
+        {/* Flowchart: 3 Steps + Result */}
+        <div className="grid grid-cols-1 sm:grid-cols-7 gap-4 mb-8 items-center">
+          
+          {/* Step 1 */}
+          <div className="sm:col-span-2 text-center">
+            <div className={`inline-flex items-center justify-center w-16 h-16 rounded-full mb-3 ${
+              darkMode ? "bg-blue-600" : "bg-blue-600"
+            }`}>
+              <Users className="w-8 h-8 text-white" />
+            </div>
+            <h3 className={`text-base font-semibold mb-1 ${
+              darkMode ? "text-white" : "text-gray-900"
+            }`}>
+              Create Prompt
+            </h3>
+            <p className={`text-xs ${darkMode ? "text-gray-500" : "text-gray-600"}`}>
+              Your request
+            </p>
+          </div>
+
+          {/* Arrow */}
+          <div className="hidden sm:flex justify-center">
+            <ArrowRight className={`w-6 h-6 ${darkMode ? "text-gray-600" : "text-gray-400"}`} />
+          </div>
+
+          {/* Step 2 */}
+          <div className="sm:col-span-2 text-center">
+            <div className={`inline-flex items-center justify-center w-16 h-16 rounded-full mb-3 ${
+              darkMode ? "bg-green-600" : "bg-green-600"
+            }`}>
+              <Target className="w-8 h-8 text-white" />
+            </div>
+            <h3 className={`text-base font-semibold mb-1 ${
+              darkMode ? "text-white" : "text-gray-900"
+            }`}>
+              Break Into Tasks
+            </h3>
+            <p className={`text-xs ${darkMode ? "text-gray-500" : "text-gray-600"}`}>
+              Smart division
+            </p>
+          </div>
+
+          {/* Arrow */}
+          <div className="hidden sm:flex justify-center">
+            <ArrowRight className={`w-6 h-6 ${darkMode ? "text-gray-600" : "text-gray-400"}`} />
+          </div>
+
+          {/* Step 3 */}
+          <div className="sm:col-span-2 text-center">
+            <div className={`inline-flex items-center justify-center w-16 h-16 rounded-full mb-3 ${
+              darkMode ? "bg-purple-600" : "bg-purple-600"
+            }`}>
+              <Network className="w-8 h-8 text-white" />
+            </div>
+            <h3 className={`text-base font-semibold mb-1 ${
+              darkMode ? "text-white" : "text-gray-900"
+            }`}>
+              Route on Grid
+            </h3>
+            <p className={`text-xs ${darkMode ? "text-gray-500" : "text-gray-600"}`}>
+              Optimal models
+            </p>
+          </div>
+        </div>
+
+        {/* Result: aiWh Badge */}
+        <div className="flex justify-center mb-12">
+          <div className={`inline-flex items-center gap-3 px-6 py-3 rounded-full ${
+            darkMode ? "bg-blue-600/20 border-2 border-blue-500/50" : "bg-blue-100 border-2 border-blue-300"
+          }`}>
+            <Gauge className={`w-6 h-6 ${darkMode ? "text-blue-400" : "text-blue-600"}`} />
+            <span className={`text-xl font-semibold ${darkMode ? "text-blue-300" : "text-blue-900"}`}>
+              = aiWh
+            </span>
+          </div>
+        </div>
+
+        {/* CTA */}
+        <div className="text-center mt-8">
+          <button
+            onClick={() => setCurrentPage('reserve')}
+            className={`px-8 py-4 rounded-lg text-lg font-medium transition-all hover:scale-105 ${
+              darkMode
+                ? "bg-blue-600 hover:bg-blue-500 text-white"
+                : "bg-blue-600 hover:bg-blue-700 text-white"
+            } shadow-lg`}
+          >
+            Reserve Your Account
+          </button>
+        </div>
+      </div>
+      </div>
+    </div>
+    );
+  };
 
   const PlansAndBillingPage = () => (
     <div className="min-h-screen">
@@ -2785,9 +2921,10 @@ const SupereCommWebsite = () => {
           {currentPage === "subsidiaries" && <SubsidiariesPage />}
           {currentPage === "founders-letters" && <FoundersLettersPage />}
           {currentPage === "plans-pricing" && <PlansAndBillingPage />}
+          {currentPage === "how-it-works" && <HowItWorksPage />}
           {currentPage === "account" && <MyAccountPage />}
 
-          {(currentPage === "how-it-works" ||
+          {(currentPage === "careers" ||
             currentPage === "support" ||
             currentPage === "contact") && (
             <div className="min-h-screen px-6 py-24">
