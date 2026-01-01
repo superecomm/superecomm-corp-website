@@ -11,8 +11,10 @@ import marketingImage29 from '../assets/marketing-images/marketing-image29.jpg';
 import marketingImage27 from '../assets/marketing-images/marketing-image27.jpg';
 import ReservePage from "./ReservePage";
 import DashboardPage from "./DashboardPage";
-import { auth } from "../config/firebase";
+import { auth, db } from "../config/firebase";
 import { onAuthStateChanged, type User } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
+import type { UserProfile } from "../types/grid";
 
 type HomePageProps = {
   darkMode: boolean;
@@ -1697,15 +1699,30 @@ const SupereCommWebsite = () => {
   const [openDropdown, setOpenDropdown] = useState("");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
 
   const toggleFaq = (index: number) => {
     setOpenFaq(openFaq === index ? null : index);
   };
 
-  // Listen to auth state changes
+  // Listen to auth state changes and load user profile
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setCurrentUser(user);
+      
+      if (user) {
+        // Load user profile from Firestore
+        try {
+          const userDoc = await getDoc(doc(db, 'users', user.uid));
+          if (userDoc.exists()) {
+            setUserProfile(userDoc.data() as UserProfile);
+          }
+        } catch (error) {
+          console.error('Error loading user profile:', error);
+        }
+      } else {
+        setUserProfile(null);
+      }
     });
     return () => unsubscribe();
   }, []);
@@ -2204,7 +2221,11 @@ const SupereCommWebsite = () => {
                       : "border-blue-600 text-blue-700 hover:bg-blue-50"
                   } transition-colors`}
                 >
-                  My Account
+                  {currentUser && userProfile?.displayName 
+                    ? userProfile.displayName.split(' ')[0] 
+                    : currentUser 
+                    ? currentUser.email?.split('@')[0] 
+                    : 'My Account'}
                 </button>
               </div>
 
@@ -2221,7 +2242,11 @@ const SupereCommWebsite = () => {
                       : "border-blue-600 text-blue-700"
                   }`}
                 >
-                  My Account
+                  {currentUser && userProfile?.displayName 
+                    ? userProfile.displayName.split(' ')[0] 
+                    : currentUser 
+                    ? currentUser.email?.split('@')[0] 
+                    : 'My Account'}
                 </button>
                 <button
                   onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
