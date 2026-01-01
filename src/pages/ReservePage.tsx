@@ -38,7 +38,9 @@ export const ReservePage: FC<ReservePageProps> = ({ darkMode, onNavigateToDashbo
   // Auth form state
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [displayName, setDisplayName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [isSignUp, setIsSignUp] = useState(true);
 
   // Countdown state
@@ -90,6 +92,7 @@ export const ReservePage: FC<ReservePageProps> = ({ darkMode, onNavigateToDashbo
         currentUser = userCredential.user;
         
         // Create user profile in Firestore
+        const displayName = `${firstName} ${lastName}`.trim();
         const userProfile: Partial<UserProfile> = {
           uid: userCredential.user.uid,
           email: userCredential.user.email!,
@@ -100,6 +103,11 @@ export const ReservePage: FC<ReservePageProps> = ({ darkMode, onNavigateToDashbo
             marketing: true
           }
         };
+        
+        // Add phone number if provided
+        if (phoneNumber) {
+          (userProfile as any).phoneNumber = phoneNumber;
+        }
         
         await setDoc(doc(db, 'users', userCredential.user.uid), userProfile);
       } else {
@@ -724,24 +732,67 @@ export const ReservePage: FC<ReservePageProps> = ({ darkMode, onNavigateToDashbo
 
             <form onSubmit={handleAuth} className="space-y-3">
               {isSignUp && (
-                <div>
-                  <label className={`block text-xs font-medium mb-1 ${
-                    darkMode ? 'text-gray-300' : 'text-gray-700'
-                  }`}>
-                    Name (Optional)
-                  </label>
-                  <input
-                    type="text"
-                    value={displayName}
-                    onChange={(e) => setDisplayName(e.target.value)}
-                    className={`w-full px-3 py-2 text-sm rounded-lg border ${
-                      darkMode
-                        ? 'bg-gray-800 border-gray-700 text-white focus:border-blue-500'
-                        : 'bg-white border-gray-300 text-gray-900 focus:border-blue-500'
-                    } outline-none transition-colors`}
-                    placeholder="Your Name"
-                  />
-                </div>
+                <>
+                  <div className="grid grid-cols-2 gap-2">
+                    <div>
+                      <label className={`block text-xs font-medium mb-1 ${
+                        darkMode ? 'text-gray-300' : 'text-gray-700'
+                      }`}>
+                        First Name <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
+                        required
+                        className={`w-full px-3 py-2 text-sm rounded-lg border ${
+                          darkMode
+                            ? 'bg-gray-800 border-gray-700 text-white focus:border-blue-500'
+                            : 'bg-white border-gray-300 text-gray-900 focus:border-blue-500'
+                        } outline-none transition-colors`}
+                        placeholder="John"
+                      />
+                    </div>
+                    <div>
+                      <label className={`block text-xs font-medium mb-1 ${
+                        darkMode ? 'text-gray-300' : 'text-gray-700'
+                      }`}>
+                        Last Name <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        value={lastName}
+                        onChange={(e) => setLastName(e.target.value)}
+                        required
+                        className={`w-full px-3 py-2 text-sm rounded-lg border ${
+                          darkMode
+                            ? 'bg-gray-800 border-gray-700 text-white focus:border-blue-500'
+                            : 'bg-white border-gray-300 text-gray-900 focus:border-blue-500'
+                        } outline-none transition-colors`}
+                        placeholder="Doe"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className={`block text-xs font-medium mb-1 ${
+                      darkMode ? 'text-gray-300' : 'text-gray-700'
+                    }`}>
+                      Phone Number (Optional)
+                    </label>
+                    <input
+                      type="tel"
+                      value={phoneNumber}
+                      onChange={(e) => setPhoneNumber(e.target.value)}
+                      className={`w-full px-3 py-2 text-sm rounded-lg border ${
+                        darkMode
+                          ? 'bg-gray-800 border-gray-700 text-white focus:border-blue-500'
+                          : 'bg-white border-gray-300 text-gray-900 focus:border-blue-500'
+                      } outline-none transition-colors`}
+                      placeholder="+1 (555) 123-4567"
+                    />
+                  </div>
+                </>
               )}
 
               <div>
