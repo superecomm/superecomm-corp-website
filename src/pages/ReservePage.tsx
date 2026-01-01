@@ -76,8 +76,11 @@ export const ReservePage: FC<ReservePageProps> = ({ darkMode, onNavigateToDashbo
     setError('');
 
     try {
+      let currentUser: User;
+      
       if (isSignUp) {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        currentUser = userCredential.user;
         
         // Create user profile in Firestore
         const userProfile: Partial<UserProfile> = {
@@ -93,11 +96,63 @@ export const ReservePage: FC<ReservePageProps> = ({ darkMode, onNavigateToDashbo
         
         await setDoc(doc(db, 'users', userCredential.user.uid), userProfile);
       } else {
-        await signInWithEmailAndPassword(auth, email, password);
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        currentUser = userCredential.user;
       }
       
-      // Close modal after successful auth
+      // Close modal and proceed to payment
       setShowAuthModal(false);
+      setUser(currentUser);
+      
+      // Automatically trigger reservation flow after successful auth
+      setLoading(true);
+      setStep('processing');
+      
+      try {
+        // Simulate Stripe payment (replace with real Stripe in production)
+        const paymentResult = await simulatePaymentSuccess(currentUser.uid, 1000);
+
+        if (!paymentResult.success) {
+          throw new Error('Payment failed');
+        }
+
+        // Create grid account
+        const gridResult = await createGridAccountForUser(currentUser.uid);
+
+        if (!gridResult.success) {
+          throw new Error(gridResult.error || 'Failed to create grid account');
+        }
+
+        // Update user with reservation info
+        const reservation: Reservation = {
+          paid: true,
+          amount: 10,
+          stripePaymentId: paymentResult.paymentId,
+          refundable: true,
+          createdAt: serverTimestamp() as any
+        };
+
+        await setDoc(doc(db, 'users', currentUser.uid), {
+          reservation,
+          updatedAt: serverTimestamp()
+        }, { merge: true });
+
+        // Log confirmation email to console
+        logEmailToConsole({
+          toEmail: currentUser.email!,
+          displayName: displayName || currentUser.displayName || undefined,
+          gridAccountId: gridResult.gridAccountId,
+          amount: 1000,
+          reservedAt: new Date()
+        });
+
+        setGridAccountId(gridResult.gridAccountId);
+        setStep('success');
+      } catch (err: any) {
+        setError(err.message || 'Reservation failed');
+        setStep('landing');
+      }
+      
     } catch (err: any) {
       setError(err.message || 'Authentication failed');
     } finally {
@@ -717,9 +772,38 @@ Reserve yours here: https://superecomm.com/reserve`;
               <X className="w-5 h-5" />
             </button>
 
-            <h2 className={`text-2xl font-semibold mb-6 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
-              {isSignUp ? 'Create Account' : 'Welcome Back'}
+            <h2 className={`text-2xl font-semibold mb-2 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+              {isSignUp ? 'Create Account & Reserve' : 'Sign In & Reserve'}
             </h2>
+            <p className={`text-sm mb-6 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+              {isSignUp ? 'Your account will be created and your $10 reservation processed immediately' : 'Sign in to complete your $10 reservation'}
+            </p>
+
+            {/* Payment Summary */}
+            <div className={`mb-6 p-4 rounded-lg border ${
+              darkMode ? 'bg-gray-800/50 border-gray-700' : 'bg-blue-50 border-blue-200'
+            }`}>
+              <div className="flex justify-between items-center mb-2">
+                <span className={`font-medium ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                  AI Grid Layer Reservation
+                </span>
+                <span className={`text-2xl font-bold ${darkMode ? 'text-blue-400' : 'text-blue-600'}`}>
+                  $10
+                </span>
+              </div>
+              <div className="flex justify-between text-xs mb-1">
+                <span className={darkMode ? 'text-gray-400' : 'text-gray-600'}>Status:</span>
+                <span className={`font-medium ${darkMode ? 'text-green-400' : 'text-green-600'}`}>
+                  Fully Refundable
+                </span>
+              </div>
+              <div className="flex justify-between text-xs">
+                <span className={darkMode ? 'text-gray-400' : 'text-gray-600'}>Converts to:</span>
+                <span className={darkMode ? 'text-gray-300' : 'text-gray-700'}>
+                  $10 AI usage credit
+                </span>
+              </div>
+            </div>
 
             {error && (
               <div className="mb-4 p-3 rounded-lg bg-red-500/10 border border-red-500/50 flex items-start gap-2">
@@ -803,12 +887,15 @@ Reserve yours here: https://superecomm.com/reserve`;
                 {loading ? (
                   <>
                     <Loader2 className="w-5 h-5 animate-spin" />
-                    {isSignUp ? 'Creating...' : 'Signing in...'}
+                    {isSignUp ? 'Processing...' : 'Processing...'}
                   </>
                 ) : (
-                  isSignUp ? 'Create Account & Reserve' : 'Sign In'
+                  isSignUp ? 'Create Account & Pay $10' : 'Sign In & Pay $10'
                 )}
               </button>
+              <p className={`text-xs text-center mt-2 ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>
+                {isSignUp ? 'Account + payment processed in one step' : 'Payment processed immediately after sign in'}
+              </p>
             </form>
 
             <div className="mt-4 text-center">

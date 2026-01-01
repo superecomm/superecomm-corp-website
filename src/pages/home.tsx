@@ -1710,6 +1710,11 @@ const SupereCommWebsite = () => {
     return () => unsubscribe();
   }, []);
 
+  // Scroll to top when page changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [currentPage]);
+
   const navigation = [
     { name: "Home", id: "home" as const },
     {
