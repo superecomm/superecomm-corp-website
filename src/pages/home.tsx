@@ -223,6 +223,7 @@ const HomePage: FC<HomePageProps> = ({
               Too many subscriptions. Too many accounts. Too many models.
             </p>
 
+            {/* COMMENTED OUT - AI pain points section
             <p
               className={`text-lg mb-8 ${
                 darkMode ? "text-gray-400" : "text-gray-600"
@@ -231,7 +232,6 @@ const HomePage: FC<HomePageProps> = ({
               AI is becoming like electricity — constant, essential, always running.
             </p>
 
-            {/* Pain points - bullet list */}
             <div className="mb-8">
               <p
                 className={`text-lg font-medium mb-4 ${
@@ -284,7 +284,6 @@ const HomePage: FC<HomePageProps> = ({
               And the price keeps rising.
             </p>
 
-            {/* Data insight */}
             <div
               className={`p-6 rounded-lg mb-8 border-l-4 ${
                 darkMode
@@ -307,6 +306,7 @@ const HomePage: FC<HomePageProps> = ({
                 Enterprises pay <span className="font-bold">dozens</span>.
               </p>
             </div>
+            */}
 
             {/* Value proposition */}
             <div className="mb-8">
