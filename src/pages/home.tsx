@@ -1,19 +1,24 @@
 import { useState, useEffect } from "react";
 import type { FC } from "react";
-import { Menu, X, ChevronRight, ChevronDown, Zap, Brain, Plug, Shield, Database, Wallet, Coffee, Briefcase, Smartphone, Home as HomeIcon, Loader2, CheckCircle2, AlertCircle } from "lucide-react";
+import { Menu, X, ChevronRight, ChevronDown, Zap, Brain, Plug, Shield, Database, Wallet, Coffee, Briefcase, Smartphone, Home as HomeIcon, Loader2, CheckCircle2, AlertCircle, Moon, Sun } from "lucide-react";
 import heroOffice from "../assets/hero-office.webp";
 import meterImage from "../assets/aiWh-meter-transparent-background-new.png";
-import productImage from "../assets/plusai-product-image-3.png";
-import modelSelectorImage from "../assets/plusai-product-image-4.png";
+import productImage from "../assets/plusai-product-image-5.png";
+import modelSelectorImage from "../assets/plusai-product-image-6.png";
 import marketingImage24 from '../assets/marketing-images/marketing-image24.jpg';
 import marketingImage34 from '../assets/marketing-images/marketing-image34.jpg';
 import marketingImage29 from '../assets/marketing-images/marketing-image29.jpg';
 import marketingImage27 from '../assets/marketing-images/marketing-image27.jpg';
 import marketingImage230 from '../assets/marketing-images/marketing-image230.jpg';
-import aiUtilityBillImage from '../assets/ai-utility-bill-image.png';
+import aiUtilityBillImage from '../assets/ai-utility-bill-image-1.png';
 import aiGridLayerDiagram from '../assets/ai-grid-layer-digram.png';
+import bipaBadge from '../assets/bipa-badge.png';
+import founderInstituteLogo from '../assets/founder-institute-pre-seed-accelerator-logo.png';
 import ReservePage from "./ReservePage";
 import DashboardPage from "./DashboardPage";
+import AiGridLayerPage from "./AiGridLayerPage";
+import PlusAiPage from "./PlusAiPage";
+import PitchDeckPage from "./PitchDeckPage";
 import { auth, db } from "../config/firebase";
 import { onAuthStateChanged, signOut, type User } from "firebase/auth";
 import { doc, getDoc, collection, addDoc, serverTimestamp } from "firebase/firestore";
@@ -783,6 +788,33 @@ const HomePage: FC<HomePageProps> = ({
                 </p>
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* Utility Bill Image Section */}
+        <div className="mt-16 max-w-4xl mx-auto">
+          <div className="text-center mb-8">
+            <h3
+              className={`text-2xl md:text-3xl font-light mb-4 ${
+                darkMode ? "text-white" : "text-gray-900"
+              }`}
+            >
+              One Bill. All Your AI.
+            </h3>
+            <p
+              className={`text-lg ${
+                darkMode ? "text-gray-300" : "text-gray-700"
+              }`}
+            >
+              Metered in aiWh — just like your electricity
+            </p>
+          </div>
+          <div className="flex justify-center">
+            <img
+              src={aiUtilityBillImage}
+              alt="AI Utility Bill showing aiWh metering"
+              className="w-full max-w-2xl h-auto"
+            />
           </div>
         </div>
       </div>
@@ -1714,6 +1746,7 @@ const SupereCommWebsite = () => {
       await signOut(auth);
       setShowUserMenu(false);
       setCurrentPage("home");
+      window.location.hash = "home";
     } catch (error) {
       console.error('Error logging out:', error);
     }
@@ -1741,6 +1774,33 @@ const SupereCommWebsite = () => {
     return () => unsubscribe();
   }, []);
 
+  // URL Hash Navigation - handle initial hash and hash changes
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.slice(1); // Remove the #
+      if (hash && hash !== currentPage) {
+        setCurrentPage(hash);
+      } else if (!hash) {
+        setCurrentPage("home");
+      }
+    };
+
+    // Handle initial hash on page load
+    handleHashChange();
+
+    // Listen for hash changes
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  // Update URL hash when page changes (but avoid infinite loop)
+  useEffect(() => {
+    const hash = window.location.hash.slice(1);
+    if (hash !== currentPage) {
+      window.location.hash = currentPage;
+    }
+  }, [currentPage]);
+
   // Scroll to top when page changes
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1763,11 +1823,13 @@ const SupereCommWebsite = () => {
 
   const navigation = [
     { name: "Home", id: "home" as const },
+    { name: "+AI", id: "plusAi" as const },
+    { name: "AI Grid Layer", id: "aiGridLayer" as const },
     { name: "Plans & Pricing", id: "plans-pricing" as const },
     { name: "How It Works", id: "how-it-works" as const },
+    { name: "Security", id: "security" as const },
+    { name: "About", id: "about" as const },
     { name: "Careers", id: "careers" as const },
-    { name: "Support", id: "support" as const },
-    { name: "Contact", id: "contact" as const },
     // Hidden from public - Founder's Letter
     // {
     //   name: "Investors",
@@ -2093,22 +2155,95 @@ const SupereCommWebsite = () => {
     </div>
   );
 
+  const SecurityPage = () => (
+    <div className={`min-h-screen flex items-center justify-center px-4 sm:px-6 py-24 ${
+      darkMode ? 'bg-gray-950' : 'bg-white'
+    }`}>
+      <div className="max-w-4xl mx-auto text-center">
+        {/* Image - BIPA Badge */}
+        <div className="mb-12">
+          <div className={`inline-block p-8 rounded-2xl ${
+            darkMode ? 'bg-white' : 'bg-white shadow-xl'
+          }`}>
+            <img
+              src={bipaBadge}
+              alt="BIPA - Biometric Information Protection Act Compliance"
+              className="h-48 md:h-56 w-auto mx-auto"
+            />
+          </div>
+        </div>
+
+        {/* Title */}
+        <h1 className={`text-5xl md:text-6xl lg:text-7xl font-light mb-6 ${
+          darkMode ? 'text-white' : 'text-gray-900'
+        }`}>
+          Security
+        </h1>
+
+        {/* Subtitle */}
+        <p className={`text-2xl md:text-3xl font-light mb-6 ${
+          darkMode ? 'text-gray-300' : 'text-gray-700'
+        }`}>
+          Security is foundational.
+        </p>
+
+        {/* Thesis Statement */}
+        <p className={`text-lg md:text-xl font-light mb-12 max-w-2xl mx-auto ${
+          darkMode ? 'text-gray-400' : 'text-gray-600'
+        }`}>
+          Identity, voice, image, and likeness are protected by default.
+        </p>
+
+        {/* CTA */}
+        <button
+          onClick={() => setCurrentPage('reserve')}
+          className={`px-8 py-4 rounded-lg text-lg font-medium transition-all ${
+            darkMode
+              ? 'bg-blue-600 hover:bg-blue-500 text-white'
+              : 'bg-blue-600 hover:bg-blue-700 text-white'
+          }`}
+        >
+          Reserve Your Grid Account
+        </button>
+      </div>
+    </div>
+  );
+
   const AboutPage = () => (
     <div className="min-h-screen px-6 py-24">
-      <div className="max-w-4xl mx-auto text-center">
+      <div className="max-w-4xl mx-auto">
         <h1
-          className={`text-4xl md:text-5xl font-light mb-8 ${
+          className={`text-4xl md:text-5xl font-light mb-8 text-center ${
             darkMode ? "text-white" : "text-gray-900"
           }`}
         >
           About Super eComm
         </h1>
         <p
-          className={`text-xl leading-relaxed ${
+          className={`text-xl leading-relaxed mb-12 text-center ${
             darkMode ? "text-gray-300" : "text-gray-700"
           }`}
         >
           Building the infrastructure for the AI utility layer
+        </p>
+
+        {/* Founder Institute Logo */}
+        <div className="flex justify-center mb-8">
+          <div className={`p-6 rounded-xl ${
+            darkMode ? 'bg-white' : 'bg-white'
+          }`}>
+            <img
+              src={founderInstituteLogo}
+              alt="Founder Institute Pre-Seed Accelerator"
+              className="h-32 md:h-40 w-auto"
+            />
+          </div>
+        </div>
+
+        <p className={`text-lg leading-relaxed text-center ${
+          darkMode ? 'text-gray-300' : 'text-gray-700'
+        }`}>
+          Super eComm was founded through the <span className="font-semibold">Founder Institute Austin 2025 cohort</span>. We're building the world's first AI utility grid, making artificial intelligence accessible, affordable, and metered like electricity.
         </p>
       </div>
     </div>
@@ -3328,6 +3463,9 @@ const SupereCommWebsite = () => {
               onNavigate={(page) => setCurrentPage(page as any)}
             />
           )}
+          {currentPage === "plusAi" && <PlusAiPage darkMode={darkMode} setCurrentPage={setCurrentPage} />}
+          {currentPage === "aiGridLayer" && <AiGridLayerPage darkMode={darkMode} setCurrentPage={setCurrentPage} />}
+          {currentPage === "security" && <SecurityPage />}
           {currentPage === "about" && <AboutPage />}
           {currentPage === "subsidiaries" && <SubsidiariesPage />}
           {currentPage === "founders-letters" && <FoundersLettersPage />}
@@ -3335,6 +3473,7 @@ const SupereCommWebsite = () => {
           {currentPage === "how-it-works" && <HowItWorksPage />}
           {currentPage === "careers" && <CareersPage />}
           {currentPage === "account" && <MyAccountPage />}
+          {currentPage === "pitchdeck" && <PitchDeckPage darkMode={darkMode} />}
 
           {(currentPage === "support" ||
             currentPage === "contact") && (
@@ -3383,13 +3522,14 @@ const SupereCommWebsite = () => {
               <div className="md:text-right flex flex-col md:items-end gap-3 text-sm">
                 <button
                   onClick={() => setDarkMode(!darkMode)}
-                  className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border transition-colors ${
+                  className={`p-2 rounded-lg transition-colors ${
                     darkMode
-                      ? "border-gray-600 text-gray-200 hover:bg-gray-800"
-                      : "border-gray-300 text-gray-700 hover:bg-gray-100"
+                      ? "text-gray-300 hover:text-white hover:bg-gray-800"
+                      : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
                   }`}
+                  aria-label="Toggle dark mode"
                 >
-                  {darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+                  {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
                 </button>
                 <p className="text-gray-500">
                   © 2025 Super eComm, Inc. All rights reserved.

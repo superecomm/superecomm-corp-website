@@ -58,6 +58,21 @@ service cloud.firestore {
       allow update: if false;
       allow delete: if false;
     }
+    
+    // Support Requests collection
+    match /support_requests/{requestId} {
+      // Allow anyone to create a support request
+      allow create: if true;
+      
+      // Only allow users to read their own requests
+      allow read: if request.auth != null && 
+                     (resource.data.userId == request.auth.uid || 
+                      resource.data.userEmail == request.auth.token.email);
+      
+      // Don't allow updates or deletes by users (only admins via console)
+      allow update: if false;
+      allow delete: if false;
+    }
   }
 }
 
