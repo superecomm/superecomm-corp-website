@@ -476,7 +476,7 @@ const HomePage: FC<HomePageProps> = ({
                 </div>
 
                 {/* Feature Cards - Right Column */}
-                <div className="order-2 md:order-2 space-y-4 relative z-50">
+                <div className="order-2 md:order-2 space-y-4 relative z-50 hidden md:block">
                   {/* Feature 1: Unlimited AI Power */}
                   <div
                     className={`p-4 rounded-lg border ${
@@ -720,7 +720,7 @@ const HomePage: FC<HomePageProps> = ({
 
           {/* Explanation */}
           <div className="order-1 md:order-2">
-            <div className="space-y-8">
+            <div className="space-y-8 hidden md:block">
               {/* Manual Selection */}
               <div>
                 <h3
