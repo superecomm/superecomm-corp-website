@@ -85,7 +85,9 @@ const PitchDeckPage: FC<PitchDeckPageProps> = () => {
     children: React.ReactNode; 
     index: number;
     className?: string;
-  }> = ({ children, index, className = '' }) => (
+    slideNumber?: number;
+    showPresenter?: boolean;
+  }> = ({ children, index, className = '', slideNumber, showPresenter = false }) => (
     <div
       ref={(el) => { slideRefs.current[index] = el; }}
       className={`relative min-h-screen w-full bg-white text-gray-900 flex flex-col items-center justify-center p-8 md:p-16 ${className}`}
@@ -99,6 +101,16 @@ const PitchDeckPage: FC<PitchDeckPageProps> = () => {
     >
       {children}
       <Footer />
+      {showPresenter && (
+        <div className="absolute bottom-2 left-4 text-xs text-gray-600">
+          Presented by Super eComm Inc.
+        </div>
+      )}
+      {slideNumber && (
+        <div className="absolute bottom-2 right-4 text-xs text-gray-600">
+          {slideNumber}
+        </div>
+      )}
       <button
         onClick={() => downloadSlideAsPNG(index)}
         className="absolute bottom-16 right-4 p-2 bg-gray-100 hover:bg-gray-200 border border-gray-300 rounded-lg transition-colors z-10"
@@ -115,7 +127,7 @@ const PitchDeckPage: FC<PitchDeckPageProps> = () => {
       
       <div className="bg-white">
         {/* SLIDE 1 - COVER */}
-        <Slide index={0}>
+        <Slide index={0} showPresenter={true}>
           <div className="text-center space-y-8 max-w-4xl">
             <h1 className="text-6xl md:text-8xl font-bold tracking-tight text-gray-900">
               AI as a Utility
@@ -130,7 +142,7 @@ const PitchDeckPage: FC<PitchDeckPageProps> = () => {
         </Slide>
 
         {/* SLIDE 2 - THE PROBLEM */}
-        <Slide index={1}>
+        <Slide index={1} slideNumber={1}>
           <div className="max-w-4xl space-y-8">
             <h2 className="text-4xl md:text-6xl font-bold text-gray-900">
               AI is becoming essential infrastructure.
@@ -145,7 +157,7 @@ const PitchDeckPage: FC<PitchDeckPageProps> = () => {
         </Slide>
 
         {/* SLIDE 3 - THE THESIS */}
-        <Slide index={2}>
+        <Slide index={2} slideNumber={2}>
           <div className="max-w-4xl space-y-12">
             <h2 className="text-4xl md:text-6xl font-bold text-gray-900">
               AI is shifting from product to utility.
@@ -160,7 +172,7 @@ const PitchDeckPage: FC<PitchDeckPageProps> = () => {
         </Slide>
 
         {/* SLIDE 4 - THE SOLUTION */}
-        <Slide index={3}>
+        <Slide index={3} slideNumber={3}>
           <div className="max-w-4xl space-y-8">
             <h2 className="text-4xl md:text-6xl font-bold mb-8 text-gray-900">
               AI as a Utility
@@ -185,7 +197,7 @@ const PitchDeckPage: FC<PitchDeckPageProps> = () => {
         </Slide>
 
         {/* SLIDE 5 - PRODUCT */}
-        <Slide index={4}>
+        <Slide index={4} slideNumber={4}>
           <div className="max-w-6xl w-full space-y-10">
             <div className="text-center space-y-4">
               <h2 className="text-4xl md:text-6xl font-bold text-gray-900">
@@ -245,7 +257,7 @@ const PitchDeckPage: FC<PitchDeckPageProps> = () => {
         </Slide>
 
         {/* SLIDE 6 - HOW IT WORKS */}
-        <Slide index={5}>
+        <Slide index={5} slideNumber={5}>
           <div className="max-w-6xl w-full space-y-8">
             <h2 className="text-4xl md:text-6xl font-bold text-center mb-8 text-gray-900">
               How AI as a Utility Works
@@ -262,7 +274,7 @@ const PitchDeckPage: FC<PitchDeckPageProps> = () => {
         </Slide>
 
         {/* SLIDE 7 - COMPETITIVE LANDSCAPE */}
-        <Slide index={6}>
+        <Slide index={6} slideNumber={6}>
           <div className="max-w-5xl space-y-12 w-full">
             <div className="space-y-4">
               <h2 className="text-4xl md:text-6xl font-bold">
@@ -321,7 +333,7 @@ const PitchDeckPage: FC<PitchDeckPageProps> = () => {
         </Slide>
 
         {/* SLIDE 8 - TOKEN vs AIWH */}
-        <Slide index={7}>
+        <Slide index={7} slideNumber={7}>
           <div className="max-w-5xl space-y-12">
             <h2 className="text-4xl md:text-6xl font-bold">
               Tokens vs aiWh
@@ -370,7 +382,7 @@ const PitchDeckPage: FC<PitchDeckPageProps> = () => {
         </Slide>
 
         {/* SLIDE 9 - MARKET */}
-        <Slide index={8}>
+        <Slide index={8} slideNumber={8}>
           <div className="max-w-4xl space-y-8">
             <div className="space-y-4">
               <h2 className="text-4xl md:text-6xl font-bold">
@@ -431,7 +443,7 @@ const PitchDeckPage: FC<PitchDeckPageProps> = () => {
         </Slide>
 
         {/* SLIDE 10 - TRACTION */}
-        <Slide index={9}>
+        <Slide index={9} slideNumber={9}>
           <div className="max-w-4xl space-y-8">
             <h2 className="text-4xl md:text-6xl font-bold">
               Early Traction
@@ -463,7 +475,7 @@ const PitchDeckPage: FC<PitchDeckPageProps> = () => {
         </Slide>
 
         {/* SLIDE 11 - TEAM */}
-        <Slide index={10}>
+        <Slide index={10} slideNumber={10}>
           <div className="max-w-4xl space-y-8">
             <h2 className="text-4xl md:text-6xl font-bold">
               Founding Team
@@ -500,7 +512,7 @@ const PitchDeckPage: FC<PitchDeckPageProps> = () => {
         </Slide>
 
         {/* SLIDE 12 - THE ASK */}
-        <Slide index={11}>
+        <Slide index={11} slideNumber={11}>
           <div className="max-w-4xl space-y-8">
             <h2 className="text-4xl md:text-6xl font-bold">
               The Ask
