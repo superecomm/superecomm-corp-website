@@ -3,8 +3,8 @@ import type { FC } from "react";
 import { Menu, X, ChevronRight, ChevronDown, Zap, Brain, Plug, Shield, Database, Wallet, Coffee, Briefcase, Smartphone, Home as HomeIcon, Loader2, CheckCircle2, AlertCircle, Moon, Sun } from "lucide-react";
 import heroOffice from "../assets/hero-office.webp";
 import meterImage from "../assets/aiWh-meter-transparent-background-new.png";
-import productImage from "../assets/plusai-product-image-5.png";
-import modelSelectorImage from "../assets/plusai-product-image-6.png";
+import productImage from "../assets/plusai-product-image-7.png";
+import modelSelectorImage from "../assets/plusai-product-image-8.png";
 import marketingImage24 from '../assets/marketing-images/marketing-image24.jpg';
 import marketingImage34 from '../assets/marketing-images/marketing-image34.jpg';
 import marketingImage29 from '../assets/marketing-images/marketing-image29.jpg';
@@ -346,7 +346,7 @@ const HomePage: FC<HomePageProps> = ({
                   transition-all duration-200 transform hover:scale-105
                 `}
               >
-                Join the AI Grid
+                Join Now
               </button>
             </div>
           </div>

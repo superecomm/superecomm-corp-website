@@ -2,8 +2,8 @@ import type { FC } from 'react';
 import { useRef } from 'react';
 import { Download } from 'lucide-react';
 import aiGridLayerDiagram from '../assets/ai-grid-layer-digram.png';
-import productImage5 from '../assets/plusai-product-image-5.png';
-import productImage6 from '../assets/plusai-product-image-6.png';
+import productImage5 from '../assets/plusai-product-image-7.png';
+import productImage6 from '../assets/plusai-product-image-8.png';
 import aiUtilityBillImage1 from '../assets/ai-utility-bill-image-1.png';
 
 interface PitchDeckPageProps {
