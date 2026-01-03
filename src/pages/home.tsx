@@ -20,6 +20,7 @@ import DashboardPage from "./DashboardPage";
 import AiGridLayerPage from "./AiGridLayerPage";
 import PlusAiPage from "./PlusAiPage";
 import PitchDeckPage from "./PitchDeckPage";
+import Layer0Page from "./Layer0Page";
 import { auth, db } from "../config/firebase";
 import { onAuthStateChanged, signOut, type User } from "firebase/auth";
 import { doc, getDoc, collection, addDoc, serverTimestamp } from "firebase/firestore";
@@ -1824,6 +1825,7 @@ const SupereCommWebsite = () => {
     { name: "Home", id: "home" as const },
     { name: "+AI", id: "plusAi" as const },
     { name: "AI Grid Layer", id: "aiGridLayer" as const },
+    { name: "Layer 0", id: "layer0" as const },
     { name: "Plans & Pricing", id: "plans-pricing" as const },
     { name: "How It Works", id: "how-it-works" as const },
     { name: "Security", id: "security" as const },
@@ -3468,6 +3470,7 @@ const SupereCommWebsite = () => {
           )}
           {currentPage === "plusAi" && <PlusAiPage darkMode={darkMode} setCurrentPage={setCurrentPage} />}
           {currentPage === "aiGridLayer" && <AiGridLayerPage darkMode={darkMode} setCurrentPage={setCurrentPage} />}
+          {currentPage === "layer0" && <Layer0Page darkMode={darkMode} setCurrentPage={setCurrentPage} />}
           {currentPage === "security" && <SecurityPage />}
           {currentPage === "about" && <AboutPage />}
           {currentPage === "subsidiaries" && <SubsidiariesPage />}
