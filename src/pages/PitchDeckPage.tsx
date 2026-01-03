@@ -23,6 +23,10 @@ const PitchDeckPage: FC<PitchDeckPageProps> = () => {
         scale: 2,
         backgroundColor: '#ffffff',
         logging: false,
+        ignoreElements: (element) => {
+          // Exclude download buttons from the capture
+          return element.classList.contains('download-button');
+        },
       });
       
       const link = document.createElement('a');
@@ -40,7 +44,8 @@ const PitchDeckPage: FC<PitchDeckPageProps> = () => {
       const html2canvas = (await import('html2canvas')).default;
       const { jsPDF } = await import('jspdf');
       
-      const pdf = new jsPDF('p', 'mm', 'a4');
+      // Create PDF in landscape mode with letter size (11" x 8.5")
+      const pdf = new jsPDF('l', 'mm', 'letter');
       const pageWidth = pdf.internal.pageSize.getWidth();
       const pageHeight = pdf.internal.pageSize.getHeight();
 
@@ -52,20 +57,35 @@ const PitchDeckPage: FC<PitchDeckPageProps> = () => {
           scale: 2,
           backgroundColor: '#ffffff',
           logging: false,
+          ignoreElements: (element) => {
+            // Exclude download buttons from the capture
+            return element.classList.contains('download-button');
+          },
         });
 
         const imgData = canvas.toDataURL('image/png');
-        const imgWidth = pageWidth;
-        const imgHeight = (canvas.height * pageWidth) / canvas.width;
+        
+        // Calculate dimensions to fit the page while maintaining aspect ratio
+        const imgAspectRatio = canvas.width / canvas.height;
+        const pageAspectRatio = pageWidth / pageHeight;
+        
+        let imgWidth, imgHeight, xOffset = 0, yOffset = 0;
+        
+        if (imgAspectRatio > pageAspectRatio) {
+          // Image is wider than page ratio - fit to width
+          imgWidth = pageWidth;
+          imgHeight = pageWidth / imgAspectRatio;
+          yOffset = (pageHeight - imgHeight) / 2;
+        } else {
+          // Image is taller than page ratio - fit to height
+          imgHeight = pageHeight;
+          imgWidth = pageHeight * imgAspectRatio;
+          xOffset = (pageWidth - imgWidth) / 2;
+        }
 
         if (i > 0) pdf.addPage();
         
-        if (imgHeight > pageHeight) {
-          pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, pageHeight);
-        } else {
-          const yOffset = (pageHeight - imgHeight) / 2;
-          pdf.addImage(imgData, 'PNG', 0, yOffset, imgWidth, imgHeight);
-        }
+        pdf.addImage(imgData, 'PNG', xOffset, yOffset, imgWidth, imgHeight);
       }
 
       pdf.save('AI-as-a-Utility-Pitch-Deck.pdf');
@@ -113,7 +133,7 @@ const PitchDeckPage: FC<PitchDeckPageProps> = () => {
       )}
       <button
         onClick={() => downloadSlideAsPNG(index)}
-        className="absolute bottom-16 right-4 p-2 bg-gray-100 hover:bg-gray-200 border border-gray-300 rounded-lg transition-colors z-10"
+        className="download-button absolute bottom-16 right-4 p-2 bg-gray-100 hover:bg-gray-200 border border-gray-300 rounded-lg transition-colors z-10"
         aria-label="Download slide as PNG"
       >
         <Download className="w-5 h-5 text-gray-700" />
@@ -133,19 +153,16 @@ const PitchDeckPage: FC<PitchDeckPageProps> = () => {
               AI as a Utility
             </h1>
             <p className="text-2xl md:text-4xl text-gray-700 font-light">
-              Getting more intelligence out of every token.
-            </p>
-            <p className="text-lg md:text-xl text-gray-600 mt-8 max-w-3xl mx-auto">
-              Building the utility layer where 1000+ AI models deliver accessible, affordable, and actionable intelligence.
+              One meter. One bill. All the AI you need.
             </p>
           </div>
         </Slide>
 
-        {/* SLIDE 2 - THE PROBLEM */}
+        {/* SLIDE 1 - PROBLEM */}
         <Slide index={1} slideNumber={1}>
           <div className="max-w-4xl space-y-8">
             <h2 className="text-4xl md:text-6xl font-bold text-gray-900">
-              AI is becoming essential infrastructure.
+              Problem
             </h2>
             <div className="space-y-4 text-xl md:text-2xl text-gray-700">
               <p>• Access and memory is fragmented across tools and vendors</p>
@@ -156,11 +173,11 @@ const PitchDeckPage: FC<PitchDeckPageProps> = () => {
           </div>
         </Slide>
 
-        {/* SLIDE 3 - THE THESIS */}
+        {/* SLIDE 2 - VISION */}
         <Slide index={2} slideNumber={2}>
           <div className="max-w-4xl space-y-12">
             <h2 className="text-4xl md:text-6xl font-bold text-gray-900">
-              AI is shifting from product to utility.
+              Vision
             </h2>
             <div className="text-3xl md:text-5xl text-gray-600 space-y-4 font-light">
               <p>Gas bill.</p>
@@ -171,11 +188,11 @@ const PitchDeckPage: FC<PitchDeckPageProps> = () => {
           </div>
         </Slide>
 
-        {/* SLIDE 4 - THE SOLUTION */}
+        {/* SLIDE 3 - SOLUTION */}
         <Slide index={3} slideNumber={3}>
           <div className="max-w-4xl space-y-8">
             <h2 className="text-4xl md:text-6xl font-bold mb-8 text-gray-900">
-              AI as a Utility
+              Solution
             </h2>
             <div className="bg-gray-50 p-8 rounded-lg border border-gray-300 space-y-6">
               <h3 className="text-2xl md:text-3xl font-bold text-gray-700">
@@ -196,61 +213,63 @@ const PitchDeckPage: FC<PitchDeckPageProps> = () => {
           </div>
         </Slide>
 
-        {/* SLIDE 5 - PRODUCT */}
+        {/* SLIDE 4 - PRODUCT */}
         <Slide index={4} slideNumber={4}>
-          <div className="max-w-6xl w-full space-y-10">
+          <div className="max-w-6xl w-full space-y-8">
             <div className="text-center space-y-4">
               <h2 className="text-4xl md:text-6xl font-bold text-gray-900">
-                +AI: 1000 AI Models in Your Pocket
+                Product
               </h2>
               <p className="text-2xl md:text-3xl text-gray-700">
-                +AI is the interface to AI as a Utility.
+                +AI: 1000 AI Models in Your Pocket
               </p>
             </div>
             
-            <div className="grid md:grid-cols-3 gap-8 mb-8">
-              <div className="text-center space-y-2">
-                <div className="text-4xl mb-3">✓</div>
-                <h3 className="text-xl font-bold text-gray-900">Accessible</h3>
-                <p className="text-gray-600">Ask once, the Grid routes automatically</p>
-              </div>
-              
-              <div className="text-center space-y-2">
-                <div className="text-4xl mb-3">✓</div>
-                <h3 className="text-xl font-bold text-gray-900">Affordable</h3>
-                <p className="text-gray-600">Utility pricing, metered in aiWh</p>
-              </div>
-              
-              <div className="text-center space-y-2">
-                <div className="text-4xl mb-3">✓</div>
-                <h3 className="text-xl font-bold text-gray-900">Actionable</h3>
-                <p className="text-gray-600">One bill to access all the Ai you need</p>
-              </div>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-6">
-              <div>
+            {/* Feature 1 - Accessible */}
+            <div className="grid md:grid-cols-2 gap-6 items-center">
+              <div className="order-2 md:order-1">
                 <img
                   src={productImage5}
                   alt="+AI Mobile Interface"
-                  className="w-full h-auto"
+                  className="w-full h-auto max-w-md mx-auto"
                 />
               </div>
-              
+              <div className="order-1 md:order-2 text-center md:text-left space-y-3">
+                <div className="text-4xl">✓</div>
+                <h3 className="text-2xl md:text-3xl font-bold text-gray-900">Accessible</h3>
+                <p className="text-lg md:text-xl text-gray-600">Ask once, the Grid routes automatically</p>
+              </div>
+            </div>
+
+            {/* Feature 2 - Affordable */}
+            <div className="grid md:grid-cols-2 gap-6 items-center">
+              <div className="text-center md:text-left space-y-3">
+                <div className="text-4xl">✓</div>
+                <h3 className="text-2xl md:text-3xl font-bold text-gray-900">Affordable</h3>
+                <p className="text-lg md:text-xl text-gray-600">Utility pricing, metered in aiWh</p>
+              </div>
               <div>
                 <img
                   src={productImage6}
                   alt="+AI Model Selection & Grid Routing"
-                  className="w-full h-auto"
+                  className="w-full h-auto max-w-md mx-auto"
                 />
               </div>
-              
-              <div>
+            </div>
+
+            {/* Feature 3 - Actionable */}
+            <div className="grid md:grid-cols-2 gap-6 items-center">
+              <div className="order-2 md:order-1">
                 <img
                   src={aiUtilityBillImage1}
                   alt="aiWh Meter Display & Utility Billing"
-                  className="w-full h-auto"
+                  className="w-full h-auto max-w-md mx-auto"
                 />
+              </div>
+              <div className="order-1 md:order-2 text-center md:text-left space-y-3">
+                <div className="text-4xl">✓</div>
+                <h3 className="text-2xl md:text-3xl font-bold text-gray-900">Actionable</h3>
+                <p className="text-lg md:text-xl text-gray-600">One bill to access all the AI you need</p>
               </div>
             </div>
           </div>
