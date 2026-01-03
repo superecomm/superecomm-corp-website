@@ -192,9 +192,7 @@ const HomePage: FC<HomePageProps> = ({
         <div className="grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left: Hero Meter - Top on mobile */}
           <div className="order-1 md:order-1 relative z-50">
-            <div className={`relative w-full max-w-lg mx-auto p-8 rounded-lg z-50 ${
-              darkMode ? "bg-gray-900" : "bg-white"
-            }`}>
+            <div className="relative w-full max-w-lg mx-auto p-8 z-50">
               <img
                 src={meterImage}
                 alt="aiWh Meter showing AI usage tracking"
