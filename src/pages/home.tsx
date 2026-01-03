@@ -3156,9 +3156,11 @@ const SupereCommWebsite = () => {
       <div className="relative z-10 flex min-h-screen flex-col pt-16 md:pt-20">
         {/* Navigation */}
         <nav
-          className={`fixed top-0 inset-x-0 z-[100] border-b shadow-sm ${
-            darkMode ? "border-gray-800" : "border-gray-200"
-          } bg-white/70 dark:bg-gray-950/70 backdrop-blur-lg`}
+          className={`fixed top-0 inset-x-0 z-[100] border-b shadow-sm backdrop-blur-lg ${
+            darkMode 
+              ? "border-gray-800 bg-gray-950/70" 
+              : "border-gray-200 bg-white/70"
+          }`}
         >
           <div className="max-w-7xl mx-auto px-6 py-3">
             <div className="flex items-center justify-between">
@@ -3502,9 +3504,11 @@ const SupereCommWebsite = () => {
 
         {/* Footer */}
         <footer
-          className={`relative border-t mt-8 ${
-            darkMode ? "border-gray-800" : "border-gray-200"
-          } px-6 py-12 bg-white/80 dark:bg-gray-950/80 backdrop-blur`}
+          className={`relative border-t mt-8 px-6 py-12 backdrop-blur ${
+            darkMode 
+              ? "border-gray-800 bg-gray-950/80" 
+              : "border-gray-200 bg-white/80"
+          }`}
         >
           <div className="max-w-7xl mx-auto">
             <div className="grid md:grid-cols-2 gap-8 items-center">
@@ -3532,7 +3536,7 @@ const SupereCommWebsite = () => {
                 >
                   {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
                 </button>
-                <p className="text-gray-500">
+                <p className={darkMode ? "text-gray-400" : "text-gray-500"}>
                   © 2025 Super eComm, Inc. All rights reserved.
                 </p>
               </div>
