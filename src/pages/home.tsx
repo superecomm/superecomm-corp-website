@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import type { FC } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Menu, X, ChevronRight, ChevronDown, Zap, Brain, Plug, Shield, Database, Wallet, Coffee, Briefcase, Smartphone, Home as HomeIcon, Loader2, CheckCircle2, AlertCircle, Moon, Sun } from "lucide-react";
 import heroOffice from "../assets/hero-office.webp";
 import meterImage from "../assets/aiWh-meter-transparent-background-new.png";
@@ -1728,7 +1729,10 @@ const HomePage: FC<HomePageProps> = ({
 );
 
 const SupereCommWebsite = () => {
-  const [currentPage, setCurrentPage] = useState("home");
+  const navigate = useNavigate();
+  const location = useLocation();
+  const currentPage = location.pathname.slice(1) || "home"; // Remove leading slash
+  
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
   const [openDropdown, setOpenDropdown] = useState("");
@@ -1736,6 +1740,12 @@ const SupereCommWebsite = () => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [showUserMenu, setShowUserMenu] = useState(false);
+  
+  // Navigation helper function
+  const navigateToPage = (page: string) => {
+    navigate(`/${page === "home" ? "" : page}`);
+    setMobileMenuOpen(false);
+  };
 
   const toggleFaq = (index: number) => {
     setOpenFaq(openFaq === index ? null : index);
@@ -1745,8 +1755,7 @@ const SupereCommWebsite = () => {
     try {
       await signOut(auth);
       setShowUserMenu(false);
-      setCurrentPage("home");
-      window.location.hash = "home";
+      navigateToPage("home");
     } catch (error) {
       console.error('Error logging out:', error);
     }
@@ -1773,33 +1782,6 @@ const SupereCommWebsite = () => {
     });
     return () => unsubscribe();
   }, []);
-
-  // URL Hash Navigation - handle initial hash and hash changes
-  useEffect(() => {
-    const handleHashChange = () => {
-      const hash = window.location.hash.slice(1); // Remove the #
-      if (hash && hash !== currentPage) {
-        setCurrentPage(hash);
-      } else if (!hash) {
-        setCurrentPage("home");
-      }
-    };
-
-    // Handle initial hash on page load
-    handleHashChange();
-
-    // Listen for hash changes
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
-  }, []);
-
-  // Update URL hash when page changes (but avoid infinite loop)
-  useEffect(() => {
-    const hash = window.location.hash.slice(1);
-    if (hash !== currentPage) {
-      window.location.hash = currentPage;
-    }
-  }, [currentPage]);
 
   // Scroll to top when page changes
   useEffect(() => {
@@ -2197,7 +2179,7 @@ const SupereCommWebsite = () => {
 
         {/* CTA */}
         <button
-          onClick={() => setCurrentPage('reserve')}
+          onClick={() => navigateToPage('reserve')}
           className={`px-8 py-4 rounded-lg text-lg font-medium transition-all ${
             darkMode
               ? 'bg-blue-600 hover:bg-blue-500 text-white'
@@ -2397,7 +2379,7 @@ const SupereCommWebsite = () => {
                   Want to experience AI as a utility? Reserve your AI Grid Layer account now.
                 </p>
                 <button
-                  onClick={() => setCurrentPage('reserve')}
+                  onClick={() => navigateToPage('reserve')}
                   className={`px-6 py-3 rounded-lg font-medium ${
                     darkMode
                       ? 'bg-blue-600 hover:bg-blue-500 text-white'
@@ -2410,7 +2392,7 @@ const SupereCommWebsite = () => {
             )}
 
             <button
-              onClick={() => setCurrentPage('home')}
+              onClick={() => navigateToPage('home')}
               className={`text-sm ${
                 darkMode ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'
               }`}
@@ -2493,7 +2475,7 @@ const SupereCommWebsite = () => {
                       Please{' '}
                       <button
                         type="button"
-                        onClick={() => setCurrentPage('reserve')}
+                        onClick={() => navigateToPage('reserve')}
                         className="font-semibold underline"
                       >
                         sign in
@@ -2509,7 +2491,7 @@ const SupereCommWebsite = () => {
                       No problem! You can{' '}
                       <button
                         type="button"
-                        onClick={() => setCurrentPage('reserve')}
+                        onClick={() => navigateToPage('reserve')}
                         className={`font-semibold underline ${
                           darkMode ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-700'
                         }`}
@@ -2818,7 +2800,7 @@ const SupereCommWebsite = () => {
         {/* CTA */}
         <div className="text-center mt-8">
           <button
-            onClick={() => setCurrentPage('reserve')}
+            onClick={() => navigateToPage('reserve')}
             className={`px-8 py-4 rounded-lg text-lg font-medium transition-all hover:scale-105 ${
               darkMode
                 ? "bg-blue-600 hover:bg-blue-500 text-white"
@@ -2854,7 +2836,7 @@ const SupereCommWebsite = () => {
             Pay for AI like you pay for electricity. One meter, one bill, unlimited intelligence.
           </p>
           <button
-            onClick={() => setCurrentPage('reserve')}
+            onClick={() => navigateToPage('reserve')}
             className={`px-8 py-4 rounded-lg text-lg font-medium transition-all hover:scale-105 ${
               darkMode
                 ? "bg-blue-600 hover:bg-blue-500 text-white"
@@ -2965,7 +2947,7 @@ const SupereCommWebsite = () => {
                   Reserve your AI Grid Layer account now. Be among the first to experience AI as a utility.
                 </p>
                 <button
-                  onClick={() => setCurrentPage('reserve')}
+                  onClick={() => navigateToPage('reserve')}
                   className={`px-6 py-3 rounded-lg font-medium transition-colors ${
                     darkMode
                       ? "bg-blue-600 hover:bg-blue-500 text-white"
@@ -3168,7 +3150,7 @@ const SupereCommWebsite = () => {
             <div className="flex items-center justify-between">
               <button
                 onClick={() => {
-                  setCurrentPage("home");
+                  navigateToPage("home");
                   setMobileMenuOpen(false);
                 }}
                 className="flex items-center"
@@ -3210,7 +3192,7 @@ const SupereCommWebsite = () => {
                             <button
                               key={subItem.id}
                               onClick={() => {
-                                setCurrentPage(subItem.id);
+                                navigateToPage(subItem.id);
                                 setOpenDropdown("");
                               }}
                               className={`block w-full text-left px-4 py-2 text-sm ${
@@ -3228,7 +3210,7 @@ const SupereCommWebsite = () => {
                   ) : (
                     <button
                       key={(item as any).id}
-                      onClick={() => setCurrentPage((item as any).id)}
+                      onClick={() => navigateToPage((item as any).id)}
                       className={`px-4 py-2 rounded text-sm ${
                         currentPage === (item as any).id
                           ? darkMode
@@ -3251,7 +3233,7 @@ const SupereCommWebsite = () => {
                       if (currentUser) {
                         setShowUserMenu(!showUserMenu);
                       } else {
-                        setCurrentPage("reserve");
+                        navigateToPage("reserve");
                       }
                     }}
                     className={`px-3 py-1 rounded-full text-xs font-medium border whitespace-nowrap ${
@@ -3276,7 +3258,7 @@ const SupereCommWebsite = () => {
                     }`}>
                       <button
                         onClick={() => {
-                          setCurrentPage("dashboard");
+                          navigateToPage("dashboard");
                           setShowUserMenu(false);
                         }}
                         className={`w-full text-left px-4 py-2 text-sm ${
@@ -3310,7 +3292,7 @@ const SupereCommWebsite = () => {
                       if (currentUser) {
                         setShowUserMenu(!showUserMenu);
                       } else {
-                        setCurrentPage("reserve");
+                        navigateToPage("reserve");
                         setMobileMenuOpen(false);
                       }
                     }}
@@ -3336,7 +3318,7 @@ const SupereCommWebsite = () => {
                     }`}>
                       <button
                         onClick={() => {
-                          setCurrentPage("dashboard");
+                          navigateToPage("dashboard");
                           setShowUserMenu(false);
                           setMobileMenuOpen(false);
                         }}
@@ -3402,7 +3384,7 @@ const SupereCommWebsite = () => {
                         <button
                           key={subItem.id}
                           onClick={() => {
-                            setCurrentPage(subItem.id);
+                            navigateToPage(subItem.id);
                             setMobileMenuOpen(false);
                           }}
                           className={`block w-full text-left px-8 py-2 text-sm ${
@@ -3423,7 +3405,7 @@ const SupereCommWebsite = () => {
                     <button
                       key={item.id}
                       onClick={() => {
-                        setCurrentPage(item.id);
+                        navigateToPage(item.id);
                         setMobileMenuOpen(false);
                       }}
                       className={`block w-full text-left px-4 py-2 rounded text-sm ${
@@ -3450,8 +3432,8 @@ const SupereCommWebsite = () => {
           {currentPage === "home" && (
             <HomePage
               darkMode={darkMode}
-              onJoinEarlyAccess={() => setCurrentPage("reserve")}
-              onGoToSubsidiaries={() => setCurrentPage("subsidiaries")}
+              onJoinEarlyAccess={() => navigateToPage("reserve")}
+              onGoToSubsidiaries={() => navigateToPage("subsidiaries")}
               openFaq={openFaq}
               toggleFaq={toggleFaq}
             />
@@ -3459,18 +3441,18 @@ const SupereCommWebsite = () => {
           {currentPage === "reserve" && (
             <ReservePage
               darkMode={darkMode}
-              onNavigateToDashboard={() => setCurrentPage("dashboard")}
+              onNavigateToDashboard={() => navigateToPage("dashboard")}
             />
           )}
           {currentPage === "dashboard" && (
             <DashboardPage
               darkMode={darkMode}
-              onNavigate={(page) => setCurrentPage(page as any)}
+              onNavigate={(page) => navigateToPage(page as any)}
             />
           )}
-          {currentPage === "plusAi" && <PlusAiPage darkMode={darkMode} setCurrentPage={setCurrentPage} />}
-          {currentPage === "aiGridLayer" && <AiGridLayerPage darkMode={darkMode} setCurrentPage={setCurrentPage} />}
-          {currentPage === "layer0" && <Layer0Page darkMode={darkMode} setCurrentPage={setCurrentPage} />}
+          {currentPage === "plusAi" && <PlusAiPage darkMode={darkMode} setCurrentPage={navigateToPage} />}
+          {currentPage === "aiGridLayer" && <AiGridLayerPage darkMode={darkMode} setCurrentPage={navigateToPage} />}
+          {currentPage === "layer0" && <Layer0Page darkMode={darkMode} setCurrentPage={navigateToPage} />}
           {currentPage === "security" && <SecurityPage />}
           {currentPage === "about" && <AboutPage />}
           {currentPage === "subsidiaries" && <SubsidiariesPage />}

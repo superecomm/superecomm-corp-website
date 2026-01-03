@@ -39,7 +39,7 @@ const Layer0Page: FC<Layer0PageProps> = ({ darkMode }) => {
       { property: 'og:title', content: 'Layer 0 - The AI Utility Layer | Super eComm' },
       { property: 'og:description', content: 'Layer 0 is the AI Utility Layer that democratizes access to artificial intelligence. Building infrastructure that makes AI accessible, affordable, and equitable for everyone.' },
       { property: 'og:type', content: 'website' },
-      { property: 'og:url', content: 'https://superecomm-corp-website.web.app/#layer0' },
+      { property: 'og:url', content: 'https://superecomm-corp-website.web.app/layer0' },
       { property: 'og:site_name', content: 'Super eComm' },
     ];
     
@@ -95,7 +95,7 @@ const Layer0Page: FC<Layer0PageProps> = ({ darkMode }) => {
       canonical.setAttribute('rel', 'canonical');
       document.head.appendChild(canonical);
     }
-    canonical.setAttribute('href', 'https://superecomm-corp-website.web.app/#layer0');
+    canonical.setAttribute('href', 'https://superecomm-corp-website.web.app/layer0');
     
     // Cleanup function to reset title when component unmounts
     return () => {
@@ -172,7 +172,7 @@ const Layer0Page: FC<Layer0PageProps> = ({ darkMode }) => {
           "dateModified": "2025-01-03",
           "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https://superecomm-corp-website.web.app/#layer0"
+            "@id": "https://superecomm-corp-website.web.app/layer0"
           },
           "keywords": "AI Utility Layer, Layer 0, AI Grid Layer, AI infrastructure, AI democratization, AI architecture, 8 layer model, AI metering, AI routing",
           "about": {
