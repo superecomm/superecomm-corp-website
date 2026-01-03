@@ -197,11 +197,12 @@ const Layer0Page: FC<Layer0PageProps> = ({ darkMode }) => {
           </div>
 
           {/* 8 Layer Model Image */}
-          <div className="max-w-5xl mx-auto mb-16">
+          <div className="max-w-2xl mx-auto mb-16">
             <img
               src={layerModelImage}
               alt="8 Layer AI Architecture Model"
-              className="w-full h-auto rounded-lg shadow-2xl"
+              className="w-full h-auto"
+              style={{ mixBlendMode: 'multiply' }}
             />
           </div>
         </div>
