@@ -14,6 +14,7 @@ import aiUtilityBillImage from '../assets/ai-utility-bill-image-1.png';
 import aiGridLayerDiagram from '../assets/ai-grid-layer-digram.png';
 import bipaBadge from '../assets/bipa-badge.png';
 import founderInstituteLogo from '../assets/founder-institute-pre-seed-accelerator-logo.png';
+import plusIconLogo from '../assets/corp-brand-assets/plus-icon-color-336x295.png';
 import ReservePage from "./ReservePage";
 import DashboardPage from "./DashboardPage";
 import AiGridLayerPage from "./AiGridLayerPage";
@@ -3166,11 +3167,13 @@ const SupereCommWebsite = () => {
                   setCurrentPage("home");
                   setMobileMenuOpen(false);
                 }}
-                className={`text-xl font-medium ${
-                  darkMode ? "text-white" : "text-gray-900"
-                }`}
+                className="flex items-center"
               >
-                Super eComm
+                <img 
+                  src={plusIconLogo} 
+                  alt="Super eComm" 
+                  className="h-8 w-auto"
+                />
               </button>
 
               {/* Desktop Navigation */}
