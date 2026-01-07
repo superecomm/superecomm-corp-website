@@ -1,10 +1,21 @@
 import type { FC } from 'react';
 import { useRef } from 'react';
 import { Download } from 'lucide-react';
-import aiGridLayerDiagram from '../assets/ai-grid-layer-digram.png';
+import aiGridLayerDiagram from '../assets/8-layer-model/ai-grid-layer-digram-3.png';
 import productImage5 from '../assets/plusai-product-image-7.png';
 import productImage6 from '../assets/plusai-product-image-8.png';
 import aiUtilityBillImage1 from '../assets/ai-utility-bill-image-1.png';
+import oldNewModelComparison from '../assets/8-layer-model/OLD-NEW-MODEL-COMPARISON.png';
+import terryFrench from '../assets/team/Terry_French.png';
+import michaelBarbine from '../assets/team/Michael_Barbine.png';
+import chelseaKenney from '../assets/team/Chelsea_Kenney.png';
+import armyLogo from '../assets/team/Logo_of_the_United_States_Army.svg 1.png';
+import airForceLogo from '../assets/team/US_Air_Force_Logo_Solid_Colour 1.png';
+import uhManoaLogo from '../assets/team/UH_Manoa_Logo 1.png';
+import foxioLogo from '../assets/team/foxio_llc_logo.png';
+import gmuLogo from '../assets/team/george_mason_university_logo 1.png';
+import image144 from '../assets/team/image 144.png';
+import founderInstituteLogo from '../assets/team/founder-institute-pre-seed-accelerator-logo 2.png';
 
 interface PitchDeckPageProps {
   darkMode: boolean;
@@ -190,25 +201,47 @@ const PitchDeckPage: FC<PitchDeckPageProps> = () => {
 
         {/* SLIDE 3 - SOLUTION */}
         <Slide index={3} slideNumber={3}>
-          <div className="max-w-4xl space-y-8">
-            <h2 className="text-4xl md:text-6xl font-bold mb-8 text-gray-900">
+          <div className="max-w-6xl w-full space-y-6">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-2">
               Solution
             </h2>
-            <div className="bg-gray-50 p-8 rounded-lg border border-gray-300 space-y-6">
-              <h3 className="text-2xl md:text-3xl font-bold text-gray-700">
-                How we deliver it:
-              </h3>
-              <div className="space-y-4 text-xl md:text-2xl text-gray-800">
-                <p>• One account</p>
-                <p>• One meter (aiWh)</p>
-                <p>• One bill</p>
-                <p>• 1000+ models, intelligently routed</p>
+            
+            {/* Main content grid: left side text, right side image */}
+            <div className="grid md:grid-cols-2 gap-12 items-start">
+              {/* Left side: How we deliver it + token statement */}
+              <div className="space-y-6">
+                <div className="space-y-4">
+                  <h3 className="text-2xl md:text-3xl font-bold text-gray-700">
+                    How we deliver it:
+                  </h3>
+                  <div className="space-y-3 text-lg md:text-xl text-gray-800">
+                    <p>• One account</p>
+                    <p>• One meter (aiWh)</p>
+                    <p>• One bill</p>
+                    <p>• 1000+ models, intelligently routed</p>
+                  </div>
+                </div>
+
+                <div className="pt-4">
+                  <p className="text-xl md:text-2xl font-semibold text-gray-900">
+                    We get more out of the token than a user can.
+                  </p>
+                </div>
               </div>
-            </div>
-            <div className="mt-12 pt-8 border-t border-gray-300">
-              <p className="text-2xl md:text-3xl font-semibold text-gray-900">
-                We get more out of the token than a user can.
-              </p>
+
+              {/* Right side: Layer 0 section with image */}
+              <div className="space-y-4">
+                <h3 className="text-2xl md:text-3xl font-bold text-gray-900">
+                  Build Layer 0 - the Utility Layer
+                </h3>
+                <div className="w-full">
+                  <img
+                    src={oldNewModelComparison}
+                    alt="Old vs New Model Comparison - Layer 0 Utility Layer"
+                    className="w-[70%] h-auto"
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </Slide>
@@ -277,502 +310,452 @@ const PitchDeckPage: FC<PitchDeckPageProps> = () => {
 
         {/* SLIDE 6 - HOW IT WORKS */}
         <Slide index={5} slideNumber={5}>
-          <div className="max-w-6xl w-full space-y-8">
-            <h2 className="text-4xl md:text-6xl font-bold text-center mb-8 text-gray-900">
+          <div className="max-w-6xl w-full space-y-6">
+            <h2 className="text-4xl md:text-5xl font-bold text-center text-gray-900">
               How AI as a Utility Works
             </h2>
             
-            <div className="w-full">
+            <div className="w-full flex justify-center">
               <img
                 src={aiGridLayerDiagram}
                 alt="AI Grid Layer Diagram - How AI as a Utility Works"
-                className="w-full h-auto rounded-lg"
+                className="w-full max-w-4xl h-auto rounded-lg"
               />
+            </div>
+
+            <div className="bg-gray-900 p-6 rounded-lg border border-gray-800 space-y-4">
+              <h3 className="text-xl md:text-2xl font-bold text-white">
+                Where we capture value:
+              </h3>
+              <div className="grid md:grid-cols-2 gap-6 text-lg text-gray-200">
+                <div>
+                  <p className="font-semibold text-blue-300">aiWh:</p>
+                  <p>20–30% margins per token</p>
+                  <p className="text-sm text-gray-400">(avg prompt 1200 tokens)</p>
+                </div>
+                <div>
+                  <p className="font-semibold text-blue-300">Self-Hosted Models:</p>
+                  <p>50–60% margins</p>
+                  <p className="text-sm text-gray-400">(the models we own)</p>
+                </div>
+              </div>
+              <p className="text-lg text-white font-semibold border-t border-gray-800 pt-4">
+                aiWh maximizes value per token.
+              </p>
             </div>
           </div>
         </Slide>
 
         {/* SLIDE 7 - COMPETITIVE LANDSCAPE */}
         <Slide index={6} slideNumber={6}>
-          <div className="max-w-5xl space-y-12 w-full">
-            <div className="space-y-4">
-              <h2 className="text-4xl md:text-6xl font-bold">
-                Competitive Landscape
-              </h2>
-              <p className="text-xl text-gray-400">
-                This is a role comparison — not a feature comparison.
-              </p>
-            </div>
-
-            <div className="bg-gray-900 p-6 md:p-8 rounded-lg border border-gray-800">
-              <h3 className="text-2xl md:text-3xl font-bold mb-4">
-                Model Providers (Vendors)
-              </h3>
-              <div className="text-lg md:text-xl text-gray-300 space-y-2 mb-6">
-                <p>• OpenAI</p>
-                <p>• Anthropic</p>
-                <p>• Google</p>
-                <p>• Others</p>
-              </div>
-              <p className="text-xl md:text-2xl font-semibold text-white border-t border-gray-800 pt-6">
-                We are their distribution + CAC layer.
-              </p>
-            </div>
-
-            <div className="bg-gray-900 p-6 md:p-8 rounded-lg border border-gray-800">
-              <h3 className="text-2xl md:text-3xl font-bold mb-4">
-                AI Gateways & Orchestrators
-              </h3>
-              <p className="text-lg text-gray-400 mb-4">
-                Portkey, LiteLLM, Helicone, Kong AI Gateway, TrueFoundry, Vercel AI Gateway
-              </p>
-              <p className="text-xl text-gray-300 mb-4">
-                They solve enterprise plumbing problems.
-              </p>
-              <div className="text-lg text-gray-300 space-y-2">
-                <p>• Enterprise IT / DevOps focus</p>
-                <p>• API governance, caching, observability</p>
-                <p>• Per-token or per-request pricing</p>
-                <p>• Feature competition</p>
-              </div>
-            </div>
-
-            <div className="bg-blue-950 p-6 md:p-8 rounded-lg border border-blue-800">
-              <h3 className="text-2xl md:text-3xl font-bold mb-4">
-                AI as a Utility (Us)
-              </h3>
-              <div className="text-lg md:text-xl text-gray-200 space-y-2">
-                <p>• Public / consumer-facing infrastructure</p>
-                <p>• Utility-scale distribution</p>
-                <p>• aiWh metering (universal unit)</p>
-                <p>• One account, one bill</p>
-              </div>
-            </div>
-          </div>
-        </Slide>
-
-        {/* SLIDE 8 - TOKEN vs AIWH */}
-        <Slide index={7} slideNumber={7}>
-          <div className="max-w-5xl space-y-12">
-            <h2 className="text-4xl md:text-6xl font-bold">
-              Tokens vs aiWh
+          <div className="max-w-4xl space-y-8 w-full">
+            <h2 className="text-4xl md:text-6xl font-bold text-gray-900">
+              Competitive Landscape
             </h2>
-            
-            <h3 className="text-2xl md:text-3xl text-gray-300">
-              Why We Get More Out of the Token
-            </h3>
-            
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-gray-900 p-8 rounded-lg border border-gray-800">
-                <h3 className="text-2xl font-bold mb-6 text-gray-400">TOKENS (Today)</h3>
-                <div className="space-y-3 text-lg text-gray-300">
-                  <p>• Provider-specific</p>
-                  <p>• Internal abstraction</p>
-                  <p>• Confusing to users</p>
-                  <p>• Unpredictable costs</p>
-                  <p>• Users can't optimize</p>
-                </div>
+
+            <div className="space-y-6 text-xl md:text-2xl text-gray-700">
+              <div>
+                <p><span className="font-semibold text-gray-900">AI Gateways:</span> enterprise plumbing</p>
               </div>
-              
-              <div className="bg-blue-950 p-8 rounded-lg border border-blue-800">
-                <h3 className="text-2xl font-bold mb-6">AIWH (AI as a Utility)</h3>
-                <div className="space-y-3 text-lg text-gray-200">
-                  <p>• Universal unit</p>
-                  <p>• Human-readable</p>
-                  <p>• Utility-grade</p>
-                  <p>• Predictable billing</p>
-                  <p>• Grid optimizes routing</p>
-                </div>
+              <div>
+                <p><span className="font-semibold text-gray-900">AI Apps:</span> surface-level bundling</p>
+              </div>
+              <div>
+                <p><span className="font-semibold text-gray-900">Hyperscalers:</span> raw compute</p>
               </div>
             </div>
 
-            <div className="bg-gray-900 p-8 rounded-lg border border-gray-800">
-              <h4 className="text-xl md:text-2xl font-bold mb-4 text-white">
-                We get more out of the token than a user can:
-              </h4>
-              <div className="space-y-3 text-lg text-gray-300">
-                <p>✓ Route to lowest-cost model for task type</p>
-                <p>✓ Batch similar requests for efficiency</p>
-                <p>✓ Negotiate wholesale pricing with providers</p>
-                <p>✓ Meter in universal units (aiWh)</p>
+            <div className="pt-8 space-y-6">
+              <p className="text-2xl md:text-3xl text-gray-600">
+                Super eComm operates at a new layer:
+              </p>
+              <p className="text-3xl md:text-4xl font-bold text-gray-900 italic">
+                AI as a Utility — Layer 0
+              </p>
+            </div>
+
+            <div className="pt-8 border-t-2 border-gray-300 space-y-4 text-xl md:text-2xl text-gray-800">
+              <p>We are <span className="font-semibold text-gray-900">not</span> replacing models.</p>
+              <p>We are <span className="font-semibold text-gray-900">not</span> competing on features.</p>
+              <p className="text-xl md:text-2xl font-semibold text-gray-900">
+                We are standardizing how intelligence is delivered and billed.
+              </p>
+            </div>
+          </div>
+        </Slide>
+
+        {/* SLIDE 8 - MARKET */}
+        <Slide index={7} slideNumber={7}>
+          <div className="max-w-5xl w-full space-y-8">
+            <h2 className="text-4xl md:text-6xl font-bold text-gray-900">
+              Market Opportunity
+            </h2>
+
+            {/* Market Metrics */}
+            <div className="grid md:grid-cols-3 gap-8 text-gray-800">
+              <div>
+                <h3 className="text-xl font-bold text-gray-600">Total TAM</h3>
+                <p className="text-3xl md:text-4xl font-bold text-gray-900">$400–700B</p>
+                <p className="text-base text-gray-600">annually</p>
+                <p className="text-sm text-gray-600">annual AI consumption</p>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-bold text-gray-600">Total SAM</h3>
+                <p className="text-3xl md:text-4xl font-bold text-gray-900">$180–350B</p>
+                <p className="text-base text-gray-600">annually</p>
+                <p className="text-sm text-gray-600">annual AI consumption</p>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-bold text-gray-600">Total SOM</h3>
+                <p className="text-base text-gray-700">AI Consumption Routed (by 2030)</p>
+                <p className="text-2xl md:text-3xl font-bold text-gray-900">$1.25B</p>
+                <p className="text-base text-gray-700">Revenue (3% margin) <span className="font-bold text-gray-900">$37.5M</span></p>
+              </div>
+            </div>
+
+            {/* Beachhead Strategy - Horizontal Layout */}
+            <div className="grid md:grid-cols-2 gap-6 pt-6">
+              {/* Supply-Side Beachhead */}
+              <div className="bg-white p-6 rounded-lg border-2 border-gray-800 space-y-3">
+                <h3 className="text-xl font-bold text-gray-900">Supply-Side Beachhead (Models)</h3>
+                <p className="text-base text-gray-700">Smaller and mid-sized model providers who:</p>
+                <div className="space-y-1 text-sm text-gray-700 pl-3">
+                  <p>• cannot compete with hyperscalers on distribution</p>
+                  <p>• want usage, not just benchmarks</p>
+                  <p>• are willing to:</p>
+                  <div className="pl-4 space-y-0.5 text-gray-600">
+                    <p>• lease grid capacity</p>
+                    <p>• pay for discoverability</p>
+                    <p>• accept routing optimization in exchange for demand</p>
+                  </div>
+                </div>
+                <p className="text-sm italic text-gray-800 pt-2">
+                  Layer 0 gives them something hyperscalers don't: distribution to real users.
+                </p>
+              </div>
+
+              {/* Demand-Side Beachhead */}
+              <div className="bg-white p-6 rounded-lg border-2 border-gray-800 space-y-3">
+                <h3 className="text-xl font-bold text-gray-900">Demand-Side Beachhead (Users)</h3>
+                <p className="text-base text-gray-700">Consumers and SMBs who already:</p>
+                <div className="space-y-1 text-sm text-gray-700 pl-3">
+                  <p>• pay for 2–5 AI subscriptions</p>
+                  <p>• are confused by token pricing</p>
+                  <p>• want predictable monthly spend</p>
+                  <p>• don't care <span className="italic">which</span> model runs — only that it works</p>
+                </div>
+                <p className="text-sm italic text-gray-800 pt-2">
+                  They are already over-paying for fragmented access.
+                </p>
               </div>
             </div>
           </div>
         </Slide>
 
-        {/* SLIDE 9 - MARKET */}
+        {/* SLIDE 9 - REVENUE MODEL */}
         <Slide index={8} slideNumber={8}>
-          <div className="max-w-4xl space-y-8">
-            <div className="space-y-4">
-              <h2 className="text-4xl md:text-6xl font-bold">
-                Market Opportunity
-              </h2>
-              <p className="text-xl md:text-2xl text-gray-400">
-                AI consumption is becoming a utility-scale market.
-              </p>
-            </div>
+          <div className="max-w-5xl w-full space-y-6">
+            <h2 className="text-4xl md:text-6xl font-bold text-gray-900">
+              Revenue Model
+            </h2>
 
-            <div className="bg-gray-900 p-8 rounded-lg border border-gray-800 space-y-6">
-              <div>
-                <h3 className="text-2xl md:text-3xl font-bold mb-4">
-                  Total Addressable Market (TAM):
-                </h3>
-                <p className="text-3xl md:text-5xl font-bold text-white mb-4">
-                  $400–700B
-                </p>
-                <p className="text-lg text-gray-400 mb-4">annual AI consumption</p>
-                
-                <div className="text-lg text-gray-300 space-y-2">
-                  <p>This includes:</p>
-                  <p>• IaaS AI compute</p>
-                  <p>• Model API consumption</p>
-                  <p>• GPU cloud services</p>
-                  <p>• Enterprise AI spend</p>
+            {/* Revenue Streams - Horizontal Layout */}
+            <div className="grid md:grid-cols-2 gap-6">
+              {/* Consumer Revenue */}
+              <div className="bg-white p-6 rounded-lg border-2 border-gray-800 space-y-3">
+                <h3 className="text-xl font-bold text-gray-900">Consumers Subscribe to AI Access</h3>
+                <div className="space-y-1 text-base text-gray-700 pl-3">
+                  <p>• Free</p>
+                  <p>• +AI</p>
+                  <p>• Super +AI</p>
                 </div>
               </div>
 
-              <div className="border-t border-gray-800 pt-6">
-                <p className="text-xl text-gray-400 mb-2">
-                  This is not SaaS revenue.
-                </p>
-                <p className="text-xl font-semibold text-white">
-                  This is infrastructure consumption.
-                </p>
+              {/* Model Provider Revenue */}
+              <div className="bg-white p-6 rounded-lg border-2 border-gray-800 space-y-3">
+                <h3 className="text-xl font-bold text-gray-900">Model Providers Lease Grid Address to Pay For</h3>
+                <div className="space-y-1 text-base text-gray-700 pl-3">
+                  <p>• Distribution</p>
+                  <p>• Discoverability</p>
+                  <p>• Usage at scale</p>
+                </div>
               </div>
             </div>
 
-            <div className="bg-blue-950 p-8 rounded-lg border border-blue-800">
-              <h3 className="text-xl md:text-2xl font-bold mb-4">
-                Utility Economics
-              </h3>
-              <div className="space-y-3 text-lg text-gray-200">
-                <p>Utility margin capture (2–5%):</p>
-                <p>• 2% of $500B = <span className="font-bold text-white">$10B annual revenue</span></p>
-                <p>• 5% of $500B = <span className="font-bold text-white">$25B annual revenue</span></p>
-              </div>
-              <p className="text-sm text-gray-400 mt-6">
-                Comparable to power, water, and broadband utility margins.
+            {/* Super eComm Role */}
+            <div className="pt-4">
+              <p className="text-xl text-gray-800 text-center">
+                Super eComm builds and manages the arena as the utility layer.
               </p>
             </div>
 
-            <p className="text-xl md:text-2xl font-semibold text-center">
-              This is infrastructure-scale.
-            </p>
+            {/* Grid Address Leasing */}
+            <div className="bg-white p-6 rounded-lg border-2 border-gray-800 space-y-4">
+              <h3 className="text-2xl font-bold text-gray-900">Grid Address Leasing</h3>
+              
+              <div className="space-y-3">
+                <p className="text-base text-gray-700">
+                  Providers lease capacity on the AI Grid
+                </p>
+                
+                <p className="text-base text-gray-700">
+                  More grid presence = higher routing probability
+                </p>
+                
+                <div className="pt-2">
+                  <p className="text-base font-semibold text-gray-900">Tiered pricing based on:</p>
+                  <div className="space-y-1 text-sm text-gray-700 pl-4 pt-1">
+                    <p>• Throughput</p>
+                    <p>• Latency</p>
+                    <p>• Priority</p>
+                  </div>
+                </div>
+                
+                <p className="text-base italic text-gray-800 pt-3 border-t border-gray-300">
+                  The Grid becomes neutral infrastructure — not a marketplace auction.
+                </p>
+              </div>
+            </div>
           </div>
         </Slide>
 
         {/* SLIDE 10 - TRACTION */}
         <Slide index={9} slideNumber={9}>
-          <div className="max-w-4xl space-y-8">
-            <h2 className="text-4xl md:text-6xl font-bold">
-              Early Traction
+          <div className="max-w-5xl w-full space-y-6">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
+              Product Progress
             </h2>
-            
-            <div className="bg-blue-950 p-8 rounded-lg border border-blue-800">
-              <h3 className="text-2xl font-bold mb-4">+AI (Beta)</h3>
-              <div className="space-y-3 text-lg text-gray-200">
-                <p>• Live beta application</p>
-                <p>• Active daily users</p>
-                <p>• Viral referral mechanic built into onboarding</p>
+
+            <h3 className="text-2xl font-bold text-gray-700">
+              Phase 1: MVP Launch & Infrastructure Validation
+            </h3>
+
+            {/* December 11, 2025 - Founder Institute */}
+            <div className="bg-white p-5 rounded-lg border-2 border-gray-800 space-y-2">
+              <h4 className="text-lg font-bold text-gray-900">December 11, 2025</h4>
+              <p className="text-base font-semibold text-gray-800">Founder Institute Graduation</p>
+              <div className="space-y-1 text-sm text-gray-700 pl-3">
+                <p>• Category thesis validated</p>
+                <p>• Layer 0 positioned as infrastructure, not SaaS</p>
+                <p>• Initial investor and advisor alignment</p>
               </div>
             </div>
 
-            <div className="bg-gray-900 p-8 rounded-lg border border-gray-800">
-              <h3 className="text-2xl font-bold mb-4">AI Grid Layer (Infrastructure)</h3>
-              <div className="space-y-3 text-lg text-gray-300">
-                <p>• Founding Grid reservations opening</p>
-                <p>• aiWh metering system in development</p>
-                <p>• Multi-model routing active</p>
+            {/* December 2025 – January 2026 - +AI Beta */}
+            <div className="bg-white p-5 rounded-lg border-2 border-gray-800 space-y-2">
+              <h4 className="text-lg font-bold text-gray-900">December 2025 – January 2026</h4>
+              <p className="text-base font-semibold text-gray-800">+AI (Consumer Entry Point) — Beta 1 Live</p>
+              <div className="space-y-1 text-sm text-gray-700 pl-3">
+                <p>• 111 total users onboarded</p>
+                <p>• 16 DAU average</p>
+                <p>• Multi-model access through a unified interface</p>
+                <p>• Early usage confirms demand for consolidation</p>
               </div>
             </div>
 
-            <div className="text-center mt-8 space-y-2">
-              <p className="text-2xl text-gray-300">Technology validated.</p>
-              <p className="text-2xl text-white font-semibold">Market demand confirmed.</p>
+            {/* December 2025 – January 2026 - Layer 0 MVP */}
+            <div className="bg-white p-5 rounded-lg border-2 border-gray-800 space-y-2">
+              <h4 className="text-lg font-bold text-gray-900">December 2025 – January 2026</h4>
+              <p className="text-base font-semibold text-gray-800">Layer 0 (Infrastructure) — MVP Phase 1 Implemented</p>
+              <div className="space-y-1 text-sm text-gray-700 pl-3">
+                <p>• aiWh metering system implemented (v1)</p>
+                <p>• Grid routing architecture live (v1)</p>
+                <p>• Provider abstraction layer implemented</p>
+                <p>• Models treated as interchangeable vendors</p>
+              </div>
+            </div>
+
+            {/* Current Status */}
+            <div className="bg-white p-5 rounded-lg border-2 border-gray-800 space-y-2">
+              <h4 className="text-lg font-bold text-gray-900">Current Status (as of Jan 4, 2026)</h4>
+              <div className="space-y-1 text-sm text-gray-700 pl-3">
+                <p>• Iterating MVP toward Phase 2</p>
+                <p>• Sales motion active for LOIs and pilot programs</p>
+                <p>• Phase 2 scheduled — January 2026</p>
+              </div>
             </div>
           </div>
         </Slide>
 
         {/* SLIDE 11 - TEAM */}
         <Slide index={10} slideNumber={10}>
-          <div className="max-w-4xl space-y-8">
-            <h2 className="text-4xl md:text-6xl font-bold">
-              Founding Team
-            </h2>
-            <h3 className="text-2xl md:text-3xl text-gray-400">
-              Building Layer 0 for AI
-            </h3>
-            
-            <div className="bg-gray-900 p-8 rounded-lg border border-gray-800">
-              <div className="space-y-4 text-xl md:text-2xl text-gray-300">
-                <p>• Infrastructure-first mindset</p>
-                <p>• Security & trust emphasis</p>
-                <p>• Long-term utility stewardship</p>
-                <p>• Deep technical expertise</p>
-              </div>
-            </div>
+          <div className="max-w-7xl w-full">
+            <div className="grid grid-cols-1 lg:grid-cols-[2fr,1fr] gap-6 lg:gap-8">
+              {/* Founding Team Section */}
+              <div className="space-y-4 lg:space-y-6">
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 text-center">
+                  Founding Team
+                </h2>
+                
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-4">
+                  {/* Terry French - CEO */}
+                  <div className="bg-white p-3 lg:p-4 rounded-lg border-2 border-gray-300 shadow-md">
+                    <img src={terryFrench} alt="Terry French" className="w-full h-32 sm:h-40 lg:h-48 object-contain rounded-lg mb-2 lg:mb-3" />
+                    <p className="text-xs sm:text-sm font-bold text-blue-600 text-center mb-1">FOUNDER, CEO</p>
+                    <h3 className="text-xl sm:text-2xl font-bold text-gray-900 text-center mb-2 lg:mb-3">Terry</h3>
+                    <div className="space-y-0.5 lg:space-y-1 text-xs text-gray-700">
+                      <p>• US Army Veteran – Signal</p>
+                      <p>• 20 year IT Pro</p>
+                      <p>• IT Infra SMB Owner Operator ( VA Hospital )</p>
+                      <p>• AI/ML Startup www.bikeablescore.com</p>
+                    </div>
+                    <div className="flex justify-center gap-2 lg:gap-3 mt-2 lg:mt-3 pt-2 lg:pt-3 border-t border-gray-300">
+                      <img src={armyLogo} alt="US Army" className="h-6 lg:h-8 object-contain" />
+                      <img src={founderInstituteLogo} alt="Founder Institute" className="h-6 lg:h-8 object-contain" />
+                    </div>
+                  </div>
 
-            <div className="bg-blue-950 p-8 rounded-lg border border-blue-800">
-              <h4 className="text-xl font-bold mb-4">AI as a Utility requires:</h4>
-              <div className="space-y-3 text-lg text-gray-200">
-                <p>✓ Distributed systems expertise</p>
-                <p>✓ Real-time routing & metering</p>
-                <p>✓ Security & identity architecture</p>
-                <p>✓ Utility-scale operations</p>
-              </div>
-            </div>
+                  {/* Mike Barbine - CTO */}
+                  <div className="bg-white p-3 lg:p-4 rounded-lg border-2 border-gray-300 shadow-md">
+                    <img src={michaelBarbine} alt="Michael Barbine" className="w-full h-32 sm:h-40 lg:h-48 object-contain rounded-lg mb-2 lg:mb-3" />
+                    <p className="text-xs sm:text-sm font-bold text-blue-600 text-center mb-1">CTO</p>
+                    <h3 className="text-xl sm:text-2xl font-bold text-gray-900 text-center mb-2 lg:mb-3">Mike</h3>
+                    <div className="space-y-0.5 lg:space-y-1 text-xs text-gray-700">
+                      <p>• <span className="font-bold">Exited</span> Fingerprint technology for Network Devices Startup</p>
+                      <p>• <span className="font-bold">Amazon Web Services launches</span> support for <span className="font-bold">JA4 fingerprinting</span></p>
+                      <p>• F23 Cyber Accelerator Alumni and Mentor</p>
+                    </div>
+                    <div className="flex justify-center gap-2 lg:gap-3 mt-2 lg:mt-3 pt-2 lg:pt-3 border-t border-gray-300">
+                      <img src={foxioLogo} alt="Foxio LLC" className="h-6 lg:h-8 object-contain" />
+                      <img src={gmuLogo} alt="George Mason University" className="h-6 lg:h-8 object-contain" />
+                      <img src={image144} alt="Logo" className="h-6 lg:h-8 object-contain" />
+                    </div>
+                  </div>
 
-            <div className="mt-12 pt-8 border-t border-gray-800">
-              <p className="text-2xl md:text-3xl font-light text-gray-400 text-center">
-                Investors invest in founders and founding teams.
-              </p>
+                  {/* Chelsea Kenney - COO */}
+                  <div className="bg-white p-3 lg:p-4 rounded-lg border-2 border-gray-300 shadow-md">
+                    <img src={chelseaKenney} alt="Chelsea Kenney" className="w-full h-32 sm:h-40 lg:h-48 object-contain rounded-lg mb-2 lg:mb-3" />
+                    <p className="text-xs sm:text-sm font-bold text-blue-600 text-center mb-1">COO</p>
+                    <h3 className="text-xl sm:text-2xl font-bold text-gray-900 text-center mb-2 lg:mb-3">Chelsea</h3>
+                    <div className="space-y-0.5 lg:space-y-1 text-xs text-gray-700">
+                      <p>• Graduate of University of Hawaii– BS Sociology</p>
+                      <p>• <span className="font-bold">3 years in D2C sales</span></p>
+                      <p>• Active Duty AirForce Spouse</p>
+                    </div>
+                    <div className="flex justify-center gap-2 lg:gap-3 mt-2 lg:mt-3 pt-2 lg:pt-3 border-t border-gray-300">
+                      <img src={uhManoaLogo} alt="UH Manoa" className="h-6 lg:h-8 object-contain" />
+                      <img src={airForceLogo} alt="US Air Force" className="h-6 lg:h-8 object-contain" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Team Members Section */}
+              <div className="space-y-3 lg:space-y-4">
+                <h3 className="text-xl md:text-2xl font-bold text-gray-900">Distributed System Engineer</h3>
+                
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-1 gap-2 lg:gap-3">
+                  <div className="bg-gray-100 p-2 lg:p-3 rounded-lg border border-gray-300">
+                    <p className="text-xs sm:text-sm font-bold text-gray-900">Usama Naveed</p>
+                    <p className="text-xs text-gray-700">Principle Distributed System Engineer</p>
+                    <p className="text-xs text-gray-700">Ai/ML Mathematician</p>
+                    <p className="text-xs text-gray-700">Full time</p>
+                  </div>
+
+                  <div className="bg-gray-100 p-2 lg:p-3 rounded-lg border border-gray-300">
+                    <p className="text-xs sm:text-sm font-bold text-gray-900">Jacob Barhak</p>
+                    <p className="text-xs text-gray-700">Sr. AI/mL Eng</p>
+                    <p className="text-xs text-gray-700">Pending Funding (Contract)</p>
+                  </div>
+
+                  <div className="bg-gray-100 p-2 lg:p-3 rounded-lg border border-gray-300">
+                    <p className="text-xs sm:text-sm font-bold text-gray-900">Chris Cowan</p>
+                    <p className="text-xs text-gray-700">Sr. Software Eng</p>
+                    <p className="text-xs text-gray-700">and Architect</p>
+                    <p className="text-xs text-gray-700">Pending Funding (Contract)</p>
+                  </div>
+                </div>
+
+                {/* Advisor Section */}
+                <div className="pt-3 lg:pt-4 space-y-2 lg:space-y-3">
+                  <h3 className="text-xl md:text-2xl font-bold text-gray-900">Advisor</h3>
+                  
+                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-1 gap-2 lg:gap-3">
+                    <div className="bg-gray-100 p-2 lg:p-3 rounded-lg border border-gray-300">
+                      <p className="text-xs sm:text-sm font-bold text-gray-900">Dr. Marlon K John</p>
+                      <p className="text-xs text-gray-700">Business Lawyer</p>
+                      <p className="text-xs text-gray-700">US Army Veteran</p>
+                    </div>
+
+                    <div className="bg-gray-100 p-2 lg:p-3 rounded-lg border border-gray-300">
+                      <p className="text-xs sm:text-sm font-bold text-gray-900">Nicholas McGinnis</p>
+                      <p className="text-xs text-gray-700">AI Infra, Sr. UX Eng</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </Slide>
 
         {/* SLIDE 12 - THE ASK */}
         <Slide index={11} slideNumber={11}>
-          <div className="max-w-4xl space-y-8">
-            <h2 className="text-4xl md:text-6xl font-bold">
+          <div className="max-w-5xl w-full space-y-6">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
               The Ask
             </h2>
-            <div className="space-y-6">
-              <p className="text-2xl md:text-3xl text-gray-300">
-                Pre-seed / bridge round
-              </p>
-              <div className="bg-gray-900 p-8 rounded-lg border border-gray-800">
-                <p className="text-xl md:text-2xl mb-4 text-gray-400">Funds used to:</p>
-                <div className="space-y-3 text-lg md:text-xl text-gray-300">
-                  <p>• Expand Grid metering infrastructure</p>
-                  <p>• Secure billing infrastructure</p>
-                  <p>• Pilot utility distribution channels</p>
-                  <p>• Scale +AI user acquisition</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </Slide>
-
-        {/* APPENDIX DIVIDER */}
-        <Slide index={12}>
-          <div className="text-center">
-            <h2 className="text-5xl md:text-7xl font-bold text-gray-600">
-              APPENDIX
-            </h2>
-          </div>
-        </Slide>
-
-        {/* APPENDIX A - TAM/SAM/SOM */}
-        <Slide index={13} className="items-start justify-start">
-          <div className="max-w-5xl space-y-8 w-full">
-            <div className="space-y-2">
-              <h2 className="text-3xl md:text-5xl font-bold">
-                TAM / SAM / SOM (Layer 0 Utility Model)
-              </h2>
-            </div>
-
-            {/* TAM */}
-            <div className="bg-gray-900 p-6 rounded-lg border border-gray-800 space-y-4">
-              <h3 className="text-2xl md:text-3xl font-bold">
-                TAM (Layer 0) — Total Addressable Market
-              </h3>
-              <p className="text-lg text-gray-400">
-                All AI compute consumption that can be metered and billed through utility infrastructure.
-              </p>
-              <div className="text-base md:text-lg text-gray-300 space-y-2">
-                <p className="font-semibold text-white">Components (2030 estimates):</p>
-                <p>• IaaS AI compute: $100–150B</p>
-                <p>• Model API consumption: $90–295B</p>
-                <p>• GPU cloud services: $50–100B</p>
-                <p>• Enterprise AI spend: $150–200B</p>
-              </div>
-              <div className="border-t border-gray-800 pt-4 mt-4">
-                <p className="text-2xl md:text-3xl font-bold text-white">
-                  Total TAM: $400–700B
-                </p>
-                <p className="text-sm text-gray-500 mt-2">
-                  Same TAM as before — now justified by Layer 0 positioning.
-                </p>
-              </div>
-            </div>
-
-            {/* SAM */}
-            <div className="bg-gray-900 p-6 rounded-lg border border-gray-800 space-y-4">
-              <h3 className="text-2xl md:text-3xl font-bold">
-                SAM — Serviceable Available Market
-              </h3>
-              <p className="text-lg text-gray-400">
-                AI consumption reachable through utility-style distribution channels.
-              </p>
-              <div className="text-base md:text-lg text-gray-300 space-y-2">
-                <p className="font-semibold text-white">Components:</p>
-                <p>• Consumer AI subscriptions: $50–100B</p>
-                <p>• SMB AI spend: $80–150B</p>
-                <p>• Coworking & shared spaces: $5–10B</p>
-                <p>• Residential AI bundles (future): $20–40B</p>
-                <p>• ISP-distributed AI (future): $30–60B</p>
-              </div>
-              <div className="border-t border-gray-800 pt-4 mt-4">
-                <p className="text-2xl md:text-3xl font-bold text-white mb-2">
-                  Total SAM: $180–350B
-                </p>
-                <p className="text-lg text-gray-300">
-                  Utility economics: 3% margin → $5.4B–$10.5B revenue potential
-                </p>
-              </div>
-            </div>
-
-            {/* SOM */}
-            <div className="bg-blue-950 p-6 rounded-lg border border-blue-800 space-y-4">
-              <h3 className="text-2xl md:text-3xl font-bold">
-                SOM — Serviceable Obtainable Market
-              </h3>
-              <p className="text-lg text-gray-300 mb-4">
-                Realistic capture scenarios (timeline-based):
-              </p>
-              
-              <div className="space-y-4 text-base md:text-lg">
-                <div className="border-l-4 border-gray-600 pl-4">
-                  <p className="font-bold text-gray-400">Conservative (0.5% by 2030):</p>
-                  <p className="text-gray-300">$1.25B AI consumption</p>
-                  <p className="text-white">3% margin → $37.5M revenue</p>
-                </div>
-                
-                <div className="border-l-4 border-blue-600 pl-4">
-                  <p className="font-bold text-gray-300">Base Case (1% by 2030):</p>
-                  <p className="text-gray-200">$2.5B AI consumption</p>
-                  <p className="text-white font-semibold">3% margin → $75M revenue</p>
-                </div>
-                
-                <div className="border-l-4 border-blue-400 pl-4">
-                  <p className="font-bold text-white">Optimistic (2% by 2032):</p>
-                  <p className="text-gray-200">$6B AI consumption</p>
-                  <p className="text-white font-semibold">3% margin → $180M revenue</p>
-                </div>
-                
-                <div className="border-l-4 border-green-400 pl-4">
-                  <p className="font-bold text-green-300">Aggressive (5% by 2035):</p>
-                  <p className="text-gray-200">$20B AI consumption</p>
-                  <p className="text-white font-bold">3% margin → $600M revenue</p>
-                </div>
-              </div>
-              
-              <p className="text-lg text-gray-300 border-t border-blue-900 pt-4 mt-4">
-                High-margin infrastructure business (60–70% gross margin).
-              </p>
-            </div>
-          </div>
-        </Slide>
-
-        {/* APPENDIX B - AIWH & THE AI GRID LAYER */}
-        <Slide index={14}>
-          <div className="max-w-5xl space-y-8 w-full">
-            <h2 className="text-3xl md:text-5xl font-bold text-gray-400">
-              aiWh & The AI Grid Layer
-            </h2>
-            <p className="text-xl text-gray-500">WHERE ALL THE AI MODELS LIVE</p>
-
-            <div className="bg-gray-900 p-8 rounded-lg border border-gray-800">
-              <div className="text-center mb-8">
-                <div className="bg-gradient-to-br from-blue-900 to-purple-900 rounded-lg border-2 border-blue-600 p-8 mb-4">
-                  <p className="text-2xl font-bold mb-6">AI GRID LAYER (Layer 0)</p>
-                  
-                  <div className="grid md:grid-cols-2 gap-6 mb-6">
-                    <div className="bg-black/30 p-4 rounded">
-                      <p className="font-bold text-blue-300">Routing Engine</p>
-                      <p className="text-sm text-gray-400 mt-2">Intelligent task routing</p>
-                    </div>
-                    <div className="bg-black/30 p-4 rounded">
-                      <p className="font-bold text-blue-300">Metering (aiWh)</p>
-                      <p className="text-sm text-gray-400 mt-2">Universal measurement</p>
-                    </div>
-                  </div>
-                  
-                  <div className="bg-black/30 p-6 rounded mb-6">
-                    <p className="font-bold text-white mb-3">1000+ AI Models</p>
-                    <p className="text-sm text-gray-300">OpenAI • Anthropic • Google • Meta • Mistral • xAI • Cohere • Perplexity • 1000+</p>
-                  </div>
-                  
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div className="bg-black/30 p-4 rounded">
-                      <p className="font-bold text-blue-300">Security</p>
-                      <p className="text-sm text-gray-400 mt-2">Identity protection</p>
-                    </div>
-                    <div className="bg-black/30 p-4 rounded">
-                      <p className="font-bold text-blue-300">Identity</p>
-                      <p className="text-sm text-gray-400 mt-2">Consent-first design</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-blue-950 p-8 rounded-lg border border-blue-800 space-y-6">
-              <h3 className="text-2xl font-bold">aiWh (AI Watt-hour)</h3>
-              <p className="text-lg text-gray-200">
-                Universal unit for measuring AI compute consumption.
-              </p>
-              <div className="text-base text-gray-300 space-y-3">
-                <p><span className="text-white font-semibold">Similar to kWh for electricity:</span></p>
-                <p>• Provider-agnostic</p>
-                <p>• Human-readable</p>
-                <p>• Utility-grade metering</p>
-                <p>• Predictable billing</p>
-              </div>
-              <p className="text-lg text-white font-semibold border-t border-blue-900 pt-4 mt-4">
-                The Grid optimizes routing to maximize value per aiWh consumed.
-              </p>
-            </div>
-          </div>
-        </Slide>
-
-        {/* APPENDIX C - SECURITY */}
-        <Slide index={15}>
-          <div className="max-w-4xl space-y-8">
-            <h2 className="text-3xl md:text-5xl font-bold text-gray-400">
-              Security & Trust
-            </h2>
-            <div className="bg-gray-900 p-8 rounded-lg border border-gray-800">
-              <div className="space-y-4 text-xl md:text-2xl text-gray-300">
-                <p>• Voice, name, image, and likeness protected</p>
-                <p>• Consent-first identity</p>
-                <p>• BIPA-aligned design</p>
-              </div>
-            </div>
-            <p className="text-lg text-gray-500 text-center">
-              Privacy and identity protection are foundational to AI as a Utility.
+            
+            <p className="text-2xl md:text-3xl font-semibold text-gray-800">
+              Pre-Seed / Bridge Round
             </p>
-          </div>
-        </Slide>
 
-        {/* APPENDIX D - REFERENCES */}
-        <Slide index={16}>
-          <div className="max-w-4xl space-y-8">
-            <h2 className="text-3xl md:text-5xl font-bold text-gray-400">
-              Research References
-            </h2>
-            <div className="bg-gray-900 p-8 rounded-lg border border-gray-800">
-              <div className="space-y-6">
-                <div>
-                  <p className="text-xl text-white font-semibold mb-2">
-                    "AI as a Public Utility — Why Americans Deserve Free AI Access"
-                  </p>
-                  <a 
-                    href="https://medium.com/@brian-curry-research/ai-as-a-public-utility-why-americans-deserve-free-ai-access-3c1e75cdafdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-400 hover:text-blue-300 break-all text-sm md:text-base"
-                  >
-                    medium.com/@brian-curry-research/ai-as-a-public-utility-why-americans-deserve-free-ai-access-3c1e75cdafdf
-                  </a>
+            <div className="space-y-4">
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900">
+                Capital Use (Next 90–120 Days):
+              </h3>
+
+              <div className="grid md:grid-cols-2 gap-4">
+                {/* Box 1 - Layer 0 Grid Infrastructure */}
+                <div className="bg-white p-5 rounded-lg border-2 border-gray-800 space-y-3">
+                  <h4 className="text-base font-bold text-gray-900">• Expand Layer 0 Grid Infrastructure</h4>
+                  <div className="pl-4 space-y-1 text-sm text-gray-700">
+                    <p>– Harden aiWh metering accuracy</p>
+                    <p>– Improve multi-model routing & provider abstraction</p>
+                  </div>
+                </div>
+
+                {/* Box 2 - Billing & Utility Operations */}
+                <div className="bg-white p-5 rounded-lg border-2 border-gray-800 space-y-3">
+                  <h4 className="text-base font-bold text-gray-900">• Billing & Utility Operations</h4>
+                  <div className="pl-4 space-y-1 text-sm text-gray-700">
+                    <p>– Secure usage-based billing (aiWh → invoice)</p>
+                    <p>– Payment reliability, auditability, and reporting</p>
+                  </div>
+                </div>
+
+                {/* Box 3 - Pilot Utility Distribution */}
+                <div className="bg-white p-5 rounded-lg border-2 border-gray-800 space-y-3">
+                  <h4 className="text-base font-bold text-gray-900">• Pilot Utility Distribution Channels</h4>
+                  <div className="pl-4 space-y-1 text-sm text-gray-700">
+                    <p>– LOIs & pilots with coworking spaces, accelerators, and SMB groups</p>
+                    <p>– Early provider onboarding (capacity lease model)</p>
+                  </div>
+                </div>
+
+                {/* Box 4 - +AI Demand Validation */}
+                <div className="bg-white p-5 rounded-lg border-2 border-gray-800 space-y-3">
+                  <h4 className="text-base font-bold text-gray-900">• +AI Demand Validation & Growth</h4>
+                  <div className="pl-4 space-y-1 text-sm text-gray-700">
+                    <p>– Convert beta users to paid plans</p>
+                    <p>– Test referral and reservation mechanics</p>
+                  </div>
                 </div>
               </div>
+            </div>
+
+            {/* Bottom centered statement */}
+            <div className="pt-6 text-center">
+              <p className="text-lg md:text-xl font-semibold text-gray-800 italic">
+                "This round is about proving product-market fit for AI as a utility — not scaling headcount."
+              </p>
             </div>
           </div>
         </Slide>
 
         {/* FINAL SLIDE - COPYRIGHT & EXPORT */}
-        <Slide index={17}>
+        <Slide index={12}>
           <div className="text-center space-y-12 max-w-4xl">
             <div>
               <h2 className="text-4xl md:text-6xl font-bold mb-4">
