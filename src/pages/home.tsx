@@ -597,26 +597,16 @@ const SupereCommWebsite = () => {
   const AboutPage = () => (
     <div className="min-h-screen px-6 py-24">
       <div className="max-w-4xl mx-auto">
-        <h1
-          className={`text-4xl md:text-5xl font-light mb-8 text-center ${
-            darkMode ? "text-white" : "text-gray-900"
-          }`}
-        >
-          About Super eComm
+        <h1 className="text-4xl md:text-5xl font-light mb-8 text-center text-white">
+          About Gridnet
         </h1>
-        <p
-          className={`text-xl leading-relaxed mb-12 text-center ${
-            darkMode ? "text-gray-300" : "text-gray-700"
-          }`}
-        >
+        <p className="text-xl leading-relaxed mb-12 text-center text-gray-200">
           Building the internet for AI
         </p>
 
         {/* Founder Institute Logo */}
         <div className="flex justify-center mb-8">
-          <div className={`p-6 rounded-xl ${
-            darkMode ? 'bg-white' : 'bg-white'
-          }`}>
+          <div className="p-6 rounded-xl bg-white">
             <img
               src={founderInstituteLogo}
               alt="Founder Institute Pre-Seed Accelerator"
@@ -625,10 +615,8 @@ const SupereCommWebsite = () => {
           </div>
         </div>
 
-        <p className={`text-lg leading-relaxed text-center ${
-          darkMode ? 'text-gray-300' : 'text-gray-700'
-        }`}>
-          Gridnet was founded through the <span className="font-semibold">Founder Institute Austin 2025 cohort</span>. We're building the world's first AI utility grid, making artificial intelligence accessible, affordable, and metered like electricity.
+        <p className="text-lg leading-relaxed text-center text-gray-200">
+          Gridnet was founded through the <span className="font-semibold text-white">Founder Institute Austin 2025 cohort</span>. We're building the internet for AI.
         </p>
       </div>
     </div>
@@ -1526,11 +1514,7 @@ const SupereCommWebsite = () => {
                       <button
                         onMouseEnter={() => setOpenDropdown(item.name)}
                         onMouseLeave={() => setOpenDropdown("")}
-                        className={`px-4 py-2 rounded text-sm ${
-                          darkMode
-                            ? "text-gray-300 hover:text-white hover:bg-gray-800"
-                            : "text-gray-700 hover:text-gray-900 hover:bg-gray-50"
-                        } transition-colors`}
+                        className="px-4 py-2 rounded text-sm text-white hover:bg-gray-800 transition-colors"
                       >
                         {item.name}
                       </button>
@@ -1567,15 +1551,11 @@ const SupereCommWebsite = () => {
                     <button
                       key={(item as any).id}
                       onClick={() => navigateToPage((item as any).id)}
-                      className={`px-4 py-2 rounded text-sm ${
+                      className={`px-4 py-2 rounded text-sm transition-colors ${
                         currentPage === (item as any).id
-                          ? darkMode
-                            ? "bg-gray-800 text-white"
-                            : "bg-gray-100 text-gray-900"
-                          : darkMode
-                          ? "text-gray-300 hover:text-white hover:bg-gray-800"
-                          : "text-gray-700 hover:text-gray-900 hover:bg-gray-50"
-                      } transition-colors`}
+                          ? "bg-gray-800 text-white"
+                          : "text-white hover:bg-gray-800"
+                      }`}
                     >
                       {item.name}
                     </button>
