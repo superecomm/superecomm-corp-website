@@ -228,44 +228,24 @@ const HomePage: FC<HomePageProps> = ({
           {/* Right: Content */}
           <div className="order-2 md:order-2 relative z-50">
             {/* Punchy headline */}
-            <h2
-              className={`text-4xl md:text-5xl font-light mb-6 ${
-                darkMode ? "text-white" : "text-gray-900"
-              }`}
-            >
+            <h2 className="text-4xl md:text-5xl font-light mb-6 text-white">
               You're Already on the AI Treadmill
             </h2>
 
             {/* Setup */}
-            <p
-              className={`text-xl mb-4 ${
-                darkMode ? "text-gray-300" : "text-gray-700"
-              }`}
-            >
+            <p className="text-xl mb-4 text-gray-200">
               Too many subscriptions. Too many accounts. Too many models.
             </p>
 
             {/* Value proposition */}
             <div className="mb-8">
-              <p
-                className={`text-2xl font-light mb-3 ${
-                  darkMode ? "text-white" : "text-gray-900"
-                }`}
-              >
+              <p className="text-2xl font-light mb-3 text-white">
                 What if AI worked like electricity?
               </p>
-              <p
-                className={`text-xl font-medium mb-3 ${
-                  darkMode ? "text-gray-300" : "text-gray-700"
-                }`}
-              >
+              <p className="text-xl font-medium mb-3 text-gray-200">
                 One meter. One bill. Unlimited power.
               </p>
-              <p
-                className={`text-2xl font-semibold ${
-                  darkMode ? "text-blue-400" : "text-blue-600"
-                }`}
-              >
+              <p className="text-2xl font-semibold text-blue-400">
                 → Gridnet
               </p>
             </div>
@@ -274,14 +254,7 @@ const HomePage: FC<HomePageProps> = ({
             <div className="pt-4">
               <button
                 onClick={onJoinEarlyAccess}
-                className={`w-full md:w-auto px-8 py-4 rounded-full text-lg font-semibold shadow-lg
-                  ${
-                    darkMode
-                      ? "bg-blue-600 hover:bg-blue-500 text-white"
-                      : "bg-blue-600 hover:bg-blue-700 text-white"
-                  }
-                  transition-all duration-200 transform hover:scale-105
-                `}
+                className="w-full md:w-auto px-8 py-4 rounded-lg text-lg font-semibold shadow-lg bg-blue-600 hover:bg-blue-500 text-white transition-all duration-200 transform hover:scale-105"
               >
                 Join Now
               </button>
