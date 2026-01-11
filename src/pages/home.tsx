@@ -104,7 +104,7 @@ const HomePage: FC<HomePageProps> = ({
     </section>
 
     {/* Vision Section */}
-    <section className="px-6 py-24 border-t border-gray-200 dark:border-gray-800">
+    <section className="px-6 py-24">
       <div className="max-w-6xl mx-auto">
         <div className="grid md:grid-cols-3 gap-12">
           <div>
@@ -173,7 +173,7 @@ const HomePage: FC<HomePageProps> = ({
     </section>
 
     {/* Why You Need This Section */}
-    <section className="px-6 py-24 border-t border-gray-200 dark:border-gray-800 relative z-50">
+    <section className="px-6 py-24 relative z-50">
       <div className="max-w-7xl mx-auto">
         <div className="grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left: Hero Meter - Top on mobile */}
@@ -339,7 +339,7 @@ const HomePage: FC<HomePageProps> = ({
     </section>
 
     {/* A Day In Life on the AI Grid Layer */}
-    <section className="py-12 border-t border-gray-200 dark:border-gray-800 relative z-50">
+    <section className="py-12 relative z-50">
       <div className="max-w-5xl mx-auto px-6">
         <h2 className={`text-2xl md:text-3xl font-light mb-8 text-center ${darkMode ? 'text-white' : 'text-gray-900'}`}>
           A Day In Life on the <span className="whitespace-nowrap">AI Grid Layer</span>
@@ -439,7 +439,7 @@ const HomePage: FC<HomePageProps> = ({
     </section>
 
     {/* What You Get Section */}
-    <section className="px-6 py-24 border-t border-gray-200 dark:border-gray-800 relative z-50">
+    <section className="px-6 py-24 relative z-50">
       <div className="max-w-7xl mx-auto">
         <h3
           className={`text-3xl md:text-4xl font-light mb-12 text-center ${
@@ -673,7 +673,7 @@ const HomePage: FC<HomePageProps> = ({
     </section>
 
     {/* Model Selection Section */}
-    <section className="px-6 py-24 border-t border-gray-200 dark:border-gray-800 relative z-50">
+    <section className="px-6 py-24 relative z-50">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
           <h2
@@ -2172,7 +2172,7 @@ const SupereCommWebsite = () => {
       <div className="relative z-10 flex min-h-screen flex-col pt-16 md:pt-20">
         {/* Navigation */}
         <nav
-          className="fixed top-0 inset-x-0 z-[100] border-b shadow-sm backdrop-blur-lg border-gray-800 bg-black/95"
+          className="fixed top-0 inset-x-0 z-[100] shadow-sm backdrop-blur-lg bg-black/95"
         >
           <div className="max-w-7xl mx-auto px-6 py-3">
             <div className="flex items-center justify-between">
