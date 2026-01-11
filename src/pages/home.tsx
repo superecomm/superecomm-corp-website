@@ -412,18 +412,10 @@ const HomePage: FC<HomePageProps> = ({
         {/* Utility Bill Image Section */}
         <div className="mt-16 max-w-4xl mx-auto">
           <div className="text-center mb-8">
-            <h3
-              className={`text-2xl md:text-3xl font-light mb-4 ${
-                darkMode ? "text-white" : "text-gray-900"
-              }`}
-            >
+            <h3 className="text-2xl md:text-3xl font-light mb-4 text-white">
               One Bill. All Your AI.
             </h3>
-            <p
-              className={`text-lg ${
-                darkMode ? "text-gray-300" : "text-gray-700"
-              }`}
-            >
+            <p className="text-lg text-gray-200">
               Metered in aiWh — just like your electricity
             </p>
           </div>
