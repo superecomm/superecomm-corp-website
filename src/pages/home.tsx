@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import type { FC } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Menu, X, ChevronRight, ChevronDown, Zap, Brain, Plug, Shield, Database, Wallet, Coffee, Briefcase, Smartphone, Home as HomeIcon, Loader2, CheckCircle2, AlertCircle, Moon, Sun } from "lucide-react";
+import { Menu, X, ChevronDown, Zap, Brain, Plug, Shield, Database, Wallet, Coffee, Briefcase, Smartphone, Home as HomeIcon, Loader2, CheckCircle2, AlertCircle, Moon, Sun } from "lucide-react";
 import heroHorizon from "../assets/horizon-612x612.jpg";
 import meterImage from "../assets/aiWh-meter-transparent-background-new.png";
 import productImage from "../assets/plusai-product-image-7.png";
@@ -32,7 +32,6 @@ import type { UserProfile } from "../types/grid";
 type HomePageProps = {
   darkMode: boolean;
   onJoinEarlyAccess: () => void;
-  onGoToSubsidiaries: () => void;
   openFaq: number | null;
   toggleFaq: (index: number) => void;
 };
@@ -40,7 +39,6 @@ type HomePageProps = {
 const HomePage: FC<HomePageProps> = ({
   darkMode,
   onJoinEarlyAccess,
-  onGoToSubsidiaries,
   openFaq,
   toggleFaq,
 }) => (
@@ -856,17 +854,7 @@ const HomePage: FC<HomePageProps> = ({
             }
           >
             Top talent from aroud the world developing AI as a utility. Go from juggling mutliple subscriptions to a single workspace and a single bill instantly. 
-          </p> 
-          <button
-            onClick={onGoToSubsidiaries}
-            className={`flex items-center text-sm ${
-              darkMode
-                ? "text-blue-400 hover:text-blue-300"
-                : "text-blue-600 hover:text-blue-700"
-            }`}
-          >
-            Learn more <ChevronRight className="w-4 h-4 ml-1" />
-          </button>
+          </p>
         </div>
       </div>
     </section>
@@ -1808,7 +1796,6 @@ const SupereCommWebsite = () => {
     //   name: "Investors",
     //   items: [{ name: "Founders' Letters", id: "founders-letters" as const }],
     // },
-    { name: "Subsidiaries", id: "subsidiaries" as const },
   ];
 
   const FoundersLettersPage = () => (
@@ -2218,46 +2205,6 @@ const SupereCommWebsite = () => {
         }`}>
           Super eComm was founded through the <span className="font-semibold">Founder Institute Austin 2025 cohort</span>. We're building the world's first AI utility grid, making artificial intelligence accessible, affordable, and metered like electricity.
         </p>
-      </div>
-    </div>
-  );
-
-  const SubsidiariesPage = () => (
-    <div className="min-h-screen px-6 py-24">
-      <div className="max-w-5xl mx-auto">
-        <h1
-          className={`text-4xl md:text-5xl font-light mb-12 ${
-            darkMode ? "text-white" : "text-gray-900"
-          }`}
-        >
-          Our Companies
-        </h1>
-
-        <div
-          className={`border rounded-2xl p-12 ${
-            darkMode
-              ? "border-gray-700 bg-gray-900"
-              : "border-gray-200 bg-white"
-          }`}
-        >
-          <div className="flex items-center mb-6">
-            <span
-              className={`text-5xl font-bold mr-4 ${
-                darkMode ? "text-blue-400" : "text-blue-600"
-              }`}
-            >
-              +
-            </span>
-            <h2
-              className={`text-4xl font-medium ${
-                darkMode ? "text-white" : "text-gray-900"
-              }`}
-            >
-              AI Labs
-            </h2>
-          </div>
-          {/* ...rest of subsidiary content... */}
-        </div>
       </div>
     </div>
   );
@@ -3417,7 +3364,6 @@ const SupereCommWebsite = () => {
             <HomePage
               darkMode={darkMode}
               onJoinEarlyAccess={() => navigateToPage("reserve")}
-              onGoToSubsidiaries={() => navigateToPage("subsidiaries")}
               openFaq={openFaq}
               toggleFaq={toggleFaq}
             />
@@ -3441,7 +3387,6 @@ const SupereCommWebsite = () => {
           {currentPage === "security" && <SecurityPage />}
           {currentPage === "faq" && <div className="min-h-screen px-6 py-24 bg-black"><div className="max-w-4xl mx-auto"><h1 className="text-4xl md:text-5xl font-bold mb-12 text-center text-white">Frequently Asked Questions</h1><p className="text-center text-gray-400 mb-8">Learn more about Gridnet and how we're building the internet for AI.</p></div></div>}
           {currentPage === "about" && <AboutPage />}
-          {currentPage === "subsidiaries" && <SubsidiariesPage />}
           {currentPage === "founders-letters" && <FoundersLettersPage />}
           {currentPage === "plans-pricing" && <PlansAndBillingPage />}
           {currentPage === "how-it-works" && <HowItWorksPage />}
