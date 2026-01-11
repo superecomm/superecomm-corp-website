@@ -423,7 +423,7 @@ const HomePage: FC<HomePageProps> = ({
             <img
               src={aiUtilityBillImage}
               alt="AI Utility Bill showing aiWh metering"
-              className="w-full max-w-[162px] h-auto"
+              className="w-full max-w-[194px] h-auto"
             />
           </div>
         </div>
