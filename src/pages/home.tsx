@@ -1823,7 +1823,7 @@ const SupereCommWebsite = () => {
                 <img 
                   src={gridnetFullLogo} 
                   alt="Gridnet" 
-                  className="h-8 w-auto"
+                  className="h-4 w-auto"
                 />
               </button>
 
