@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import type { FC } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Menu, X, ChevronRight, ChevronDown, Zap, Brain, Plug, Shield, Database, Wallet, Coffee, Briefcase, Smartphone, Home as HomeIcon, Loader2, CheckCircle2, AlertCircle, Moon, Sun } from "lucide-react";
-import heroOffice from "../assets/hero-office.webp";
+import heroHorizon from "../assets/horizon-612x612.jpg";
 import meterImage from "../assets/aiWh-meter-transparent-background-new.png";
 import productImage from "../assets/plusai-product-image-7.png";
 import modelSelectorImage from "../assets/plusai-product-image-8.png";
@@ -12,14 +12,16 @@ import marketingImage29 from '../assets/marketing-images/marketing-image29.jpg';
 import marketingImage27 from '../assets/marketing-images/marketing-image27.jpg';
 import marketingImage230 from '../assets/marketing-images/marketing-image230.jpg';
 import aiUtilityBillImage from '../assets/ai-utility-bill-image-1.png';
-import aiGridLayerDiagram from '../assets/ai-grid-layer-digram.png';
+import gridnetScreenshot from '../assets/gridnet-screenshot.png';
 import bipaBadge from '../assets/bipa-badge.png';
 import founderInstituteLogo from '../assets/founder-institute-pre-seed-accelerator-logo.png';
-import plusIconLogo from '../assets/corp-brand-assets/plus-icon-color-336x295.png';
+import gridnetIconWhite from '../assets/corp-brand-assets/GRIDNET-icon-white-336x336.png';
+import gridnetFullLogo from '../assets/corp-brand-assets/gridnet-white-full-logo.png';
 import ReservePage from "./ReservePage";
 import DashboardPage from "./DashboardPage";
-import AiGridLayerPage from "./AiGridLayerPage";
-import PlusAiPage from "./PlusAiPage";
+import GridnetPage from "./GridnetPage";
+import GridnetBrowserPage from "./GridnetBrowserPage";
+import AIXPage from "./AIXPage";
 import PitchDeckPage from "./PitchDeckPage";
 import Layer0Page from "./Layer0Page";
 import { auth, db } from "../config/firebase";
@@ -42,7 +44,19 @@ const HomePage: FC<HomePageProps> = ({
   openFaq,
   toggleFaq,
 }) => (
-  <div className="min-h-screen">
+  <div className="min-h-screen bg-black relative">
+    {/* Electric Grid Background */}
+    <div
+      className="pointer-events-none absolute inset-0 z-0"
+      style={{
+        backgroundImage: `
+          linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px)
+        `,
+        backgroundSize: "60px 60px",
+        boxShadow: "inset 0 0 100px rgba(59, 130, 246, 0.05)",
+      }}
+    />
     {/* Hero Section */}
     <section
       className="
@@ -55,67 +69,41 @@ const HomePage: FC<HomePageProps> = ({
       {/* Background image */}
       <div className="absolute inset-0 z-0">
         <img
-          src={heroOffice}
-          alt="Team using laptops and collaborating in a modern workspace"
+          src={heroHorizon}
+          alt="Earth's horizon from space - Building the internet for AI"
           className="w-full h-full object-cover"
         />
-        {/* overlay so text is readable in light/dark */}
-        <div className="absolute inset-0 bg-white/60 dark:bg-gray-950/70 backdrop-blur-sm" />
+        <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
+        <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black to-transparent" />
       </div>
 
       {/* Hero content */}
       <div className="relative z-10 w-full px-6">
         <div className="max-w-5xl mx-auto text-center py-24 md:py-32">
-          <h1
-            className={`text-5xl md:text-7xl font-light mb-8 ${
-              darkMode ? "text-white" : "text-gray-900"
-            }`}
-          >
-            Providing You With AI as a Utility
+          <img
+            src={gridnetFullLogo}
+            alt="Gridnet Logo"
+            className="h-16 md:h-24 w-auto mx-auto mb-8"
+          />
+          <h1 className="text-5xl md:text-7xl font-bold mb-4 text-white">
+            The internet for AI.
           </h1>
-          <p
-            className={`text-lg md:text-xl ${
-              darkMode ? "text-gray-200" : "text-gray-700"
-            }`}
-          >
+          <p className="text-lg md:text-xl font-bold text-white">
             One meter. One bill. All the AI you need.
           </p>
-
-          <div className="mt-10 flex justify-center">
-            <button
-              onClick={onJoinEarlyAccess}
-              className={`px-6 py-3 rounded-full text-sm font-medium shadow-sm
-                ${
-                  darkMode
-                    ? "bg-blue-600 hover:bg-blue-500 text-white"
-                    : "bg-blue-600 hover:bg-blue-700 text-white"
-                }
-                transition-colors
-              `}
-            >
-              Join Early Access
-            </button>
-          </div>
         </div>
       </div>
     </section>
 
     {/* Mission Section */}
-    <section className="px-6 py-24 border-t border-gray-200 dark:border-gray-800">
-      <div className="max-w-4xl mx-auto">
-        <h2
-          className={`text-3xl md:text-4xl font-light mb-8 ${
-            darkMode ? "text-white" : "text-gray-900"
-          }`}
-        >
+    <section className="px-6 py-24 relative z-50">
+      <div className="absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-black to-transparent pointer-events-none" />
+      <div className="max-w-4xl mx-auto relative">
+        <h2 className="text-3xl md:text-4xl font-bold mb-8 text-white">
           Our Mission
         </h2>
-        <p
-          className={`text-lg md:text-xl leading-relaxed ${
-            darkMode ? "text-gray-300" : "text-gray-700"
-          }`}
-        >
-          Super eComm is building the world’s AI utility grid — providing computational intelligence on tap for all mankind.
+        <p className="text-lg md:text-xl leading-relaxed text-gray-200">
+          Gridnet is building the world's AI utility grid — providing computational intelligence on tap for all mankind.
         </p>
       </div>
     </section>
@@ -2783,8 +2771,8 @@ const SupereCommWebsite = () => {
             darkMode ? 'border-gray-700' : 'border-gray-200'
           }`}>
             <img
-              src={aiGridLayerDiagram}
-              alt="AI Grid Layer Architecture"
+              src={gridnetScreenshot}
+              alt="Gridnet - The internet for AI"
               className="w-full h-auto"
             />
           </div>
@@ -3114,9 +3102,7 @@ const SupereCommWebsite = () => {
 
   return (
     <div
-      className={`relative min-h-screen ${
-        darkMode ? "bg-gray-950 text-gray-100" : "bg-white text-gray-900"
-      } transition-colors duration-300`}
+      className="relative min-h-screen bg-black text-gray-100 transition-colors duration-300"
     >
       {/* Subtle Electric Grid Background */}
       <div
@@ -3142,11 +3128,7 @@ const SupereCommWebsite = () => {
       <div className="relative z-10 flex min-h-screen flex-col pt-16 md:pt-20">
         {/* Navigation */}
         <nav
-          className={`fixed top-0 inset-x-0 z-[100] border-b shadow-sm backdrop-blur-lg ${
-            darkMode 
-              ? "border-gray-800 bg-gray-950/70" 
-              : "border-gray-200 bg-white/70"
-          }`}
+          className="fixed top-0 inset-x-0 z-[100] border-b shadow-sm backdrop-blur-lg border-gray-800 bg-black/95"
         >
           <div className="max-w-7xl mx-auto px-6 py-3">
             <div className="flex items-center justify-between">
@@ -3158,8 +3140,8 @@ const SupereCommWebsite = () => {
                 className="flex items-center"
               >
                 <img 
-                  src={plusIconLogo} 
-                  alt="Super eComm" 
+                  src={gridnetIconWhite} 
+                  alt="Gridnet" 
                   className="h-8 w-auto"
                 />
               </button>
@@ -3492,41 +3474,29 @@ const SupereCommWebsite = () => {
         </main>
 
         {/* Footer */}
-        <footer
-          className={`relative border-t mt-8 px-6 py-12 backdrop-blur ${
-            darkMode 
-              ? "border-gray-800 bg-gray-950/80" 
-              : "border-gray-200 bg-white/80"
-          }`}
-        >
+        <footer className="relative mt-8 px-6 py-12 backdrop-blur bg-black/95">
           <div className="max-w-7xl mx-auto">
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div>
-                <h3
-                  className={`text-xl font-medium mb-4 ${
-                    darkMode ? "text-white" : "text-gray-900"
-                  }`}
-                >
-                  Super eComm
-                </h3>
-                <p className={darkMode ? "text-gray-400" : "text-gray-600"}>
-                  Building the AI Grid for everyone
+                <img 
+                  src={gridnetFullLogo} 
+                  alt="Gridnet" 
+                  className="h-6 w-auto mb-4"
+                />
+                <p className="text-gray-400">
+                  Building the internet for AI
                 </p>
               </div>
               <div className="md:text-right flex flex-col md:items-end gap-3 text-sm">
                 <button
                   onClick={() => setDarkMode(!darkMode)}
-                  className={`p-2 rounded-lg transition-colors ${
-                    darkMode
-                      ? "text-gray-300 hover:text-white hover:bg-gray-800"
-                      : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
-                  }`}
+                  className="p-2 rounded-lg transition-colors text-gray-300 hover:text-white hover:bg-gray-800"
                   aria-label="Toggle dark mode"
                 >
                   {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
                 </button>
-                <p className={darkMode ? "text-gray-400" : "text-gray-500"}>
-                  © 2025 Super eComm, Inc. All rights reserved.
+                <p className="text-gray-400">
+                  © 2025 Gridnet, Inc. All rights reserved.
                 </p>
               </div>
             </div>
