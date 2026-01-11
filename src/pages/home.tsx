@@ -1688,17 +1688,9 @@ const SupereCommWebsite = () => {
                   className="p-1"
                 >
                   {mobileMenuOpen ? (
-                    <X
-                      className={`w-5 h-5 ${
-                        darkMode ? "text-white" : "text-gray-900"
-                      }`}
-                    />
+                    <X className="w-5 h-5 text-white" />
                   ) : (
-                    <Menu
-                      className={`w-5 h-5 ${
-                        darkMode ? "text-white" : "text-gray-900"
-                      }`}
-                    />
+                    <Menu className="w-5 h-5 text-white" />
                   )}
                 </button>
               </div>
