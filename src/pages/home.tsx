@@ -105,67 +105,98 @@ const HomePage: FC<HomePageProps> = ({
 
     {/* Vision Section */}
     <section className="px-6 py-24">
-      <div className="max-w-6xl mx-auto">
-        <div className="grid md:grid-cols-3 gap-12">
-          <div>
-            <div
-              className={`text-6xl font-light mb-4 ${
+      <div className="max-w-7xl mx-auto">
+        <h2 className={`text-3xl md:text-4xl font-bold mb-12 text-center ${
+          darkMode ? "text-white" : "text-gray-900"
+        }`}>
+          A simple way to understand Gridnet
+        </h2>
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className={`p-6 rounded-lg border ${
+            darkMode ? "border-gray-800 bg-gray-900/50" : "border-gray-200 bg-white"
+          }`}>
+            <h3
+              className={`text-2xl font-bold mb-2 ${
+                darkMode ? "text-blue-400" : "text-blue-600"
+              }`}
+            >
+              Index
+            </h3>
+            <h4
+              className={`text-lg font-semibold mb-3 ${
+                darkMode ? "text-white" : "text-gray-900"
+              }`}
+            >
+              How much ai do i get for $1?
+            </h4>
+            <p className={`text-sm ${darkMode ? "text-gray-400" : "text-gray-600"}`}>
+              A standardized measure of computational intelligence pricing.
+            </p>
+          </div>
+
+          <div className={`p-6 rounded-lg border ${
+            darkMode ? "border-gray-800 bg-gray-900/50" : "border-gray-200 bg-white"
+          }`}>
+            <h3
+              className={`text-2xl font-bold mb-2 ${
                 darkMode ? "text-blue-400" : "text-blue-600"
               }`}
             >
               aiWh
-            </div>
-            <h3
-              className={`text-xl font-medium mb-3 ${
+            </h3>
+            <h4
+              className={`text-lg font-semibold mb-3 ${
                 darkMode ? "text-white" : "text-gray-900"
               }`}
             >
-              The Gridnet Meter
-            </h3>
-            <p className={darkMode ? "text-gray-400" : "text-gray-600"}>
-              AI Watt-Hours is how we measure your use of Ai and make it affordable for you on a daily basis  
+              The gigabyte for ai
+            </h4>
+            <p className={`text-sm ${darkMode ? "text-gray-400" : "text-gray-600"}`}>
+              Ai Watt Hour is like cents per MB/GB—pay for what you use.
             </p>
           </div>
 
-          <div>
-            <div
-              className={`text-6xl font-light mb-4 ${
+          <div className={`p-6 rounded-lg border ${
+            darkMode ? "border-gray-800 bg-gray-900/50" : "border-gray-200 bg-white"
+          }`}>
+            <h3
+              className={`text-2xl font-bold mb-2 ${
                 darkMode ? "text-blue-400" : "text-blue-600"
               }`}
             >
-              1000+
-            </div>
-            <h3
-              className={`text-xl font-medium mb-3 ${
+              Gridnet
+            </h3>
+            <h4
+              className={`text-lg font-semibold mb-3 ${
                 darkMode ? "text-white" : "text-gray-900"
               }`}
             >
-              AI Models
-            </h3>
-            <p className={darkMode ? "text-gray-400" : "text-gray-600"}>
-              Access thousands of AI models through a single interface. One
-              login, one bill, one solution.
+              The new internet for ai
+            </h4>
+            <p className={`text-sm ${darkMode ? "text-gray-400" : "text-gray-600"}`}>
+              Where ai models are the new websites.
             </p>
           </div>
 
-          <div>
-            <div
-              className={`text-6xl font-light mb-4 ${
+          <div className={`p-6 rounded-lg border ${
+            darkMode ? "border-gray-800 bg-gray-900/50" : "border-gray-200 bg-white"
+          }`}>
+            <h3
+              className={`text-2xl font-bold mb-2 ${
                 darkMode ? "text-blue-400" : "text-blue-600"
               }`}
             >
-              ∞
-            </div>
-            <h3
-              className={`text-xl font-medium mb-3 ${
+              Gridnet Browser
+            </h3>
+            <h4
+              className={`text-lg font-semibold mb-3 ${
                 darkMode ? "text-white" : "text-gray-900"
               }`}
             >
-              Global Scale
-            </h3>
-            <p className={darkMode ? "text-gray-400" : "text-gray-600"}>
-              Building the infrastructure to empower human capability at
-              global scale.
+              The web browser for AI
+            </h4>
+            <p className={`text-sm ${darkMode ? "text-gray-400" : "text-gray-600"}`}>
+              One interface to access a new world of possibilities.
             </p>
           </div>
         </div>
