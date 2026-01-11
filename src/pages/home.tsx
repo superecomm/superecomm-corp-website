@@ -181,7 +181,7 @@ const HomePage: FC<HomePageProps> = ({
             <p className={`text-sm ${darkMode ? "text-gray-400" : "text-gray-600"}`}>
               Where ai models are the new websites.
             </p>
-          </div>
+            </div>
 
           <div className={`p-6 rounded-lg border-2 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 ${
             darkMode 
@@ -371,16 +371,25 @@ const HomePage: FC<HomePageProps> = ({
           Check out the Gridnet Browser
         </h3>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-                {/* Product Image - Left Column */}
-                <div className="order-1 md:order-1 relative z-50">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          {/* Text Content - Top on mobile, Left on desktop */}
+          <div className="order-1 md:order-1 text-center md:text-left">
+            <p className="text-xl text-gray-200 mb-6">
+              Access 1000+ AI models through one unified interface. Switch between ChatGPT, Claude, Gemini, and more — instantly.
+            </p>
+            <p className="text-lg text-gray-300">
+              One account. One bill. All the AI you need.
+            </p>
+          </div>
+          
+          {/* Product Image - Bottom on mobile, Right on desktop */}
+          <div className="order-2 md:order-2 flex justify-center">
                   <img
                     src={productImage}
                     alt="+AI App Interface showing unified AI access"
-                    className="w-full max-w-[50%] h-auto relative z-50"
+              className="w-full max-w-md h-auto"
                   />
                 </div>
-
         </div>
       </div>
     </section>
