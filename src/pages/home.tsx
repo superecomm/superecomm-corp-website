@@ -404,7 +404,26 @@ const HomePage: FC<HomePageProps> = ({
           </p>
         </div>
 
+        {/* Model Selector Image - Full Width */}
+        <div className="flex justify-center mb-16">
+          <img
+            src={modelSelectorImage}
+            alt="AI Model Selector showing 1000+ available models"
+            className="w-full max-w-sm h-auto"
+          />
+        </div>
+
+        {/* Utility Bill Section with Text */}
         <div className="grid md:grid-cols-2 gap-12 items-center">
+          {/* Utility Bill Image - Bottom on mobile, Left on desktop */}
+          <div className="order-2 md:order-1 flex justify-center">
+            <img
+              src={aiUtilityBillImage}
+              alt="AI Utility Bill showing aiWh metering"
+              className="w-full max-w-sm h-auto"
+            />
+          </div>
+
           {/* Text Content - Top on mobile, Right on desktop */}
           <div className="order-1 md:order-2 text-center md:text-left">
             <h3 className="text-2xl md:text-3xl font-light mb-4 text-white">
@@ -416,20 +435,6 @@ const HomePage: FC<HomePageProps> = ({
             <p className="text-base text-gray-300">
               Track your AI consumption transparently. No hidden fees, no surprise charges — just simple, metered billing based on what you actually use.
             </p>
-          </div>
-
-          {/* Images - Bottom on mobile, Left on desktop */}
-          <div className="order-2 md:order-1 flex flex-col items-center gap-8">
-            <img
-              src={modelSelectorImage}
-              alt="AI Model Selector showing 1000+ available models"
-              className="w-full max-w-sm h-auto"
-            />
-            <img
-              src={aiUtilityBillImage}
-              alt="AI Utility Bill showing aiWh metering"
-              className="w-full max-w-[194px] h-auto"
-            />
           </div>
         </div>
       </div>
