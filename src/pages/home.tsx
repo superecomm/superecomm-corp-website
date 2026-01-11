@@ -1842,7 +1842,9 @@ const SupereCommWebsite = () => {
         </main>
 
         {/* Features Grid Section */}
-        <section className="px-6 py-24 bg-black">
+        <section className="relative px-6 py-24 bg-black">
+          {/* Top gradient blend */}
+          <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-black/0 to-black pointer-events-none" />
           <div className="max-w-7xl mx-auto">
             <div className="grid grid-cols-2 lg:grid-cols-3 gap-6">
               {/* Feature 1: AI Power on Tap */}
