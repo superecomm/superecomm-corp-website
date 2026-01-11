@@ -111,8 +111,10 @@ const HomePage: FC<HomePageProps> = ({
           A simple way to understand Gridnet
         </h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          <div className={`p-6 rounded-lg border ${
-            darkMode ? "border-gray-800 bg-gray-900/50" : "border-gray-200 bg-white"
+          <div className={`p-6 rounded-lg border transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ${
+            darkMode 
+              ? "border-gray-700 bg-gray-900/80 hover:bg-gray-900 hover:border-blue-500/50" 
+              : "border-gray-200 bg-white hover:border-blue-400 hover:shadow-blue-100"
           }`}>
             <h3
               className={`text-2xl font-bold mb-2 ${
@@ -133,8 +135,10 @@ const HomePage: FC<HomePageProps> = ({
             </p>
           </div>
 
-          <div className={`p-6 rounded-lg border ${
-            darkMode ? "border-gray-800 bg-gray-900/50" : "border-gray-200 bg-white"
+          <div className={`p-6 rounded-lg border transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ${
+            darkMode 
+              ? "border-gray-700 bg-gray-900/80 hover:bg-gray-900 hover:border-blue-500/50" 
+              : "border-gray-200 bg-white hover:border-blue-400 hover:shadow-blue-100"
           }`}>
             <h3
               className={`text-2xl font-bold mb-2 ${
@@ -155,8 +159,10 @@ const HomePage: FC<HomePageProps> = ({
             </p>
           </div>
 
-          <div className={`p-6 rounded-lg border ${
-            darkMode ? "border-gray-800 bg-gray-900/50" : "border-gray-200 bg-white"
+          <div className={`p-6 rounded-lg border transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ${
+            darkMode 
+              ? "border-gray-700 bg-gray-900/80 hover:bg-gray-900 hover:border-blue-500/50" 
+              : "border-gray-200 bg-white hover:border-blue-400 hover:shadow-blue-100"
           }`}>
             <h3
               className={`text-2xl font-bold mb-2 ${
@@ -177,8 +183,10 @@ const HomePage: FC<HomePageProps> = ({
             </p>
           </div>
 
-          <div className={`p-6 rounded-lg border ${
-            darkMode ? "border-gray-800 bg-gray-900/50" : "border-gray-200 bg-white"
+          <div className={`p-6 rounded-lg border-2 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 ${
+            darkMode 
+              ? "border-blue-500/60 bg-gray-900/80 hover:bg-gray-900 hover:border-blue-400 shadow-lg shadow-blue-500/20" 
+              : "border-blue-400 bg-white hover:border-blue-500 hover:shadow-blue-200"
           }`}>
             <h3
               className={`text-2xl font-bold mb-2 ${
