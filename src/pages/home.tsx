@@ -15,7 +15,6 @@ import aiUtilityBillImage from '../assets/ai-utility-bill-image-1.png';
 import gridnetScreenshot from '../assets/gridnet-screenshot.png';
 import bipaBadge from '../assets/bipa-badge.png';
 import founderInstituteLogo from '../assets/founder-institute-pre-seed-accelerator-logo.png';
-import gridnetIconWhite from '../assets/corp-brand-assets/GRIDNET-icon-white-336x336.png';
 import gridnetFullLogo from '../assets/corp-brand-assets/gridnet-white-full-logo.png';
 import ReservePage from "./ReservePage";
 import DashboardPage from "./DashboardPage";
@@ -1812,7 +1811,7 @@ const SupereCommWebsite = () => {
                 className="flex items-center"
               >
                 <img 
-                  src={gridnetIconWhite} 
+                  src={gridnetFullLogo} 
                   alt="Gridnet" 
                   className="h-8 w-auto"
                 />
