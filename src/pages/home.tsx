@@ -383,29 +383,13 @@ const HomePage: FC<HomePageProps> = ({
     <section className="px-6 py-24 relative z-50">
       <div className="max-w-7xl mx-auto space-y-16">
         
-        {/* Model Selector with Text */}
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          {/* Model Selector Image - Bottom on mobile, Left on desktop */}
-          <div className="order-2 md:order-1 flex justify-center">
-            <img
-              src={modelSelectorImage}
-              alt="AI Model Selector showing 1000+ available models"
-              className="w-full max-w-sm h-auto"
-            />
-          </div>
-
-          {/* Text Content - Top on mobile, Right on desktop */}
-          <div className="order-1 md:order-2 text-center md:text-left">
-            <h2 className="text-3xl md:text-4xl font-light mb-4 text-white">
-              1000+ AI Models at Your Fingertips
-            </h2>
-            <p className="text-xl text-gray-200 mb-6">
-              Choose manually or let Gridnet do it for you
-            </p>
-            <p className="text-base text-gray-300">
-              Access every major AI model through one unified interface. Switch between ChatGPT, Claude, Gemini, Llama, and 1000+ more instantly.
-            </p>
-          </div>
+        {/* Model Selector */}
+        <div className="flex justify-center">
+          <img
+            src={modelSelectorImage}
+            alt="AI Model Selector showing 1000+ available models"
+            className="w-full max-w-sm h-auto"
+          />
         </div>
 
         {/* Utility Bill Section with Text */}
