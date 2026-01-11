@@ -377,7 +377,7 @@ const HomePage: FC<HomePageProps> = ({
                   <img
                     src={productImage}
                     alt="+AI App Interface showing unified AI access"
-                    className="w-full h-auto relative z-50"
+                    className="w-full max-w-[50%] h-auto relative z-50"
                   />
                 </div>
 
@@ -616,77 +616,6 @@ const HomePage: FC<HomePageProps> = ({
             />
           </div>
 
-          {/* Explanation */}
-          <div className="order-1 md:order-2">
-            <div className="space-y-8 hidden md:block">
-              {/* Manual Selection */}
-              <div>
-                <h3
-                  className={`text-2xl font-semibold mb-3 ${
-                    darkMode ? "text-white" : "text-gray-900"
-                  }`}
-                >
-                  Manual Selection
-                </h3>
-                <p
-                  className={`text-lg mb-3 ${
-                    darkMode ? "text-gray-300" : "text-gray-700"
-                  }`}
-                >
-                  You choose the model. Full control.
-                </p>
-                <p
-                  className={`${
-                    darkMode ? "text-gray-400" : "text-gray-600"
-                  }`}
-                >
-                  Pick from ChatGPT, Claude, Gemini, Llama, Grok, and 1000+ more models. Switch between them instantly. No new subscriptions. No new logins. One interface. One bill.
-                </p>
-              </div>
-
-              {/* Intelligent Routing */}
-              <div>
-                <h3
-                  className={`text-2xl font-semibold mb-3 ${
-                    darkMode ? "text-white" : "text-gray-900"
-                  }`}
-                >
-                  Intelligent Routing
-                </h3>
-                <p
-                  className={`text-lg mb-3 ${
-                    darkMode ? "text-gray-300" : "text-gray-700"
-                  }`}
-                >
-                  Gridnet chooses for you. Optimal performance.
-                </p>
-                <p
-                  className={`${
-                    darkMode ? "text-gray-400" : "text-gray-600"
-                  }`}
-                >
-                  Like Cursor, the system analyzes your task and automatically routes it to the most efficient model — balancing speed, cost, and quality. You get the best result without thinking about it.
-                </p>
-              </div>
-
-              {/* aiWh Metering */}
-              <div
-                className={`p-4 rounded-lg border-l-4 ${
-                  darkMode
-                    ? "border-blue-500 bg-gray-900/50"
-                    : "border-blue-600 bg-blue-50"
-                }`}
-              >
-                <p
-                  className={`text-sm font-medium ${
-                    darkMode ? "text-blue-400" : "text-blue-600"
-                  }`}
-                >
-                  <strong>aiWh Metering:</strong> Whether you choose manually or let the grid route automatically, every task is metered in aiWh — so you only pay for the intelligence you actually use.
-                </p>
-              </div>
-            </div>
-          </div>
         </div>
 
         {/* Utility Bill Image Section */}
