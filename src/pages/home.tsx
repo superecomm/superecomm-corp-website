@@ -97,7 +97,7 @@ const HomePage: FC<HomePageProps> = ({
           Our Mission
         </h2>
         <p className="text-lg md:text-xl leading-relaxed text-gray-200">
-          Gridnet is the internet for AI.
+          Build the internet for AI.
         </p>
       </div>
     </section>
@@ -105,9 +105,7 @@ const HomePage: FC<HomePageProps> = ({
     {/* Vision Section */}
     <section className="px-6 py-24">
       <div className="max-w-7xl mx-auto">
-        <h2 className={`text-3xl md:text-4xl font-bold mb-12 text-center ${
-          darkMode ? "text-white" : "text-gray-900"
-        }`}>
+        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center text-white">
           A simple way to understand Gridnet
         </h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -406,29 +404,27 @@ const HomePage: FC<HomePageProps> = ({
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-12 items-center mb-12">
-          {/* Model Selector Image */}
-          <div className="order-2 md:order-1">
-            <img
-              src={modelSelectorImage}
-              alt="AI Model Selector showing 1000+ available models"
-              className="w-full max-w-[40%] h-auto relative z-50"
-            />
-          </div>
-
-        </div>
-
-        {/* Utility Bill Image Section */}
-        <div className="mt-16 max-w-4xl mx-auto">
-          <div className="text-center mb-8">
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          {/* Text Content - Top on mobile, Right on desktop */}
+          <div className="order-1 md:order-2 text-center md:text-left">
             <h3 className="text-2xl md:text-3xl font-light mb-4 text-white">
               One Bill. All Your AI.
             </h3>
-            <p className="text-lg text-gray-200">
+            <p className="text-lg text-gray-200 mb-6">
               Metered in aiWh — just like your electricity
             </p>
+            <p className="text-base text-gray-300">
+              Track your AI consumption transparently. No hidden fees, no surprise charges — just simple, metered billing based on what you actually use.
+            </p>
           </div>
-          <div className="flex justify-center">
+
+          {/* Images - Bottom on mobile, Left on desktop */}
+          <div className="order-2 md:order-1 flex flex-col items-center gap-8">
+            <img
+              src={modelSelectorImage}
+              alt="AI Model Selector showing 1000+ available models"
+              className="w-full max-w-sm h-auto"
+            />
             <img
               src={aiUtilityBillImage}
               alt="AI Utility Bill showing aiWh metering"
