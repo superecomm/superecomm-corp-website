@@ -368,7 +368,7 @@ const HomePage: FC<HomePageProps> = ({
     <section className="px-6 py-24 relative z-50">
       <div className="max-w-7xl mx-auto">
         <h3 className="text-3xl md:text-4xl font-light mb-12 text-center text-white">
-          What You Get When You Join Gridnet
+          Check out the Gridnet Browser
         </h3>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
@@ -381,215 +381,6 @@ const HomePage: FC<HomePageProps> = ({
                   />
                 </div>
 
-                {/* Feature Cards - Right Column */}
-                <div className="order-2 md:order-2 space-y-4 relative z-50 hidden md:block">
-                  {/* Feature 1: Unlimited AI Power */}
-                  <div
-                    className={`p-4 rounded-lg border ${
-                      darkMode
-                        ? "bg-gray-900/50 border-gray-700"
-                        : "bg-white border-gray-200"
-                    }`}
-                  >
-                    <div className="flex items-start gap-3">
-                      <div className={`p-2 rounded-lg ${darkMode ? "bg-blue-500/20" : "bg-blue-50"}`}>
-                        <Zap className={`w-6 h-6 ${darkMode ? "text-blue-400" : "text-blue-600"}`} />
-                      </div>
-                      <div>
-                        <h4
-                          className={`text-lg font-semibold mb-1 ${
-                            darkMode ? "text-white" : "text-gray-900"
-                          }`}
-                        >
-                          AI Power on Tap!
-                        </h4>
-                        <p
-                          className={`text-base ${
-                            darkMode ? "text-gray-300" : "text-gray-700"
-                          }`}
-                        >
-                          One meter. One bill. 1000+ models behind one interface.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Feature 2: Intelligent Routing */}
-                  <div
-                    className={`p-4 rounded-lg border ${
-                      darkMode
-                        ? "bg-gray-900/50 border-gray-700"
-                        : "bg-white border-gray-200"
-                    }`}
-                  >
-                    <div className="flex items-start gap-3">
-                      <div className={`p-2 rounded-lg ${darkMode ? "bg-purple-500/20" : "bg-purple-50"}`}>
-                        <Brain className={`w-6 h-6 ${darkMode ? "text-purple-400" : "text-purple-600"}`} />
-                      </div>
-                      <div>
-                        <h4
-                          className={`text-lg font-semibold mb-1 ${
-                            darkMode ? "text-white" : "text-gray-900"
-                          }`}
-                        >
-                          Intelligent Routing (aiWh)
-                        </h4>
-                        <p
-                          className={`text-base ${
-                            darkMode ? "text-gray-300" : "text-gray-700"
-                          }`}
-                        >
-                          Tasks automatically route across the AI Grid to the most efficient model.
-                        </p>
-                        <p
-                          className={`text-sm mt-1 ${
-                            darkMode ? "text-gray-400" : "text-gray-500"
-                          }`}
-                        >
-                          Gridnet finds the right model for every task.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Feature 3: Plug Into The AI Grid */}
-                  <div
-                    className={`p-4 rounded-lg border ${
-                      darkMode
-                        ? "bg-gray-900/50 border-gray-700"
-                        : "bg-white border-gray-200"
-                    }`}
-                  >
-                    <div className="flex items-start gap-3">
-                      <div className={`p-2 rounded-lg ${darkMode ? "bg-green-500/20" : "bg-green-50"}`}>
-                        <Plug className={`w-6 h-6 ${darkMode ? "text-green-400" : "text-green-600"}`} />
-                      </div>
-                      <div>
-                        <h4
-                          className={`text-lg font-semibold mb-1 ${
-                            darkMode ? "text-white" : "text-gray-900"
-                          }`}
-                        >
-                          Plug Into Gridnet
-                        </h4>
-                        <p
-                          className={`text-base ${
-                            darkMode ? "text-gray-300" : "text-gray-700"
-                          }`}
-                        >
-                          No more subscriptions, tokens, plugins — one account, one interface.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Feature 4: Cyber Security */}
-                  <div
-                    className={`p-4 rounded-lg border ${
-                      darkMode
-                        ? "bg-gray-900/50 border-gray-700"
-                        : "bg-white border-gray-200"
-                    }`}
-                  >
-                    <div className="flex items-start gap-3">
-                      <div className={`p-2 rounded-lg ${darkMode ? "bg-red-500/20" : "bg-red-50"}`}>
-                        <Shield className={`w-6 h-6 ${darkMode ? "text-red-400" : "text-red-600"}`} />
-                      </div>
-                      <div>
-                        <h4
-                          className={`text-lg font-semibold mb-1 ${
-                            darkMode ? "text-white" : "text-gray-900"
-                          }`}
-                        >
-                          Cyber Security
-                        </h4>
-                        <p
-                          className={`text-base ${
-                            darkMode ? "text-gray-300" : "text-gray-700"
-                          }`}
-                        >
-                          Your data, identity, and work protected by default.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Feature 5: Unified Memory & History */}
-                  <div
-                    className={`p-4 rounded-lg border ${
-                      darkMode
-                        ? "bg-gray-900/50 border-gray-700"
-                        : "bg-white border-gray-200"
-                    }`}
-                  >
-                    <div className="flex items-start gap-3">
-                      <div className={`p-2 rounded-lg ${darkMode ? "bg-indigo-500/20" : "bg-indigo-50"}`}>
-                        <Database className={`w-6 h-6 ${darkMode ? "text-indigo-400" : "text-indigo-600"}`} />
-                      </div>
-                      <div>
-                        <h4
-                          className={`text-lg font-semibold mb-1 ${
-                            darkMode ? "text-white" : "text-gray-900"
-                          }`}
-                        >
-                          Unified Memory & History
-                        </h4>
-                        <p
-                          className={`text-base ${
-                            darkMode ? "text-gray-300" : "text-gray-700"
-                          }`}
-                        >
-                          Keep all conversations and work across models in one place.
-                        </p>
-                        <p
-                          className={`text-sm mt-1 ${
-                            darkMode ? "text-gray-400" : "text-gray-500"
-                          }`}
-                        >
-                          Your AI remembers — across every model.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Feature 6: Budget Alerts & Spend Control */}
-                  <div
-                    className={`p-4 rounded-lg border ${
-                      darkMode
-                        ? "bg-gray-900/50 border-gray-700"
-                        : "bg-white border-gray-200"
-                    }`}
-                  >
-                    <div className="flex items-start gap-3">
-                      <div className={`p-2 rounded-lg ${darkMode ? "bg-emerald-500/20" : "bg-emerald-50"}`}>
-                        <Wallet className={`w-6 h-6 ${darkMode ? "text-emerald-400" : "text-emerald-600"}`} />
-                      </div>
-                      <div>
-                        <h4
-                          className={`text-lg font-semibold mb-1 ${
-                            darkMode ? "text-white" : "text-gray-900"
-                          }`}
-                        >
-                          Budget Alerts & Spend Control
-                        </h4>
-                        <p
-                          className={`text-base ${
-                            darkMode ? "text-gray-300" : "text-gray-700"
-                          }`}
-                        >
-                          Set usage limits, track consumption, and avoid runaway costs.
-                        </p>
-                        <p
-                          className={`text-sm mt-1 ${
-                            darkMode ? "text-gray-400" : "text-gray-500"
-                          }`}
-                        >
-                          Never overspend. You stay in control.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-          </div>
         </div>
       </div>
     </section>
@@ -640,7 +431,7 @@ const HomePage: FC<HomePageProps> = ({
             <img
               src={aiUtilityBillImage}
               alt="AI Utility Bill showing aiWh metering"
-              className="w-full max-w-[135px] h-auto"
+              className="w-full max-w-[162px] h-auto"
             />
           </div>
         </div>
@@ -2039,6 +1830,124 @@ const SupereCommWebsite = () => {
             </div>
           )}
         </main>
+
+        {/* Features Grid Section */}
+        <section className="px-6 py-24 bg-black">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-6">
+              {/* Feature 1: AI Power on Tap */}
+              <div className={`p-4 rounded-lg border ${darkMode ? "bg-gray-900/50 border-gray-700" : "bg-white border-gray-200"}`}>
+                <div className="flex items-start gap-3">
+                  <div className={`p-2 rounded-lg ${darkMode ? "bg-blue-500/20" : "bg-blue-50"}`}>
+                    <Zap className={`w-6 h-6 ${darkMode ? "text-blue-400" : "text-blue-600"}`} />
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-semibold mb-1 text-black">
+                      AI Power on Tap!
+                    </h4>
+                    <p className="text-base text-gray-700">
+                      One meter. One bill. 1000+ models behind one interface.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Feature 2: Intelligent Routing */}
+              <div className={`p-4 rounded-lg border ${darkMode ? "bg-gray-900/50 border-gray-700" : "bg-white border-gray-200"}`}>
+                <div className="flex items-start gap-3">
+                  <div className={`p-2 rounded-lg ${darkMode ? "bg-purple-500/20" : "bg-purple-50"}`}>
+                    <Brain className={`w-6 h-6 ${darkMode ? "text-purple-400" : "text-purple-600"}`} />
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-semibold mb-1 text-black">
+                      Intelligent Routing (aiWh)
+                    </h4>
+                    <p className="text-base text-gray-700">
+                      Tasks automatically route across the AI Grid to the most efficient model.
+                    </p>
+                    <p className="text-sm mt-1 text-gray-600">
+                      Gridnet finds the right model for every task.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Feature 3: Plug Into Gridnet */}
+              <div className={`p-4 rounded-lg border ${darkMode ? "bg-gray-900/50 border-gray-700" : "bg-white border-gray-200"}`}>
+                <div className="flex items-start gap-3">
+                  <div className={`p-2 rounded-lg ${darkMode ? "bg-green-500/20" : "bg-green-50"}`}>
+                    <Plug className={`w-6 h-6 ${darkMode ? "text-green-400" : "text-green-600"}`} />
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-semibold mb-1 text-black">
+                      Plug Into Gridnet
+                    </h4>
+                    <p className="text-base text-gray-700">
+                      No more subscriptions, tokens, plugins — one account, one interface.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Feature 4: Cyber Security */}
+              <div className={`p-4 rounded-lg border ${darkMode ? "bg-gray-900/50 border-gray-700" : "bg-white border-gray-200"}`}>
+                <div className="flex items-start gap-3">
+                  <div className={`p-2 rounded-lg ${darkMode ? "bg-red-500/20" : "bg-red-50"}`}>
+                    <Shield className={`w-6 h-6 ${darkMode ? "text-red-400" : "text-red-600"}`} />
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-semibold mb-1 text-black">
+                      Cyber Security
+                    </h4>
+                    <p className="text-base text-gray-700">
+                      Your data, identity, and work protected by default.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Feature 5: Unified Memory & History */}
+              <div className={`p-4 rounded-lg border ${darkMode ? "bg-gray-900/50 border-gray-700" : "bg-white border-gray-200"}`}>
+                <div className="flex items-start gap-3">
+                  <div className={`p-2 rounded-lg ${darkMode ? "bg-indigo-500/20" : "bg-indigo-50"}`}>
+                    <Database className={`w-6 h-6 ${darkMode ? "text-indigo-400" : "text-indigo-600"}`} />
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-semibold mb-1 text-black">
+                      Unified Memory & History
+                    </h4>
+                    <p className="text-base text-gray-700">
+                      Keep all conversations and work across models in one place.
+                    </p>
+                    <p className="text-sm mt-1 text-gray-600">
+                      Your AI remembers — across every model.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Feature 6: Budget Alerts & Spend Control */}
+              <div className={`p-4 rounded-lg border ${darkMode ? "bg-gray-900/50 border-gray-700" : "bg-white border-gray-200"}`}>
+                <div className="flex items-start gap-3">
+                  <div className={`p-2 rounded-lg ${darkMode ? "bg-emerald-500/20" : "bg-emerald-50"}`}>
+                    <Wallet className={`w-6 h-6 ${darkMode ? "text-emerald-400" : "text-emerald-600"}`} />
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-semibold mb-1 text-black">
+                      Budget Alerts & Spend Control
+                    </h4>
+                    <p className="text-base text-gray-700">
+                      Set usage limits, track consumption, and avoid runaway costs.
+                    </p>
+                    <p className="text-sm mt-1 text-gray-600">
+                      Never overspend. You stay in control.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* Footer */}
         <footer className="relative mt-8 px-6 py-12 backdrop-blur bg-black/95">
