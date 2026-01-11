@@ -98,7 +98,7 @@ const HomePage: FC<HomePageProps> = ({
           Our Mission
         </h2>
         <p className="text-lg md:text-xl leading-relaxed text-gray-200">
-          Gridnet is building the world's AI utility grid — providing computational intelligence on tap for all mankind.
+          Gridnet is the internet for AI.
         </p>
       </div>
     </section>
@@ -120,7 +120,7 @@ const HomePage: FC<HomePageProps> = ({
                 darkMode ? "text-white" : "text-gray-900"
               }`}
             >
-              The AI Utility Meter
+              The Gridnet Meter
             </h3>
             <p className={darkMode ? "text-gray-400" : "text-gray-600"}>
               AI Watt-Hours is how we measure your use of Ai and make it affordable for you on a daily basis  
@@ -207,91 +207,6 @@ const HomePage: FC<HomePageProps> = ({
               Too many subscriptions. Too many accounts. Too many models.
             </p>
 
-            {/* COMMENTED OUT - AI pain points section
-            <p
-              className={`text-lg mb-8 ${
-                darkMode ? "text-gray-400" : "text-gray-600"
-              }`}
-            >
-              AI is becoming like electricity — constant, essential, always running.
-            </p>
-
-            <div className="mb-8">
-              <p
-                className={`text-lg font-medium mb-4 ${
-                  darkMode ? "text-white" : "text-gray-900"
-                }`}
-              >
-                Today you:
-              </p>
-              <ul className="space-y-3">
-                <li
-                  className={`flex items-start text-lg ${
-                    darkMode ? "text-gray-300" : "text-gray-700"
-                  }`}
-                >
-                  <span className="text-blue-600 dark:text-blue-400 mr-3 mt-1">•</span>
-                  <span>Pay multiple AI subscriptions every month</span>
-                </li>
-                <li
-                  className={`flex items-start text-lg ${
-                    darkMode ? "text-gray-300" : "text-gray-700"
-                  }`}
-                >
-                  <span className="text-blue-600 dark:text-blue-400 mr-3 mt-1">•</span>
-                  <span>Jump between ChatGPT, Claude, Gemini, Deepseek, Mid Journey, Dalle, LLama, Grok… and many more</span>
-                </li>
-                <li
-                  className={`flex items-start text-lg ${
-                    darkMode ? "text-gray-300" : "text-gray-700"
-                  }`}
-                >
-                  <span className="text-blue-600 dark:text-blue-400 mr-3 mt-1">•</span>
-                  <span>Buy credits, tokens, upgrades, plugins</span>
-                </li>
-                <li
-                  className={`flex items-start text-lg ${
-                    darkMode ? "text-gray-300" : "text-gray-700"
-                  }`}
-                >
-                  <span className="text-blue-600 dark:text-blue-400 mr-3 mt-1">•</span>
-                  <span>Manage limits, rate caps, and billing chaos</span>
-                </li>
-              </ul>
-            </div>
-
-            <p
-              className={`text-lg mb-8 font-medium ${
-                darkMode ? "text-gray-300" : "text-gray-700"
-              }`}
-            >
-              And the price keeps rising.
-            </p>
-
-            <div
-              className={`p-6 rounded-lg mb-8 border-l-4 ${
-                darkMode
-                  ? "border-blue-500 bg-gray-900/50"
-                  : "border-blue-600 bg-blue-50"
-              }`}
-            >
-              <p
-                className={`text-lg mb-2 ${
-                  darkMode ? "text-gray-300" : "text-gray-700"
-                }`}
-              >
-                The average person now pays for <span className="font-bold">2–5 AI tools</span>.
-              </p>
-              <p
-                className={`text-lg ${
-                  darkMode ? "text-gray-300" : "text-gray-700"
-                }`}
-              >
-                Enterprises pay <span className="font-bold">dozens</span>.
-              </p>
-            </div>
-            */}
-
             {/* Value proposition */}
             <div className="mb-8">
               <p
@@ -313,7 +228,7 @@ const HomePage: FC<HomePageProps> = ({
                   darkMode ? "text-blue-400" : "text-blue-600"
                 }`}
               >
-                → The AI Utility Grid.
+                → Gridnet
               </p>
             </div>
 
@@ -342,7 +257,7 @@ const HomePage: FC<HomePageProps> = ({
     <section className="py-12 relative z-50">
       <div className="max-w-5xl mx-auto px-6">
         <h2 className={`text-2xl md:text-3xl font-light mb-8 text-center ${darkMode ? 'text-white' : 'text-gray-900'}`}>
-          A Day In Life on the <span className="whitespace-nowrap">AI Grid Layer</span>
+          A Day In Life on the <span className="whitespace-nowrap">Gridnet</span>
         </h2>
 
         {/* Compact 2x2 Grid */}
@@ -398,7 +313,7 @@ const HomePage: FC<HomePageProps> = ({
               </h3>
             </div>
             <p className={`text-xs leading-relaxed ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-              AI follows you everywhere
+              Gridnet follows you everywhere
             </p>
           </div>
 
@@ -432,7 +347,7 @@ const HomePage: FC<HomePageProps> = ({
                 : 'bg-blue-600 hover:bg-blue-700 text-white shadow-lg'
             }`}
           >
-            Reserve Your <span className="whitespace-nowrap">AI Grid Layer</span> Account
+            Reserve Your <span className="whitespace-nowrap">Gridnet</span> Account
           </button>
         </div>
       </div>
@@ -446,7 +361,7 @@ const HomePage: FC<HomePageProps> = ({
             darkMode ? "text-white" : "text-gray-900"
           }`}
         >
-          What You Get When You Join +AI
+          What You Get When You Join Gridnet
         </h3>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
@@ -524,7 +439,7 @@ const HomePage: FC<HomePageProps> = ({
                             darkMode ? "text-gray-400" : "text-gray-500"
                           }`}
                         >
-                          The grid finds the right model for every task.
+                          Gridnet finds the right model for every task.
                         </p>
                       </div>
                     </div>
@@ -548,7 +463,7 @@ const HomePage: FC<HomePageProps> = ({
                             darkMode ? "text-white" : "text-gray-900"
                           }`}
                         >
-                          Plug Into The AI Grid
+                          Plug Into Gridnet
                         </h4>
                         <p
                           className={`text-base ${
@@ -688,7 +603,7 @@ const HomePage: FC<HomePageProps> = ({
               darkMode ? "text-gray-300" : "text-gray-700"
             }`}
           >
-            Choose manually or let the AI Grid route intelligently
+            Choose manually or let Gridnet do it for you
           </p>
         </div>
 
@@ -744,7 +659,7 @@ const HomePage: FC<HomePageProps> = ({
                     darkMode ? "text-gray-300" : "text-gray-700"
                   }`}
                 >
-                  The AI Grid chooses for you. Optimal performance.
+                  Gridnet chooses for you. Optimal performance.
                 </p>
                 <p
                   className={`${
@@ -942,7 +857,7 @@ const SupereCommWebsite = () => {
               : 'bg-blue-600 hover:bg-blue-700 text-white'
           }`}
         >
-          Reserve Your Grid Account
+          Reserve Your Gridnet Account
         </button>
       </div>
     </div>
@@ -963,7 +878,7 @@ const SupereCommWebsite = () => {
             darkMode ? "text-gray-300" : "text-gray-700"
           }`}
         >
-          Building the infrastructure for the AI utility layer
+          Building the internet for AI
         </p>
 
         {/* Founder Institute Logo */}
@@ -982,7 +897,7 @@ const SupereCommWebsite = () => {
         <p className={`text-lg leading-relaxed text-center ${
           darkMode ? 'text-gray-300' : 'text-gray-700'
         }`}>
-          Super eComm was founded through the <span className="font-semibold">Founder Institute Austin 2025 cohort</span>. We're building the world's first AI utility grid, making artificial intelligence accessible, affordable, and metered like electricity.
+          Gridnet was founded through the <span className="font-semibold">Founder Institute Austin 2025 cohort</span>. We're building the world's first AI utility grid, making artificial intelligence accessible, affordable, and metered like electricity.
         </p>
       </div>
     </div>
@@ -1092,7 +1007,7 @@ const SupereCommWebsite = () => {
                 <p className={`text-sm mb-4 ${
                   darkMode ? 'text-blue-300' : 'text-blue-900'
                 }`}>
-                  Want to experience AI as a utility? Reserve your AI Grid Layer account now.
+                  Want to experience AI as a utility? Reserve your Gridnet account now.
                 </p>
                 <button
                   onClick={() => navigateToPage('reserve')}
@@ -1131,7 +1046,7 @@ const SupereCommWebsite = () => {
           <p className={`text-lg mb-8 ${
             darkMode ? 'text-gray-300' : 'text-gray-700'
           }`}>
-            Help us build the AI utility grid for everyone. We're looking for passionate people who want to shape the future of AI.
+            Help us build the internet for AI. We're looking for passionate people who want to shape the future of AI.
           </p>
 
           {/* Application Form */}
@@ -1412,7 +1327,7 @@ const SupereCommWebsite = () => {
                   <label className={`block text-sm font-medium mb-2 ${
                     darkMode ? 'text-gray-300' : 'text-gray-700'
                   }`}>
-                    Why do you want to join Super eComm? <span className="text-red-500">*</span>
+                    Why do you want to join Gridnet? <span className="text-red-500">*</span>
                   </label>
                   <textarea
                     name="message"
@@ -1509,7 +1424,7 @@ const SupereCommWebsite = () => {
           <p className={`text-lg leading-relaxed ${
             darkMode ? 'text-gray-300' : 'text-gray-700'
           }`}>
-            The AI Grid Layer is where thousands of AI models live. When you send a prompt, our intelligent routing system analyzes your request, breaks it into optimized tasks, and distributes them across the most cost-effective models on the grid. Each task is measured in <span className="font-semibold">aiWh</span> (AI Watt-hours)—a universal unit that tracks your AI consumption just like electricity. The result? You get the best AI performance at a fraction of the cost, while we handle all the complexity behind the scenes.
+            The Gridnet is where thousands of AI models live. When you send a prompt, our intelligent routing system analyzes your request, breaks it into optimized tasks, and distributes them across the most cost-effective models on the grid. Each task is measured in <span className="font-semibold">aiWh</span> (AI Watt-hours)—a universal unit that tracks your AI consumption just like electricity. The result? You get the best AI performance at a fraction of the cost, while we handle all the complexity behind the scenes.
           </p>
         </div>
 
@@ -1542,7 +1457,7 @@ const SupereCommWebsite = () => {
               darkMode ? "text-white" : "text-gray-900"
             }`}
           >
-            AI as a Utility
+            The internet for AI
           </h1>
           <p
             className={`text-lg sm:text-xl max-w-3xl mx-auto mb-8 ${
@@ -1660,7 +1575,7 @@ const SupereCommWebsite = () => {
                 <p className={`text-base mb-4 ${
                   darkMode ? "text-blue-300" : "text-blue-900"
                 }`}>
-                  Reserve your AI Grid Layer account now. Be among the first to experience AI as a utility.
+                  Reserve your Gridnet account now. Be among the first to experience the internet for AI.
                 </p>
                 <button
                   onClick={() => navigateToPage('reserve')}
@@ -1763,10 +1678,10 @@ const SupereCommWebsite = () => {
             darkMode ? "text-white" : "text-gray-900"
           }`}
         >
-          My +AI Account
+          My Gridnet Account
         </h1>
         <p className={darkMode ? "text-gray-400 mb-8" : "text-gray-600 mb-8"}>
-          Sign in to view your AI bill, track aiWh usage, and manage your
+          Sign in to view your bill, track aiWh usage, and manage your
           services.
         </p>
 
