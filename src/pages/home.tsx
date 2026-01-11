@@ -267,7 +267,7 @@ const HomePage: FC<HomePageProps> = ({
     {/* A Day In Life on the AI Grid Layer */}
     <section className="py-12 relative z-50">
       <div className="max-w-5xl mx-auto px-6">
-        <h2 className={`text-2xl md:text-3xl font-light mb-8 text-center ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+        <h2 className="text-2xl md:text-3xl font-light mb-8 text-center text-white">
           A Day In Life on the <span className="whitespace-nowrap">Gridnet</span>
         </h2>
 
@@ -282,12 +282,12 @@ const HomePage: FC<HomePageProps> = ({
               className="w-full h-[140px] object-cover rounded-lg"
             />
             <div className="flex items-center gap-2">
-              <Coffee className={`w-4 h-4 ${darkMode ? 'text-orange-400' : 'text-orange-600'}`} />
-              <h3 className={`text-lg font-semibold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+              <Coffee className="w-4 h-4 text-orange-400" />
+              <h3 className="text-lg font-semibold text-white">
                 6:30 AM
               </h3>
             </div>
-            <p className={`text-xs leading-relaxed ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+            <p className="text-xs leading-relaxed text-gray-200">
               AI prepares your day while you sleep
             </p>
           </div>
@@ -300,12 +300,12 @@ const HomePage: FC<HomePageProps> = ({
               className="w-full h-[140px] object-cover rounded-lg"
             />
             <div className="flex items-center gap-2">
-              <Briefcase className={`w-4 h-4 ${darkMode ? 'text-blue-400' : 'text-blue-600'}`} />
-              <h3 className={`text-lg font-semibold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+              <Briefcase className="w-4 h-4 text-blue-400" />
+              <h3 className="text-lg font-semibold text-white">
                 9:00 AM
               </h3>
             </div>
-            <p className={`text-xs leading-relaxed ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+            <p className="text-xs leading-relaxed text-gray-200">
               1000+ models through your tools
             </p>
           </div>
@@ -318,12 +318,12 @@ const HomePage: FC<HomePageProps> = ({
               className="w-full h-[140px] object-cover rounded-lg"
             />
             <div className="flex items-center gap-2">
-              <Smartphone className={`w-4 h-4 ${darkMode ? 'text-purple-400' : 'text-purple-600'}`} />
-              <h3 className={`text-lg font-semibold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+              <Smartphone className="w-4 h-4 text-purple-400" />
+              <h3 className="text-lg font-semibold text-white">
                 3:00 PM
               </h3>
             </div>
-            <p className={`text-xs leading-relaxed ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+            <p className="text-xs leading-relaxed text-gray-200">
               Gridnet follows you everywhere
             </p>
           </div>
@@ -336,12 +336,12 @@ const HomePage: FC<HomePageProps> = ({
               className="w-full h-[140px] object-cover rounded-lg"
             />
             <div className="flex items-center gap-2">
-              <HomeIcon className={`w-4 h-4 ${darkMode ? 'text-green-400' : 'text-green-600'}`} />
-              <h3 className={`text-lg font-semibold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+              <HomeIcon className="w-4 h-4 text-green-400" />
+              <h3 className="text-lg font-semibold text-white">
                 7:00 PM
               </h3>
             </div>
-            <p className={`text-xs leading-relaxed ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+            <p className="text-xs leading-relaxed text-gray-200">
               Family shares, pay per aiWh
             </p>
           </div>
@@ -367,11 +367,7 @@ const HomePage: FC<HomePageProps> = ({
     {/* What You Get Section */}
     <section className="px-6 py-24 relative z-50">
       <div className="max-w-7xl mx-auto">
-        <h3
-          className={`text-3xl md:text-4xl font-light mb-12 text-center ${
-            darkMode ? "text-white" : "text-gray-900"
-          }`}
-        >
+        <h3 className="text-3xl md:text-4xl font-light mb-12 text-center text-white">
           What You Get When You Join Gridnet
         </h3>
 
@@ -602,18 +598,10 @@ const HomePage: FC<HomePageProps> = ({
     <section className="px-6 py-24 relative z-50">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <h2
-            className={`text-3xl md:text-4xl font-light mb-4 ${
-              darkMode ? "text-white" : "text-gray-900"
-            }`}
-          >
+          <h2 className="text-3xl md:text-4xl font-light mb-4 text-white">
             1000+ AI Models at Your Fingertips
           </h2>
-          <p
-            className={`text-xl ${
-              darkMode ? "text-gray-300" : "text-gray-700"
-            }`}
-          >
+          <p className="text-xl text-gray-200">
             Choose manually or let Gridnet do it for you
           </p>
         </div>
@@ -624,7 +612,7 @@ const HomePage: FC<HomePageProps> = ({
             <img
               src={modelSelectorImage}
               alt="AI Model Selector showing 1000+ available models"
-              className="w-full h-auto relative z-50"
+              className="w-full max-w-[40%] h-auto relative z-50"
             />
           </div>
 
@@ -723,7 +711,7 @@ const HomePage: FC<HomePageProps> = ({
             <img
               src={aiUtilityBillImage}
               alt="AI Utility Bill showing aiWh metering"
-              className="w-full max-w-2xl h-auto"
+              className="w-full max-w-[135px] h-auto"
             />
           </div>
         </div>
