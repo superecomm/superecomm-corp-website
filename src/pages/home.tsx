@@ -25,7 +25,7 @@ import FAQPage from "./FAQPage";
 import PitchDeckPage from "./PitchDeckPage";
 import Layer0Page from "./Layer0Page";
 import { auth, db } from "../config/firebase";
-import { onAuthStateChanged, signOut, type User } from "firebase/auth";
+import { onAuthStateChanged, type User } from "firebase/auth";
 import { doc, getDoc, collection, addDoc, serverTimestamp } from "firebase/firestore";
 import type { UserProfile } from "../types/grid";
 
@@ -769,7 +769,8 @@ const SupereCommWebsite = () => {
   const [openDropdown, setOpenDropdown] = useState("");
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
-  const [showUserMenu, setShowUserMenu] = useState(false);
+  // HIDDEN UNTIL STRIPE IS FIXED
+  // const [showUserMenu, setShowUserMenu] = useState(false);
   
   // Navigation helper function
   const navigateToPage = (page: string) => {
@@ -777,15 +778,16 @@ const SupereCommWebsite = () => {
     setMobileMenuOpen(false);
   };
 
-  const handleLogout = async () => {
-    try {
-      await signOut(auth);
-      setShowUserMenu(false);
-      navigateToPage("home");
-    } catch (error) {
-      console.error('Error logging out:', error);
-    }
-  };
+  // HIDDEN UNTIL STRIPE IS FIXED
+  // const handleLogout = async () => {
+  //   try {
+  //     await signOut(auth);
+  //     setShowUserMenu(false);
+  //     navigateToPage("home");
+  //   } catch (error) {
+  //     console.error('Error logging out:', error);
+  //   }
+  // };
 
   // Listen to auth state changes and load user profile
   useEffect(() => {
@@ -814,20 +816,20 @@ const SupereCommWebsite = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [currentPage]);
 
-  // Close user menu when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (showUserMenu) {
-        const target = event.target as HTMLElement;
-        if (!target.closest('.user-menu-container')) {
-          setShowUserMenu(false);
-        }
-      }
-    };
+  // Close user menu when clicking outside - HIDDEN UNTIL STRIPE IS FIXED
+  // useEffect(() => {
+  //   const handleClickOutside = (event: MouseEvent) => {
+  //     if (showUserMenu) {
+  //       const target = event.target as HTMLElement;
+  //       if (!target.closest('.user-menu-container')) {
+  //         setShowUserMenu(false);
+  //       }
+  //     }
+  //   };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [showUserMenu]);
+  //   document.addEventListener('mousedown', handleClickOutside);
+  //   return () => document.removeEventListener('mousedown', handleClickOutside);
+  // }, [showUserMenu]);
 
   const navigation = [
     { name: "Home", id: "home" as const },
@@ -1889,8 +1891,8 @@ const SupereCommWebsite = () => {
                   )
                 )}
 
-                {/* Dashboard/Account button (desktop) */}
-                <div className="relative ml-3 user-menu-container">
+                {/* Dashboard/Account button (desktop) - HIDDEN UNTIL STRIPE IS FIXED */}
+                {/* <div className="relative ml-3 user-menu-container">
                   <button
                     onClick={() => {
                       if (currentUser) {
@@ -1913,7 +1915,7 @@ const SupereCommWebsite = () => {
                   </button>
                   
                   {/* User Menu Dropdown */}
-                  {currentUser && showUserMenu && (
+                  {/* {currentUser && showUserMenu && (
                     <div className={`absolute right-0 mt-2 w-48 rounded-lg border shadow-lg py-1 z-50 ${
                       darkMode
                         ? "bg-gray-900 border-gray-700"
@@ -1943,13 +1945,14 @@ const SupereCommWebsite = () => {
                         Logout
                       </button>
                     </div>
-                  )}
-                </div>
+                  )} */}
+                {/* </div> */}
               </div>
 
               {/* Mobile Right Side */}
               <div className="flex items-center gap-2 md:hidden">
-                <div className="relative user-menu-container">
+                {/* Account button - HIDDEN UNTIL STRIPE IS FIXED */}
+                {/* <div className="relative user-menu-container">
                   <button
                     onClick={() => {
                       if (currentUser) {
@@ -1973,7 +1976,7 @@ const SupereCommWebsite = () => {
                   </button>
                   
                   {/* Mobile User Menu Dropdown */}
-                  {currentUser && showUserMenu && (
+                  {/* {currentUser && showUserMenu && (
                     <div className={`absolute right-0 mt-2 w-48 rounded-lg border shadow-lg py-1 z-50 ${
                       darkMode
                         ? "bg-gray-900 border-gray-700"
@@ -2007,8 +2010,8 @@ const SupereCommWebsite = () => {
                         Logout
                       </button>
                     </div>
-                  )}
-                </div>
+                  )} */}
+                {/* </div> */}
                 <button
                   onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                   className="p-1"
