@@ -1,11 +1,13 @@
-import { FC, useState } from 'react';
+import { useState } from 'react';
+import type { FC } from 'react';
 import { ChevronDown } from 'lucide-react';
 
 type FAQPageProps = {
   darkMode?: boolean;
 };
 
-const FAQPage: FC<FAQPageProps> = ({ darkMode = true }) => {
+const FAQPage: FC<FAQPageProps> = () => {
+  const darkMode = true;
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   const toggleFaq = (index: number) => {
