@@ -1,5 +1,5 @@
 /**
- * Email Service for AI Grid Layer
+ * Email Service for Gridnet
  * 
  * BACKEND INTEGRATION REQUIRED:
  * This is a client-side stub. In production, emails should be sent from your backend using:
@@ -82,22 +82,22 @@ export async function sendReservationConfirmationEmail(
  */
 export function logEmailToConsole(data: ReservationConfirmationEmailData): void {
   console.log('\n📧 ═══════════════════════════════════════════════════════');
-  console.log('   AI GRID LAYER - RESERVATION CONFIRMATION EMAIL');
+  console.log('   GRIDNET - RESERVATION CONFIRMATION EMAIL');
   console.log('═══════════════════════════════════════════════════════\n');
   console.log(`To: ${data.toEmail}`);
-  console.log(`Subject: Your AI Grid Layer Account Reservation is Confirmed\n`);
+  console.log(`Subject: Your Gridnet Account Reservation is Confirmed\n`);
   console.log('Body:');
   console.log('─────────────────────────────────────────────────────────');
   console.log(`Hello ${data.displayName || 'Grid Member'},\n`);
-  console.log('🎉 Welcome to the AI Grid Layer!\n');
-  console.log(`Your AI Grid Layer account reservation is confirmed.\n`);
+  console.log('🎉 Welcome to Gridnet!\n');
+  console.log(`Your Gridnet account reservation is confirmed.\n`);
   console.log(`Grid Account ID: ${data.gridAccountId}`);
   console.log(`Reservation Amount: $${(data.amount / 100).toFixed(2)}`);
   console.log(`Reserved At: ${data.reservedAt.toLocaleString()}\n`);
   console.log('What this means:');
   console.log('✓ Your $10 reservation is refundable');
   console.log('✓ This converts to $10 usage credit when metering launches');
-  console.log('✓ You\'re a Founding Member of the AI Grid Layer');
+  console.log('✓ You\'re a Founding Member of Gridnet');
   console.log('✓ You\'ll get early access to metered AI ("AI on tap")\n');
   console.log('Dashboard: https://superecomm.com/dashboard');
   console.log('Website: https://superecomm.com\n');
@@ -134,7 +134,7 @@ export async function sendWelcomeEmail(
  *   const msg = {
  *     to: data.toEmail,
  *     from: 'noreply@superecomm.com',
- *     subject: 'Your AI Grid Layer Account Reservation is Confirmed',
+ *     subject: 'Your Gridnet Account Reservation is Confirmed',
  *     text: `Welcome! Your Grid ID: ${data.gridAccountId}`,
  *     html: generateEmailHTML(data), // Create a nice HTML template
  *   };

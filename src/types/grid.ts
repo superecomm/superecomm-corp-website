@@ -1,4 +1,4 @@
-// TypeScript types for AI Grid Layer Reservation System
+// TypeScript types for Gridnet Reservation System
 
 export interface GridAccount {
   displayId: string;        // "GRID-HOME-US-TX-120457"

@@ -1,12 +1,12 @@
 import type { FC } from 'react';
 import marketingImage235 from '../assets/marketing-images/marketing-image235.jpg';
 
-interface PlusAiPageProps {
+interface GridnetBrowserPageProps {
   darkMode: boolean;
   setCurrentPage: (page: string) => void;
 }
 
-const PlusAiPage: FC<PlusAiPageProps> = ({ darkMode, setCurrentPage }) => {
+const GridnetBrowserPage: FC<GridnetBrowserPageProps> = ({ darkMode, setCurrentPage }) => {
   return (
     <div className={`min-h-screen flex items-center justify-center px-4 sm:px-6 py-24 ${
       darkMode ? 'bg-gray-950' : 'bg-white'
@@ -16,7 +16,7 @@ const PlusAiPage: FC<PlusAiPageProps> = ({ darkMode, setCurrentPage }) => {
         <div className="mb-12">
           <img
             src={marketingImage235}
-            alt="Family using +AI on their phones"
+            alt="Family using Gridnet Browser on their phones"
             className="w-full max-w-3xl mx-auto rounded-lg shadow-2xl"
           />
         </div>
@@ -25,14 +25,14 @@ const PlusAiPage: FC<PlusAiPageProps> = ({ darkMode, setCurrentPage }) => {
         <h1 className={`text-5xl md:text-6xl lg:text-7xl font-light mb-6 ${
           darkMode ? 'text-white' : 'text-gray-900'
         }`}>
-          +AI
+          Gridnet Browser
         </h1>
 
         {/* Subtitle */}
         <p className={`text-2xl md:text-3xl font-light mb-6 ${
           darkMode ? 'text-gray-300' : 'text-gray-700'
         }`}>
-          The interface to the AI Grid.
+          The interface to Gridnet.
         </p>
 
         {/* Thesis Statement */}
@@ -51,11 +51,11 @@ const PlusAiPage: FC<PlusAiPageProps> = ({ darkMode, setCurrentPage }) => {
               : 'bg-blue-600 hover:bg-blue-700 text-white'
           }`}
         >
-          Reserve Your Grid Account
+          Reserve Your Gridnet Account
         </button>
       </div>
     </div>
   );
 };
 
-export default PlusAiPage;
+export default GridnetBrowserPage;

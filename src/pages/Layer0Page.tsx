@@ -32,7 +32,7 @@ const Layer0Page: FC<Layer0PageProps> = ({ darkMode }) => {
       metaKeywords.setAttribute('name', 'keywords');
       document.head.appendChild(metaKeywords);
     }
-    metaKeywords.setAttribute('content', 'AI Utility Layer, Layer 0, AI Grid Layer, AI infrastructure, AI democratization, AI architecture, 8 layer model, AI metering, AI routing, Super eComm, artificial intelligence utility, AI as a utility');
+    metaKeywords.setAttribute('content', 'AI Utility Layer, Layer 0, Gridnet, AI infrastructure, AI democratization, AI architecture, 8 layer model, AI metering, AI routing, Super eComm, artificial intelligence utility, AI as a utility');
     
     // Open Graph tags for social sharing
     const ogTags = [
@@ -165,7 +165,7 @@ const Layer0Page: FC<Layer0PageProps> = ({ darkMode }) => {
             "name": "Super eComm, Inc.",
             "logo": {
               "@type": "ImageObject",
-              "url": "https://superecomm-corp-website.web.app/assets/corp-brand-assets/plus-icon-color-336x295.png"
+              "url": "https://superecomm-corp-website.web.app/assets/corp-brand-assets/GRIDNET-icon-black-336x336.png"
             }
           },
           "datePublished": "2025-01-03",
@@ -174,7 +174,7 @@ const Layer0Page: FC<Layer0PageProps> = ({ darkMode }) => {
             "@type": "WebPage",
             "@id": "https://superecomm-corp-website.web.app/layer0"
           },
-          "keywords": "AI Utility Layer, Layer 0, AI Grid Layer, AI infrastructure, AI democratization, AI architecture, 8 layer model, AI metering, AI routing",
+          "keywords": "AI Utility Layer, Layer 0, Gridnet, AI infrastructure, AI democratization, AI architecture, 8 layer model, AI metering, AI routing",
           "about": {
             "@type": "Thing",
             "name": "Artificial Intelligence Infrastructure",
@@ -216,7 +216,7 @@ const Layer0Page: FC<Layer0PageProps> = ({ darkMode }) => {
             <div className="flex-shrink-0">
               <img
                 src={aiGridLayerIcon}
-                alt="AI Grid Layer Icon"
+                alt="Gridnet Icon"
                 className="w-32 h-32 md:w-40 md:h-40"
               />
             </div>
@@ -224,7 +224,7 @@ const Layer0Page: FC<Layer0PageProps> = ({ darkMode }) => {
             {/* Title and Content */}
             <div className="flex-1">
               <h2 className={`text-3xl md:text-5xl font-bold mb-8 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
-                Layer 0 — The AI Utility Layer (AI Grid Layer)
+                Layer 0 — The AI Utility Layer (Gridnet)
               </h2>
 
               <div className={`space-y-6 text-lg leading-relaxed ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>

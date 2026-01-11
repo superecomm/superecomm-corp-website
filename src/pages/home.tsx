@@ -1805,12 +1805,14 @@ const SupereCommWebsite = () => {
 
   const navigation = [
     { name: "Home", id: "home" as const },
-    { name: "+AI", id: "plusAi" as const },
-    { name: "AI Grid Layer", id: "aiGridLayer" as const },
+    { name: "Browser", id: "browser" as const },
+    { name: "Gridnet", id: "gridnet" as const },
+    { name: "AIX", id: "aix" as const },
     { name: "Layer 0", id: "layer0" as const },
     { name: "Plans & Pricing", id: "plans-pricing" as const },
     { name: "How It Works", id: "how-it-works" as const },
     { name: "Security", id: "security" as const },
+    { name: "FAQ", id: "faq" as const },
     { name: "About", id: "about" as const },
     { name: "Careers", id: "careers" as const },
     // Hidden from public - Founder's Letter
@@ -3450,10 +3452,12 @@ const SupereCommWebsite = () => {
               onNavigate={(page) => navigateToPage(page as any)}
             />
           )}
-          {currentPage === "plusAi" && <PlusAiPage darkMode={darkMode} setCurrentPage={navigateToPage} />}
-          {currentPage === "aiGridLayer" && <AiGridLayerPage darkMode={darkMode} setCurrentPage={navigateToPage} />}
+          {currentPage === "browser" && <GridnetBrowserPage darkMode={darkMode} setCurrentPage={navigateToPage} />}
+          {currentPage === "gridnet" && <GridnetPage darkMode={darkMode} setCurrentPage={navigateToPage} />}
+          {currentPage === "aix" && <AIXPage darkMode={darkMode} setCurrentPage={navigateToPage} />}
           {currentPage === "layer0" && <Layer0Page darkMode={darkMode} setCurrentPage={navigateToPage} />}
           {currentPage === "security" && <SecurityPage />}
+          {currentPage === "faq" && <div className="min-h-screen px-6 py-24 bg-black"><div className="max-w-4xl mx-auto"><h1 className="text-4xl md:text-5xl font-bold mb-12 text-center text-white">Frequently Asked Questions</h1><p className="text-center text-gray-400 mb-8">Learn more about Gridnet and how we're building the internet for AI.</p></div></div>}
           {currentPage === "about" && <AboutPage />}
           {currentPage === "subsidiaries" && <SubsidiariesPage />}
           {currentPage === "founders-letters" && <FoundersLettersPage />}

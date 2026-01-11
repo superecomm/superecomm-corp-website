@@ -142,7 +142,7 @@ export const ReservePage: FC<ReservePageProps> = ({ darkMode, onNavigateToDashbo
             darkMode ? 'text-blue-400' : 'text-blue-600'
           }`} strokeWidth={1.5} />
           <h2 className={`text-3xl font-light mb-3 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
-            Creating Your AI Grid Layer Account
+            Creating Your Gridnet Account
           </h2>
           <p className={`text-lg ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
             Generating your unique Grid ID...
@@ -170,7 +170,7 @@ export const ReservePage: FC<ReservePageProps> = ({ darkMode, onNavigateToDashbo
             </h1>
 
             <p className={`text-lg mb-8 max-w-2xl mx-auto ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-              Your AI Grid Layer account reservation has been confirmed. We'll email you at{' '}
+              Your Gridnet account reservation has been confirmed. We'll email you at{' '}
               <span className="font-semibold">{user?.email}</span>{' '}
               with the next steps to complete your reservation.
             </p>
@@ -298,7 +298,7 @@ export const ReservePage: FC<ReservePageProps> = ({ darkMode, onNavigateToDashbo
         <div className="absolute inset-0 overflow-hidden">
           <img 
             src={marketingImage23} 
-            alt="AI Grid Layer in action"
+            alt="Gridnet in action"
             className="w-full h-full object-cover opacity-70"
           />
           <div className={`absolute inset-0 ${
@@ -358,7 +358,7 @@ export const ReservePage: FC<ReservePageProps> = ({ darkMode, onNavigateToDashbo
               : 'bg-white/90 border-gray-200 shadow-2xl'
           }`}>
             <h2 className={`text-3xl font-light mb-6 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
-              Reserve Your AI Grid Layer Account
+              Reserve Your Gridnet Account
             </h2>
 
             {/* What's Included */}
@@ -509,7 +509,7 @@ export const ReservePage: FC<ReservePageProps> = ({ darkMode, onNavigateToDashbo
                 Your AI Assistant Wakes Before You Do
               </h3>
               <p className={`text-lg leading-relaxed mb-6 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-                While you sleep, your AI Grid Layer account is already working—analyzing your calendar, 
+                While you sleep, your Gridnet account is already working—analyzing your calendar, 
                 preparing summaries, optimizing your schedule. All metered by aiWh, just like your home electricity.
               </p>
               <div className="flex items-center gap-4">
@@ -557,7 +557,7 @@ export const ReservePage: FC<ReservePageProps> = ({ darkMode, onNavigateToDashbo
               </h3>
               <p className={`text-lg leading-relaxed mb-6 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                 One Grid Account. One bill. Access to 1000+ AI models through your tools—Slack, 
-                VS Code, browser extensions. The AI Grid Layer routes to the best model automatically.
+                VS Code, browser extensions. Gridnet routes to the best model automatically.
               </p>
               <div className="flex items-center gap-4">
                 <TrendingUp className={`w-6 h-6 ${darkMode ? 'text-green-400' : 'text-green-600'}`} />
@@ -589,7 +589,7 @@ export const ReservePage: FC<ReservePageProps> = ({ darkMode, onNavigateToDashbo
                 AI in Your Pocket
               </h3>
               <p className={`text-lg leading-relaxed mb-6 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-                Mobile, desktop, web—your AI Grid Layer account follows you. Ask questions, 
+                Mobile, desktop, web—your Gridnet account follows you. Ask questions, 
                 generate images, analyze documents. All on one meter, billed once a month.
               </p>
               <div className="flex items-center gap-4">
@@ -675,7 +675,7 @@ export const ReservePage: FC<ReservePageProps> = ({ darkMode, onNavigateToDashbo
                 Processing...
               </span>
             ) : (
-              'Reserve Your AI Grid Layer Account'
+              'Reserve Your Gridnet Account'
             )}
           </button>
         </div>
@@ -709,7 +709,7 @@ export const ReservePage: FC<ReservePageProps> = ({ darkMode, onNavigateToDashbo
             }`}>
               <div className="flex justify-between items-center mb-1">
                 <span className={`text-sm font-medium ${darkMode ? 'text-white' : 'text-gray-900'}`}>
-                  AI Grid Layer
+                  Gridnet
                 </span>
                 <span className={`text-xl font-bold ${darkMode ? 'text-blue-400' : 'text-blue-600'}`}>
                   $10

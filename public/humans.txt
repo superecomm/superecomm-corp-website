@@ -36,13 +36,13 @@ Founded: August 11, 2025
 Location: Austin, Texas, USA
 Mission: Building the world's AI Utility Grid
 Vision: Making artificial intelligence accessible like electricity
-Product: +AI (AI Utility Account)
+Product: Gridnet Browser (AI Utility Account)
 Innovation: aiWh (AI Watt-Hour) metering standard
 
 /* CONTACT */
 
 Website: https://superecomm.com
-Twitter: https://twitter.com/plusailabs
+Twitter: https://twitter.com/gridnetai
 LinkedIn: https://linkedin.com/company/superecomm
 Email: Coming soon
 

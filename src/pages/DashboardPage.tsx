@@ -131,7 +131,7 @@ export const DashboardPage: FC<DashboardPageProps> = ({ darkMode, onNavigate }) 
             Access Denied
           </h2>
           <p className={`mb-6 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-            {error || 'Please reserve your AI Grid Layer account first'}
+            {error || 'Please reserve your Gridnet account first'}
           </p>
           <button
             onClick={() => onNavigate('reserve')}
@@ -350,7 +350,7 @@ export const DashboardPage: FC<DashboardPageProps> = ({ darkMode, onNavigate }) 
               No Grid Account Yet
             </h3>
             <p className={`text-sm mb-4 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-              Reserve your AI Grid Layer account to get your unique Grid ID
+              Reserve your Gridnet account to get your unique Grid ID
             </p>
             <button
               onClick={() => onNavigate('reserve')}
@@ -389,7 +389,7 @@ export const DashboardPage: FC<DashboardPageProps> = ({ darkMode, onNavigate }) 
                   </div>
                   <div className="flex-1">
                     <p className={`text-sm font-medium ${darkMode ? 'text-white' : 'text-gray-900'}`}>
-                      Welcome to AI Grid Layer
+                      Welcome to Gridnet
                     </p>
                     <p className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                       {hasReservation 
@@ -424,7 +424,7 @@ export const DashboardPage: FC<DashboardPageProps> = ({ darkMode, onNavigate }) 
               </div>
 
               <a
-                href="https://twitter.com/plusailabs"
+                href="https://twitter.com/gridnetai"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`flex gap-3 p-3 rounded-lg transition-colors ${
@@ -507,7 +507,7 @@ export const DashboardPage: FC<DashboardPageProps> = ({ darkMode, onNavigate }) 
           </button>
 
           <a
-            href="https://twitter.com/plusailabs"
+            href="https://twitter.com/gridnetai"
             target="_blank"
             rel="noopener noreferrer"
             className={`flex items-center justify-between p-4 rounded-xl border transition-all hover:scale-[1.02] ${

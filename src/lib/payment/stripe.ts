@@ -1,5 +1,5 @@
 /**
- * Stripe Payment Integration for AI Grid Layer Reservations
+ * Stripe Payment Integration for Gridnet Reservations
  * Uses Firebase Functions + Stripe Checkout
  */
 

@@ -1,7 +1,7 @@
 /**
- * AI Grid Layer Account Management
+ * Gridnet Account Management
  * 
- * This module handles the creation and management of AI Grid Layer accounts.
+ * This module handles the creation and management of Gridnet accounts.
  * Each account gets a unique Grid ID in the format: GRID-HOME-US-TX-XXXXXX
  * 
  * Future expansion points:
@@ -45,7 +45,7 @@ function padSerial(serial: number): string {
 }
 
 /**
- * Create a new AI Grid Layer account for a user
+ * Create a new Gridnet account for a user
  * 
  * This function:
  * 1. Uses a Firestore transaction to atomically increment the counter

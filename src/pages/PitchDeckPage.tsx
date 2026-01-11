@@ -1,7 +1,8 @@
 import type { FC } from 'react';
 import { useRef } from 'react';
 import { Download } from 'lucide-react';
-import aiGridLayerDiagram from '../assets/8-layer-model/ai-grid-layer-digram-3.png';
+import gridnetScreenshot from '../assets/gridnet-screenshot.png';
+import aixMarketIndex from '../assets/aix-market-index.png';
 import productImage5 from '../assets/plusai-product-image-7.png';
 import productImage6 from '../assets/plusai-product-image-8.png';
 import aiUtilityBillImage1 from '../assets/ai-utility-bill-image-1.png';
@@ -176,10 +177,11 @@ const PitchDeckPage: FC<PitchDeckPageProps> = () => {
               Problem
             </h2>
             <div className="space-y-4 text-xl md:text-2xl text-gray-700">
-              <p>• Access and memory is fragmented across tools and vendors</p>
-              <p>• Token pricing is opaque and unpredictable</p>
-              <p>• Subscription stacking is complex and expensive</p>
-              <p>• There is no public intelligence layer</p>
+              <p className="text-3xl md:text-4xl font-bold mb-4">You're Already on the AI Treadmill</p>
+              <p>Too many subscriptions. Too many accounts. Too many models.</p>
+              <p className="mt-6 mb-4">What if AI worked like electricity?</p>
+              <p className="text-2xl font-bold">One meter. One bill. Unlimited power.</p>
+              <p className="mt-6 text-blue-600 font-semibold">→ Gridnet</p>
             </div>
           </div>
         </Slide>
@@ -191,7 +193,8 @@ const PitchDeckPage: FC<PitchDeckPageProps> = () => {
               Vision
             </h2>
             <div className="text-3xl md:text-5xl text-gray-600 space-y-4 font-light">
-              <p>Gas bill.</p>
+              <p>Super eComm is building the internet for AI.</p>
+              <p className="mt-8">Gas bill.</p>
               <p>Water bill.</p>
               <p>Power bill.</p>
               <p className="text-gray-900 font-normal">AI bill.</p>
@@ -238,7 +241,7 @@ const PitchDeckPage: FC<PitchDeckPageProps> = () => {
                   <img
                     src={oldNewModelComparison}
                     alt="Old vs New Model Comparison - Layer 0 Utility Layer"
-                    className="w-[70%] h-auto"
+                    className="w-[35%] h-auto"
                   />
                 </div>
               </div>
@@ -254,7 +257,7 @@ const PitchDeckPage: FC<PitchDeckPageProps> = () => {
                 Product
               </h2>
               <p className="text-2xl md:text-3xl text-gray-700">
-                +AI: 1000 AI Models in Your Pocket
+                Gridnet Browser: 1000 AI Models in Your Pocket
               </p>
             </div>
             
@@ -263,7 +266,7 @@ const PitchDeckPage: FC<PitchDeckPageProps> = () => {
               <div className="order-2 md:order-1">
                 <img
                   src={productImage5}
-                  alt="+AI Mobile Interface"
+                  alt="Gridnet Browser Mobile Interface"
                   className="w-full h-auto max-w-md mx-auto"
                 />
               </div>
@@ -284,7 +287,7 @@ const PitchDeckPage: FC<PitchDeckPageProps> = () => {
               <div>
                 <img
                   src={productImage6}
-                  alt="+AI Model Selection & Grid Routing"
+                  alt="Gridnet Browser Model Selection & Grid Routing"
                   className="w-full h-auto max-w-md mx-auto"
                 />
               </div>
@@ -308,17 +311,20 @@ const PitchDeckPage: FC<PitchDeckPageProps> = () => {
           </div>
         </Slide>
 
-        {/* SLIDE 6 - HOW IT WORKS */}
+        {/* SLIDE 6 - HOW IT WORKS - GRIDNET */}
         <Slide index={5} slideNumber={5}>
           <div className="max-w-6xl w-full space-y-6">
             <h2 className="text-4xl md:text-5xl font-bold text-center text-gray-900">
-              How AI as a Utility Works
+              Gridnet
             </h2>
+            <p className="text-xl md:text-2xl text-center text-gray-700">
+              The internet for AI
+            </p>
             
             <div className="w-full flex justify-center">
               <img
-                src={aiGridLayerDiagram}
-                alt="AI Grid Layer Diagram - How AI as a Utility Works"
+                src={gridnetScreenshot}
+                alt="Gridnet - The internet for AI"
                 className="w-full max-w-4xl h-auto rounded-lg"
               />
             </div>
@@ -346,8 +352,36 @@ const PitchDeckPage: FC<PitchDeckPageProps> = () => {
           </div>
         </Slide>
 
-        {/* SLIDE 7 - COMPETITIVE LANDSCAPE */}
+        {/* SLIDE 6.5 - AIX MARKET INDEX */}
         <Slide index={6} slideNumber={6}>
+          <div className="max-w-6xl w-full space-y-8">
+            <h2 className="text-4xl md:text-5xl font-bold text-center text-gray-900">
+              AIX - AI Market Index
+            </h2>
+            
+            <div className="w-full flex justify-center">
+              <img
+                src={aixMarketIndex}
+                alt="AIX - AI Market Index"
+                className="w-full max-w-4xl h-auto rounded-lg shadow-lg"
+              />
+            </div>
+
+            <div className="flex justify-center pt-4">
+              <a 
+                href="https://www.aixmarketindex.com/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white text-xl font-semibold rounded-lg transition-colors"
+              >
+                Visit AIX Market Index →
+              </a>
+            </div>
+          </div>
+        </Slide>
+
+        {/* SLIDE 7 - COMPETITIVE LANDSCAPE */}
+        <Slide index={7} slideNumber={7}>
           <div className="max-w-4xl space-y-8 w-full">
             <h2 className="text-4xl md:text-6xl font-bold text-gray-900">
               Competitive Landscape
@@ -385,7 +419,7 @@ const PitchDeckPage: FC<PitchDeckPageProps> = () => {
         </Slide>
 
         {/* SLIDE 8 - MARKET */}
-        <Slide index={7} slideNumber={7}>
+        <Slide index={8} slideNumber={8}>
           <div className="max-w-5xl w-full space-y-8">
             <h2 className="text-4xl md:text-6xl font-bold text-gray-900">
               Market Opportunity
@@ -455,7 +489,7 @@ const PitchDeckPage: FC<PitchDeckPageProps> = () => {
         </Slide>
 
         {/* SLIDE 9 - REVENUE MODEL */}
-        <Slide index={8} slideNumber={8}>
+        <Slide index={9} slideNumber={9}>
           <div className="max-w-5xl w-full space-y-6">
             <h2 className="text-4xl md:text-6xl font-bold text-gray-900">
               Revenue Model
@@ -468,8 +502,8 @@ const PitchDeckPage: FC<PitchDeckPageProps> = () => {
                 <h3 className="text-xl font-bold text-gray-900">Consumers Subscribe to AI Access</h3>
                 <div className="space-y-1 text-base text-gray-700 pl-3">
                   <p>• Free</p>
-                  <p>• +AI</p>
-                  <p>• Super +AI</p>
+                  <p>• Gridnet</p>
+                  <p>• Super Gridnet</p>
                 </div>
               </div>
 
@@ -487,7 +521,7 @@ const PitchDeckPage: FC<PitchDeckPageProps> = () => {
             {/* Super eComm Role */}
             <div className="pt-4">
               <p className="text-xl text-gray-800 text-center">
-                Super eComm builds and manages the arena as the utility layer.
+                Super eComm builds and manages the utility layer.
               </p>
             </div>
 
@@ -522,7 +556,7 @@ const PitchDeckPage: FC<PitchDeckPageProps> = () => {
         </Slide>
 
         {/* SLIDE 10 - TRACTION */}
-        <Slide index={9} slideNumber={9}>
+        <Slide index={10} slideNumber={10}>
           <div className="max-w-5xl w-full space-y-6">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
               Product Progress
@@ -543,10 +577,10 @@ const PitchDeckPage: FC<PitchDeckPageProps> = () => {
               </div>
             </div>
 
-            {/* December 2025 – January 2026 - +AI Beta */}
+            {/* December 2025 – January 2026 - Gridnet Browser Beta */}
             <div className="bg-white p-5 rounded-lg border-2 border-gray-800 space-y-2">
               <h4 className="text-lg font-bold text-gray-900">December 2025 – January 2026</h4>
-              <p className="text-base font-semibold text-gray-800">+AI (Consumer Entry Point) — Beta 1 Live</p>
+              <p className="text-base font-semibold text-gray-800">Gridnet Browser (Consumer Entry Point) — Beta 1 Live</p>
               <div className="space-y-1 text-sm text-gray-700 pl-3">
                 <p>• 111 total users onboarded</p>
                 <p>• 16 DAU average</p>
@@ -580,7 +614,7 @@ const PitchDeckPage: FC<PitchDeckPageProps> = () => {
         </Slide>
 
         {/* SLIDE 11 - TEAM */}
-        <Slide index={10} slideNumber={10}>
+        <Slide index={11} slideNumber={11}>
           <div className="max-w-7xl w-full">
             <div className="grid grid-cols-1 lg:grid-cols-[2fr,1fr] gap-6 lg:gap-8">
               {/* Founding Team Section */}
@@ -691,7 +725,7 @@ const PitchDeckPage: FC<PitchDeckPageProps> = () => {
         </Slide>
 
         {/* SLIDE 12 - THE ASK */}
-        <Slide index={11} slideNumber={11}>
+        <Slide index={12} slideNumber={12}>
           <div className="max-w-5xl w-full space-y-6">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
               The Ask
@@ -734,9 +768,9 @@ const PitchDeckPage: FC<PitchDeckPageProps> = () => {
                   </div>
                 </div>
 
-                {/* Box 4 - +AI Demand Validation */}
+                {/* Box 4 - Gridnet Browser Demand Validation */}
                 <div className="bg-white p-5 rounded-lg border-2 border-gray-800 space-y-3">
-                  <h4 className="text-base font-bold text-gray-900">• +AI Demand Validation & Growth</h4>
+                  <h4 className="text-base font-bold text-gray-900">• Gridnet Browser Demand Validation & Growth</h4>
                   <div className="pl-4 space-y-1 text-sm text-gray-700">
                     <p>– Convert beta users to paid plans</p>
                     <p>– Test referral and reservation mechanics</p>
@@ -755,7 +789,7 @@ const PitchDeckPage: FC<PitchDeckPageProps> = () => {
         </Slide>
 
         {/* FINAL SLIDE - COPYRIGHT & EXPORT */}
-        <Slide index={12}>
+        <Slide index={13}>
           <div className="text-center space-y-12 max-w-4xl">
             <div>
               <h2 className="text-4xl md:text-6xl font-bold mb-4">
@@ -785,7 +819,7 @@ const PitchDeckPage: FC<PitchDeckPageProps> = () => {
               <p className="font-semibold text-sm">© 2025 Super eComm, Inc. All rights reserved.</p>
               <p>This presentation contains trade secrets and proprietary information.</p>
               <p>Unauthorized reproduction or distribution is prohibited.</p>
-              <p className="mt-4">AI as a Utility™ | AI Grid Layer™ | +AI™ | aiWh™</p>
+              <p className="mt-4">AI as a Utility™ | Gridnet™ | Gridnet Browser™ | AIX™ | aiWh™</p>
               <p className="text-gray-700">Trademarks of Super eComm, Inc.</p>
             </div>
           </div>
