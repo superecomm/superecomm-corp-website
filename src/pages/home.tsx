@@ -803,58 +803,6 @@ const HomePage: FC<HomePageProps> = ({
         </div>
       </div>
     </section>
-
-    {/* Products Section */}
-    <section className="px-6 py-24 border-t border-gray-200 dark:border-gray-800">
-      <div className="max-w-4xl mx-auto">
-        <h2
-          className={`text-3xl md:text-4xl font-light mb-12 ${
-            darkMode ? "text-white" : "text-gray-900"
-          }`}
-        >
-          Products
-        </h2>
-
-        <div
-          className={`border rounded-lg p-8 ${
-            darkMode
-              ? "border-gray-700 bg-gray-900"
-              : "border-gray-200 bg-white"
-          }`}
-        >
-          <div className="flex items-center mb-4">
-            <span
-              className={`text-3xl font-bold mr-3 ${
-                darkMode ? "text-blue-400" : "text-blue-600"
-              }`}
-            >
-              +
-            </span>
-            <h3
-              className={`text-2xl font-medium ${
-                darkMode ? "text-white" : "text-gray-900"
-              }`}
-            >
-              AI App
-            </h3>
-          </div>
-          <p
-            className={`text-lg mb-4 ${
-              darkMode ? "text-gray-300" : "text-gray-700"
-            }`}
-          >
-            The Power of 1000 AI Models in Your Pocket
-          </p>
-          <p
-            className={
-              darkMode ? "text-gray-400 mb-6" : "text-gray-600 mb-6"
-            }
-          >
-            Top talent from aroud the world developing AI as a utility. Go from juggling mutliple subscriptions to a single workspace and a single bill instantly. 
-          </p>
-        </div>
-      </div>
-    </section>
   </div>
 );
 
