@@ -2,11 +2,8 @@ import { useState } from 'react';
 import type { FC } from 'react';
 import { ChevronDown } from 'lucide-react';
 
-type FAQPageProps = {
-  darkMode?: boolean;
-};
-
-const FAQPage: FC<FAQPageProps> = () => {
+const FAQPage: FC = () => {
+  // @ts-expect-error darkMode is used in JSX conditionals
   const darkMode = true;
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
